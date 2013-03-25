@@ -22,5 +22,6 @@ Live demo at http://trivia.io/
 - [x] support ssl (so SPDY can do its job)
 - [ ] socket multiplexing (allow both http/https)
 - [ ] redefine dependencies
+
 ## License
 Ophmisu Trivia is available under the [MIT license](http://opensource.org/licenses/MIT).
