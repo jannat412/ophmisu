@@ -20,7 +20,7 @@ Live demo at http://trivia.io/
 .. work in progress.
 ## Todo
 - [x] support ssl (so SPDY can do its job)
-- [ ] socket multiplexing (allow both http/https)
+- [ ] socket multiplexing (allow both http/https) (check SockJS)
 - [ ] redefine dependencies
 
 ## License
