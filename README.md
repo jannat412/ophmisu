@@ -17,7 +17,10 @@ Live demo at http://trivia.io/
 	"socket.io": "0.9.x",
 }
 ```
-
-.. work in progress.m
+.. work in progress.
+## Todo
+- [x] support ssl (so SPDY can do its job)
+- [ ] socket multiplexing (allow both http/https)
+- [ ] redefine dependencies
 ## License
 Ophmisu Trivia is available under the [MIT license](http://opensource.org/licenses/MIT).
