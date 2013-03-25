@@ -18,4 +18,6 @@ Live demo at http://trivia.io/
 }
 ```
 
-.. to be continued
+.. work in progress.
+#### License
+Ophmisu Trivia is available under the [MIT license](http://opensource.org/licenses/MIT).
