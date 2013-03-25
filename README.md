@@ -5,7 +5,7 @@ Ophmisu Trivia - realtime &amp; web based (node.js, socket.io, mysql).
 Live demo at http://trivia.io/
 
 
-#### Dependencies
+## Dependencies
 
 ```javascript
 "dependencies": {
@@ -18,6 +18,6 @@ Live demo at http://trivia.io/
 }
 ```
 
-.. work in progress.
-#### License
+.. work in progress.m
+## License
 Ophmisu Trivia is available under the [MIT license](http://opensource.org/licenses/MIT).
