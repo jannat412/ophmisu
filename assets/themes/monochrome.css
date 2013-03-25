@@ -1,0 +1,18 @@
+body {
+  background: #0f0f0f;
+  color: #fff;
+}
+#header {
+  background: #616161;
+  color: #fff;
+}
+#lines p {
+  background: #3c3c3c;
+}
+#lines p:nth-child(2n) {
+  background: #464646;
+}
+#message {
+  background: #616161;
+  color: #fff;
+}
