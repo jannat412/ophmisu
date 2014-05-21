@@ -2,8 +2,14 @@
 =========
 
 Ophmisu Trivia - realtime &amp; web based (node.js, socket.io, mysql).
-Live demo at http://trivia.io/
+Live demo at http://trivia.play.ai/
 
+
+## Changelog
+2014.05.21:
+	- updated server app;
+	- added android app;
+	- added web-based app.
 
 ## Dependencies
 

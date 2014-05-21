@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /cache
-Disallow: /lib
-Disallow: /assets
-Disallow: /var

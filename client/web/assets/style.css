@@ -1,0 +1,369 @@
+
+/* change border colour to suit your needs */
+hr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  display: block;
+  height: 1px;
+  margin: 1em 0;
+  padding: 0;
+}
+input,
+select {
+  vertical-align: middle;
+}
+/* Typography */
+html, body * {
+	font: 12pt/1.5em 'Droid Sans',sans-serif;
+}
+b {font-weight: bold;}
+small, small * {font-size: 0.8em;}
+/* Typography */
+
+
+.wrapper {
+  width: 90%;
+}
+
+
+body {
+  width: 100%;
+  height: 100%;
+}
+#wrap {
+  margin: auto;
+  height: 100%;
+}
+#header {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border-bottom: 1px solid #EEEEEE;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  padding: 0.4em 0;
+}
+#header div {
+  padding: 2px 10px;
+}
+#nicknames {
+  max-height: 34px;
+  overflow: hidden;
+}
+#nicknames b {
+  display: inline-block;
+}
+#nicknames .self {
+  font-style: italic;
+}
+#rooms span {
+	display: inline-block;
+	margin-right: 5px;
+}
+#rooms span.active {text-decoration:underline;}
+#messages {
+  margin-top: 60px;
+  padding-bottom: 60px;
+}
+.lines p .time {
+  display: inline-block;
+  font-size: 0.6em;
+  margin-right: 15px;
+  min-width: 70px;
+}
+.recent-activity h2 {
+  font-weight: bold;
+  padding: 10px 0;
+  text-align: center;
+}
+.lines p,
+#lines p {
+  padding: 10px;
+  background: #fafafa;
+  overflow: hidden;
+}
+.lines p:nth-child(even),
+#lines p:nth-child(even) {
+  background: #F7F7F7;
+}
+.lines .user,
+#lines .user {
+  padding-right: 10px;
+  font-weight: bold;
+}
+#lines .time {margin-right:10px;}
+#message {
+  padding: 14pt 0;
+  width: 94%;
+  height: 20px;
+}
+button {
+  margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  display: inline-block;
+  
+  
+
+  font-family: "lucida grande", sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  line-height: 1;
+  text-decoration: none;
+  text-align: center;
+  width: 5.7%;
+  height: 59px;
+  padding: 23px 0 22px 0;
+  vertical-align: top;
+}
+
+#send-message-wrap {
+  position: fixed;
+  bottom: 0;
+}
+#send-message input {
+	border-right: none !important;
+}
+#send-message button {
+	border-radius: 0px 2px 2px 0px !important;
+	overflow:hidden;
+}
+#themes {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 20px;
+  overflow: hidden;
+}
+#themes a {
+  -moz-opacity: 0.1;
+  -webkit-opacity: 0.1;
+  -o-opacity: 0.1;
+  -ms-opacity: 0.1;
+  opacity: 0.1;
+  display: block;
+  width: 20px;
+  height: 20px;
+  text-indent: -9999px;
+  -moz-transition: height 0.2s;
+  -webkit-transition: height 0.2s;
+  -o-transition: height 0.2s;
+  -ms-transition: height 0.2s;
+  transition: height 0.2s;
+  -moz-transition: height 0.2s;
+  -webkit-transition: height 0.2s;
+  -o-transition: height 0.2s;
+}
+#themes a:hover {
+  -moz-opacity: 1;
+  -webkit-opacity: 1;
+  -o-opacity: 1;
+  -ms-opacity: 1;
+  opacity: 1;
+  height: 30px;
+}
+#themes .pink {
+  background: #ca0065;
+}
+#themes .monochrome {
+  background: -webkit-gradient(linear, , left top, color-stop(0.5, #000), color-stop(0.5, #fff));
+  background: -moz-linear-gradient(left, #000 50%, #fff 50%);
+  background: -webkit-linear-gradient(left, #000 50%, #fff 50%);
+  background: -o-linear-gradient(left, #000 50%, #fff 50%);
+  background: -ms-linear-gradient(left, #000 50%, #fff 50%);
+  background: -moz-linear-gradient(to right, #000 50%, #fff 50%);
+  background: -webkit-linear-gradient(to right, #000 50%, #fff 50%);
+  background: -o-linear-gradient(to right, #000 50%, #fff 50%);
+  background: -ms-linear-gradient(to right, #000 50%, #fff 50%);
+  background: linear-gradient(to right, #000 50%, #fff 50%);
+}
+#themes .clean {
+  background: #fff;
+}
+body,
+div,
+p,
+span,
+* {
+  -moz-transition: color 1s;
+  -webkit-transition: color 1s;
+  -o-transition: color 1s;
+  -ms-transition: color 1s;
+  transition: color 1s;
+  -moz-transition: color 1s;
+  -webkit-transition: color 1s;
+  -o-transition: color 1s;
+  -moz-transition: background 1s;
+  -webkit-transition: background 1s;
+  -o-transition: background 1s;
+  -ms-transition: background 1s;
+  transition: background 1s;
+  -moz-transition: background 1s;
+  -webkit-transition: background 1s;
+  -o-transition: background 1s;
+}
+@media (max-width: 936px) {
+  #message {
+    width: 83%;
+  }
+  button {
+    width: 16.5%;
+  }
+}
+.right {
+  text-align: right;
+}
+.medium {
+  font-size: 200%;
+}
+.stupid {
+  font-family: 'Sacramento', cursive;
+}
+.skew1 {
+  -moz-transform: skew(30deg, 20deg) rotate(30deg);
+  -webkit-transform: skew(30deg, 20deg) rotate(30deg);
+  -o-transform: skew(30deg, 20deg) rotate(30deg);
+  -ms-transform: skew(30deg, 20deg) rotate(30deg);
+  transform: skew(30deg, 20deg) rotate(30deg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#nickname {
+  display: block;
+}
+#chat,
+#connecting {
+  display: none;
+}
+#nickname,
+#connecting {
+  position: absolute;
+  height: 100%;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  background: #fff;
+  text-align: center;
+  width: 100%;
+  color: #666;
+}
+#nickname .wrap,
+#connecting .wrap {
+  padding-top: 5%;
+}
+#nickname input {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+#nickname input:focus {
+  border-color: #999;
+  outline: 0;
+}
+#nickname input[type="submit"] {margin-left:-2px;
+  -webkit-border-radius: 0px 2px 2px 0px ;
+  -moz-border-radius: 0px 2px 2px 0px ;
+  border-radius: 0px 2px 2px 0px ;
+}
+#nickname #nick {
+  border-right: 0;
+  height: 16px;
+}
+.error {
+  color: #8b0000;
+}
+.connected #connecting {
+  display: none;
+}
+.nickname-set #nickname {
+  display: none;
+}
+.score {
+  padding: 2px 4px;
+  color: #272827;
+}
+#controls {
+  float: right;
+}
+#controls a {
+  padding: 4px;
+}
+.icon {
+  display: inline-block;
+  min-height: 16px;
+  min-width: 16px;
+  vertical-align: middle;
+}
+#logout.icon {
+  background: url("images/logout.png") no-repeat 50% 50%;
+}
+#reconnect.icon {
+  background: url("images/reconnect.png") no-repeat 50% 50%;
+}
+#clear.icon {
+  background: url("images/clear.png") no-repeat 50% 50%;
+}
+
+
+
+
+form p {
+	padding: 4px 0;
+}
+
+
+.radio {
+	border: 1px solid #637D05;
+	border-radius: 20px 0 0 20px;
+	height: 60px;
+	width: 30px;
+	overflow: hidden;
+	position: fixed;
+	right: -10px;
+	top: 70px;
+	box-shadow: 1px 1px 2px #999;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+	transition: all .5s ease;
+	z-index: 999;
+}
+.radio:hover {
+	height: 350px;
+	width: 350px;
+
+}
+.radio iframe {
+	width: 350px;
+	height: 350px;
+}
+
+
+.recent-activity {
+	margin: 80px auto;
+	padding-bottom: 30px;
+	text-align: left;
+	width: 50%;
+	opacity: 0.4;
+	box-shadow: 0px 0px 0px #999;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+	transition: all .5s ease;
+}
+.recent-activity:hover, .recent-activity:focus {
+	opacity:1;
+	box-shadow: 0 0 10px #D2D2D2;
+}
+.hdn {display: none;}
+.unavailable {text-decoration: line-through;}
+.about.wrapper {padding-top:50px;}
+.about.wrapper u {display:inline-block;min-width: 220px;}
