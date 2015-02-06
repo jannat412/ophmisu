@@ -18,16 +18,16 @@ function is_me()
 	return isset($_SESSION['å']);
 }
 
-if (!function_exists('is_developer')) { function is_developer() { return true; }
-if (!function_exists('aa')) { function aa($a, $flag=0) { /* code stripped */ }
-if (!function_exists('fnx')) { function fnx($a = '') { /* code stripped */ } 
+if (!function_exists('is_developer')) { function is_developer() { return true; } }
+if (!function_exists('aa')) { function aa($a, $flag=0) { /* code stripped */ } }
+if (!function_exists('fnx')) { function fnx($a = '') { /* code stripped */ } }
 
 define('AREA', 'user');
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'trivia.io');
-define('DB_USER', 'root');
-define('DB_PASS', 'å');
+define('DB_NAME', 'ophmisu');
+define('DB_USER', 'ophmisu');
+define('DB_PASS', '');
 
 require_once 'lib/db/db.php';
 global $db;
@@ -49,7 +49,7 @@ function ago($datefrom, $dateto=-1)
 {
 	if($datefrom==0) { return "A long time ago"; }
 	if($dateto==-1) { $dateto = time(); }
-   
+
 	$difference = $dateto - $datefrom;
 
 	switch(true)
@@ -72,7 +72,7 @@ function ago($datefrom, $dateto=-1)
 			{
 				$day_difference++;
 			}
-		   
+
 			$datediff = $day_difference;
 			$res = ($datediff==1) ? 'yesterday' : $datediff.' days ago';
 			break;
@@ -82,17 +82,17 @@ function ago($datefrom, $dateto=-1)
 			{
 				$week_difference++;
 			}
-		   
+
 			$datediff = $week_difference;
 			$res = ($datediff==1) ? 'last week' : $datediff.' weeks ago';
-			break;           
+			break;
 		case(strtotime('-1 year', $dateto) < $datefrom):
 			$months_difference = 1;
 			while (strtotime('-'.$months_difference.' month', $dateto) >= $datefrom)
 			{
 				$months_difference++;
 			}
-		   
+
 			$datediff = $months_difference;
 			$res = ($datediff==1) ? $datediff.' month ago' : $datediff.' months ago';
 
@@ -103,11 +103,11 @@ function ago($datefrom, $dateto=-1)
 			{
 				$year_difference++;
 			}
-		   
+
 			$datediff = $year_difference;
 			$res = ($datediff==1) ? $datediff.' year ago' : $datediff.' years ago';
 			break;
-		   
+
 	}
 	return $res;
 }
