@@ -40,7 +40,7 @@ require_once 'src/Ophmisu/core.php';
             }
         };
 	</script>
-	<script type="text/javascript" src="<?php echo formatUrl('js/angular.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular/angular.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/controllers.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jquery-1.8.0.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jqueryui/jquery-ui-1.8.23.custom.min.js'); ?>"></script>
