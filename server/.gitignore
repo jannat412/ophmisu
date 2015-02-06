@@ -3,3 +3,5 @@
 .vagrant
 .project
 nbproject
+
+node_modules
