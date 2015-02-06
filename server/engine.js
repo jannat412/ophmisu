@@ -1,9 +1,11 @@
 var app = require('./app.js');
 var Users = require("./users.js");
 var events = require('events'),
-	util = require('util');
+	util = require('util'),
+    config = require('./config');
 	
 String.prototype.toCamel = function(){
+	//return this.replace(/(\-[a-z])/g, function($1){return $1.toUpperCase().replace('-','');});
 	return this.replace(/_([a-z])/g, function (g) { return g[1].toUpperCase() });
 };
 
@@ -14,6 +16,7 @@ Array.prototype.shuffle = function () {
         this[i] = this[j];
         this[j] = tmp;
     }
+
     return this;
 }
 String.prototype.replaceAt=function(index, character) {
@@ -33,15 +36,16 @@ String.prototype.escapeHtml=function(index, character) {
 
 
 var Ophmisu = function Ophmisu(){
+	//defining a var instead of this (works for variable & function) will create a private definition
 	var self = this;
 	
 	var socketList = {};
 	
 	this.dbConfig = {
-		database: 'trivia',
-		host: '127.0.0.1',
-		user: 'root',
-		password: 'ããã',
+		database: config.database.name,
+		host: config.database.hostname,
+		user: config.database.username,
+		password: config.database.password
 	};
 	
 	
@@ -53,7 +57,7 @@ var Ophmisu = function Ophmisu(){
 	this.config.auto_start = false;
 	this.config.level = 8;
 	this.config.domain = "math";
-	this.config.speed = 10000;
+	this.config.speed = 3000;
 	
 	this.status = 0;
 	this.ID = 0;
@@ -111,13 +115,25 @@ var Ophmisu = function Ophmisu(){
 				}
 			}
 		});
+        self.db.on('error', function(err) {
+            console.log('db error', err);
+            if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+                self.connect();                     // lost due to either server restart, or a
+            } else {                                      // connnection idle timeout (the wait_timeout
+                throw err;                                  // server variable configures this)
+            }
+        });
 	};
 	
 
 	this.msg = function(text)
 	{
-		app.io.sockets.to('trivia').emit('user message', self.nickname, text);
-		app.ios.sockets.to('trivia').emit('user message', self.nickname, text);
+		app.io.to('trivia').emit('user message', self.nickname, text);
+		app.ios.to('trivia').emit('user message', self.nickname, text);
+		// app.io.to('trivia').emit('user message', self.nickname, text);
+		// app.io.to('trivia').emit('user message', self.nickname, text);
+		// app.ios.to('trivia').emit('user message', self.nickname, text);
+		// app.io.to('trivia').emit('user message', self.nickname, text);
 		flog('user message', [self.nickname, text]);
 	};
 	

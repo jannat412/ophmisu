@@ -14,12 +14,17 @@ Live demo at http://trivia.play.ai/
 
 ```javascript
 "dependencies": {
-	"express": "2.5.5",
-	"jade": "0.16.4",
-	"stylus": "0.19.0",
-	"nib": "0.2.0",
-	"mysql": ">= 2.0.0-alpha5",
-	"socket.io": "0.9.x",
+    "cors": "2.4.x",
+    "debug": "1.x",
+    "express": "4.6.x",
+    "socket.io": "1.x",
+    "socket.io-client": "1.x",
+    "jade": "0.16.4",
+    "stylus": "0.19.0",
+    "nib": "0.2.0",
+    "fluidity": "0.1.x",
+    "mysql": ">= 2.0.0-alpha5",
+    "winston": "0.6.x"
 }
 ```
 .. work in progress.
@@ -27,6 +32,12 @@ Live demo at http://trivia.play.ai/
 - [x] support ssl (so SPDY can do its job)
 - [ ] socket multiplexing (allow both http/https) (check SockJS)
 - [ ] redefine dependencies
+- [ ] add user registration
+- [ ] create simple administration interface to manage questions (CRUD, import)
+- [ ] add user groups and define permissions for in-game commands (Alexandru Canavoiu)
+- [ ] add "Top players" view
+- [ ] add "Player profile" view
+
 
 ## License
 Ophmisu Trivia is available under the [MIT license](http://opensource.org/licenses/MIT).

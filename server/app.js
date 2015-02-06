@@ -1,8 +1,16 @@
-function htmlEscape(text) { return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;').replace(/'/g, '&#039;'); }
+function htmlEscape(text) {
+	return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;').replace(/'/g, '&#039;');
+}
 
-var rooms = ['trivia', 'radio'];
-var defaultRoom = 'trivia';
-var triviaRoom = 'trivia';
+var config = require('./config');
+
+var rooms = config.ophmisu.rooms;
+var defaultRoom = config.ophmisu.defaultRoom;
+var triviaRoom = config.ophmisu.triviaRoom ;
+
+
+var debug = require('debug')('app');
+debug('booting %s', "");
 
 var winston = require('winston');
 winston.add(winston.transports.File, { filename: 'logs/log.log' });
@@ -13,45 +21,56 @@ var fs = require('fs');
 var options = {
 	requestCert: true,
 	rejectUnauthorized: false,
-	key: fs.readFileSync('/home/w/apps/trivia.io/cert/trivia.io.key'),
-	cert: fs.readFileSync('/home/w/apps/trivia.io/cert/certificate-29616.crt'),
-	ca: fs.readFileSync('/home/w/apps/trivia.io/cert/GandiStandardSSLCA.pem')
+	key: fs.readFileSync(config.app.cert.key),
+	cert: fs.readFileSync(config.app.cert.crt),
+	ca: fs.readFileSync(config.app.cert.pem)
 };
 
 
+// var express = require('express');
+// var sio = require('socket.io');
+
 var express = require('express');
-var sio = require('socket.io');
 
-var app = express.createServer();
-var apps = express.createServer(options);
+var app = express();
+var apps = express();
+
+var http = require('http').createServer(app);
+var https = require('https').createServer(options, apps);
+
+var sio = require('socket.io')(http);
+var sios = require('socket.io')(https);
 
 
 
-app.listen(2013, function () {
-	var addr = app.address();
+/* app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
+
+ */
+http.listen(2013, function () {
+	var addr = http.address();
 	console.log('   app listening on ' + addr.address + ':' + addr.port);
 });
 
-apps.listen(2014, function () {
-	var addr = apps.address();
+https.listen(2014, function () {
+	var addr = https.address();
 	console.log('   app listening on ' + addr.address + ':' + addr.port);
-});
+}); 
 
-var io = sio.listen(app);
-var ios = sio.listen(apps);
-io.set('log level', 1);
-ios.set('log level', 1);
 
 var nicknames = {}, sids = {};
 
 
-exports.io = io;
-exports.ios = ios;
+exports.io = sio;
+exports.ios = sios;
 var ophmisu = require("./engine.js");
-ophmisu.config.auto_start = true;
+ophmisu.config.auto_start = false;
 ophmisu.init();
-initApp(io);
-initApp(ios);
+initApp(sio, 'http');
+initApp(sios, 'https');
 
 
 
@@ -73,7 +92,7 @@ function flog(type, args)
 global.flog = flog;
 setInterval(function() { 
 	var data = JSON.stringify(flogData);
-	fs.writeFile("/home/w/www/trivia.play.ai/activity.txt", data); 
+	fs.writeFile("../client/web/activity.txt", data);
 }, 1000*10);
 
 
@@ -81,7 +100,7 @@ setInterval(function() {
 
 var forbiddenNicknames = [];
 forbiddenNicknames.push(ophmisu.nickname);
-forbiddenNicknames.push("Monolog", "X", "", "root");
+forbiddenNicknames.push("pula", "cacat", "muie", "rahat", "pizda");
 function isForbiddenNickname(nickname)
 {
 	if (!nickname) return true;
@@ -96,14 +115,20 @@ function isForbiddenNickname(nickname)
 	return false;
 }
 
-function initApp(ioi)
+function initApp(ioi, iname)
 {
+    console.log('Initializing routes for '+iname);
+
 	ioi.sockets.on('connection', function (socket) {
+        // console.log('Got socket connection', socket);
 		
 		socket.on('nickname', function (args, fn) {
 			var nick = args.nickname;
 			console.log('Attempt to connect as `'+nick+'`');
 			var prefered_room = args.default_room;
+            if (!fn) {
+                fn = socket.ack;
+            }
 			if (nicknames[nick] || isForbiddenNickname(nick)) {
 				fn(true);
 			} else {
@@ -123,8 +148,14 @@ function initApp(ioi)
 				socket.emit('update_rooms', rooms, room);
 				console.log("Connected `"+nick+"`");
 				//socket.broadcast.emit('announcement', nick + ' connected');
-				ioi.sockets.emit('nicknames', nicknames);
-				ioi.sockets.socket(sids[nick]).emit("user message", ophmisu.nickname, ophmisu.getGameStatus());
+				
+				
+				
+				
+				sio.sockets.emit('nicknames', nicknames);
+				sios.sockets.emit('nicknames', nicknames);
+				// xxx ioi.sockets.socket(sids[nick]).emit("user message", ophmisu.nickname, ophmisu.getGameStatus());
+				
 				//ioi.sockets.emit('top', ophmisu.getTop());
 				
 			}
@@ -156,8 +187,15 @@ function initApp(ioi)
 			if (typeof(msg) != "string") msg = data.message;
 			var MESSAGE_MAX_LENGTH = 255;
 			if (msg.length > MESSAGE_MAX_LENGTH && socket.nickname != ophmisu.nickname) msg = msg.substring(0, MESSAGE_MAX_LENGTH-5)+' (..)';
-			socket.in(socket.room).broadcast.emit('user message', socket.nickname, htmlEscape(msg));
-			if (msg == "!help") ophmisu.showHelp();
+            
+			//socket.in(socket.room).broadcast.emit('user message', socket.nickname, htmlEscape(msg));
+			
+            sio.sockets.emit('user message', socket.nickname, htmlEscape(msg));
+            sios.sockets.emit('user message', socket.nickname, htmlEscape(msg));
+            debug("Broadcasting message to "+sio.sockets.length+" HTTP sockets");
+            debug("Broadcasting message to "+sios.sockets.length+" HTTPS sockets");
+            
+            if (msg == "!help") ophmisu.showHelp();
 			if (msg == "!!") ophmisu.nextQuestion();
 			if (msg == "!start") ophmisu.start();
 			if (msg == "!domains") ophmisu.getDomains();
@@ -182,4 +220,8 @@ function initApp(ioi)
 			flog('user message', [socket.nickname, msg])
 		});
 	});
+
 }
+
+
+
