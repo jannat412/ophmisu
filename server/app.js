@@ -2,10 +2,11 @@ function htmlEscape(text) {
 	return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;').replace(/'/g, '&#039;');
 }
 
+var config = require('./config');
 
-var rooms = ['trivia', 'radio'];
-var defaultRoom = 'trivia';
-var triviaRoom = 'trivia';
+var rooms = config.ophmisu.rooms;
+var defaultRoom = config.ophmisu.defaultRoom;
+var triviaRoom = config.ophmisu.triviaRoom ;
 
 
 var debug = require('debug')('app');
@@ -20,9 +21,9 @@ var fs = require('fs');
 var options = {
 	requestCert: true,
 	rejectUnauthorized: false,
-	key: fs.readFileSync('/home/w/apps/trivia.io/cert/trivia.io.key'),
-	cert: fs.readFileSync('/home/w/apps/trivia.io/cert/certificate-29616.crt'),
-	ca: fs.readFileSync('/home/w/apps/trivia.io/cert/GandiStandardSSLCA.pem')
+	key: fs.readFileSync(config.app.cert.key),
+	cert: fs.readFileSync(config.app.cert.crt),
+	ca: fs.readFileSync(config.app.cert.pem)
 };
 
 
@@ -91,7 +92,7 @@ function flog(type, args)
 global.flog = flog;
 setInterval(function() { 
 	var data = JSON.stringify(flogData);
-	fs.writeFile("/home/w/www/trivia.play.ai/activity.txt", data); 
+	fs.writeFile("../client/web/activity.txt", data);
 }, 1000*10);
 
 
@@ -125,6 +126,9 @@ function initApp(ioi, iname)
 			var nick = args.nickname;
 			console.log('Attempt to connect as `'+nick+'`');
 			var prefered_room = args.default_room;
+            if (!fn) {
+                fn = socket.ack;
+            }
 			if (nicknames[nick] || isForbiddenNickname(nick)) {
 				fn(true);
 			} else {

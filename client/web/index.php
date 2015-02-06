@@ -12,7 +12,7 @@
 	<link type="text/css" href="/assets/bootstrap/todc-bootstrap.css" rel="stylesheet" />
 	<link type="text/css" href="/assets/themes/clean.css" rel="stylesheet" id="themefile" />
 	<link href='//fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
-	<link type="text/css" href="/lib/js/jqueryui/css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+	<link type="text/css" href="/js/jqueryui/css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
 	<script type="text/javascript">
 		var HOST = "<?php echo HOST; ?>";
 		var requestParams = decodeURIComponent(window.location.search.slice(1)).split('&').reduce(function _reduce (/*Object*/ a, /*String*/ b) {
@@ -21,12 +21,12 @@
 			return a;
 		}, {});
 	</script>
-	<script type="text/javascript" src="/lib/js/jquery-1.8.0.min.js"></script>
-	<script type="text/javascript" src="/lib/js/jqueryui/jquery-ui-1.8.23.custom.min.js"></script>
-	<script type="text/javascript" src="/lib/js/socket.io/socket.io.min.js"></script>
-	<script type="text/javascript" src="/lib/js/jquery.inputHistory.js"></script>
-	<script type="text/javascript" src="/lib/js/ophmisu.js"></script>
-	<script type="text/javascript" src="/lib/js/fb.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="/js/jqueryui/jquery-ui-1.8.23.custom.min.js"></script>
+	<script type="text/javascript" src="/js/socket.io/socket.io-1.0.6.js"></script>
+	<script type="text/javascript" src="/js/jquery.inputHistory.js"></script>
+	<script type="text/javascript" src="/js/ophmisu.js"></script>
+	<script type="text/javascript" src="/js/fb.js"></script>
 </head>
 <body>
 	<div id="fb-root"></div>
@@ -44,10 +44,10 @@
 				<p><small><a href="https://github.com/wsergio/ophmisu">Ophmisu Trivia</a> is open source and available under the <a href="http://opensource.org/licenses/MIT">MIT license</a>.</small></p>
 				<p><small>About <a href="/about.html">trivia.play.ai</a>.</small></p>
 			</form>
-			
+
 			<?php echo getRecentActivity(); ?>
 		</div>
-		
+
 		<!--googleoff: all-->
 		<div id="connecting">
 			<div class="wrap">
@@ -78,16 +78,15 @@
 		<!--googleon: all-->
 	</div>
 
-	<script type="text/javascript">
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-29128613-5']);
-	  _gaq.push(['_trackPageview']);
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  (function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
+	  ga('create', 'UA-29128613-11', 'play.ai');
+	  ga('send', 'pageview');
+
 	</script>
 </body>
-</html> 
+</html>

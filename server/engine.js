@@ -1,7 +1,8 @@
 var app = require('./app.js');
 var Users = require("./users.js");
 var events = require('events'),
-	util = require('util');
+	util = require('util'),
+    config = require('./config');
 	
 String.prototype.toCamel = function(){
 	//return this.replace(/(\-[a-z])/g, function($1){return $1.toUpperCase().replace('-','');});
@@ -41,10 +42,10 @@ var Ophmisu = function Ophmisu(){
 	var socketList = {};
 	
 	this.dbConfig = {
-		database: 'trivia',
-		host: '127.0.0.1',
-		user: 'root',
-		password: 'wsemd',
+		database: config.database.name,
+		host: config.database.hostname,
+		user: config.database.username,
+		password: config.database.password
 	};
 	
 	
@@ -56,7 +57,7 @@ var Ophmisu = function Ophmisu(){
 	this.config.auto_start = false;
 	this.config.level = 8;
 	this.config.domain = "math";
-	this.config.speed = 10000;
+	this.config.speed = 3000;
 	
 	this.status = 0;
 	this.ID = 0;
