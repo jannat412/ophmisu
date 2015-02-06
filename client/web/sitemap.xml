@@ -8,8 +8,4 @@
 		<loc>https://trivia.play.ai/</loc>
 		<changefreq>daily</changefreq>
 	</url>
-	<url>
-		<loc>https://trivia.play.ai/about.html</loc>
-		<changefreq>daily</changefreq>
-	</url>
 </urlset>

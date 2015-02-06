@@ -8,12 +8,6 @@
  * @link        https://github.com/wsergio/ophmisu
  */
 
-var config = {};
-
-config.app = {};
-config.app.hostname = 'ophmisu.dev';
-config.app.httpPort = 2013;
-config.app.httpsPort = 2014;
 //localStorage.debug='*';
 var recentActivityId = 0;
 var autoreconnect = false;

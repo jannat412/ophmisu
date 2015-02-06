@@ -1,4 +1,6 @@
 User-agent: *
-Disallow: /lib/
-Disallow: /assets/
 Sitemap: /sitemap.xml
+Disallow: /assets/
+Disallow: /js/
+Disallow: /lib/
+Disallow: /src/

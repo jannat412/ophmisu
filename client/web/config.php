@@ -19,8 +19,10 @@ $config['database']['password'] = '';
 $config['database']['hostname'] = '127.0.0.1';
 
 $config['app'] = array();
-$config['app']['hostname'] = 'trivia.play.ai';
 $config['app']['path'] = '/';
+$config['app']['hostname'] = $_SERVER['HTTP_HOST'];
+$config['app']['httpPort'] = 2013;
+$config['app']['httpsPort'] = 2014;
 $config['app']['trackingCode'] = 'UA-29128613-11';
 
 if (file_exists('config.local.php')) {

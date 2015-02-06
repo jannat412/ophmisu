@@ -9,10 +9,10 @@
  * @link        https://github.com/wsergio/ophmisu
  */
 
-require_once 'core.php';
+require_once 'src/Ophmisu/core.php';
 
 ?><!DOCTYPE html>
-<html>
+<html ng-app="ophmisuApp">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, width=device-width, maximum-scale=1.0" />
@@ -27,14 +27,21 @@ require_once 'core.php';
 	<link href='//fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
 	<link type="text/css" href="<?php echo formatUrl('js/jqueryui/css/ui-lightness/jquery-ui-1.8.23.custom.css'); ?>" rel="stylesheet" />
 	<script type="text/javascript">
-		var HOST = "<?php echo HOST; ?>";
 		var requestParams = decodeURIComponent(window.location.search.slice(1)).split('&').reduce(function _reduce (/*Object*/ a, /*String*/ b) {
 			b = b.split('=');
 			a[b[0]] = b[1];
 			return a;
 		}, {});
+        var config = {
+            'app': {
+                'hostname': '<?php echo $config['app']['hostname'] ?>',
+                'httpPort': '<?php echo $config['app']['httpPort'] ?>',
+                'httpsPort': '<?php echo $config['app']['httpsPort'] ?>'
+            }
+        };
 	</script>
-
+	<script type="text/javascript" src="<?php echo formatUrl('js/angular.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('js/controllers.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jquery-1.8.0.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jqueryui/jquery-ui-1.8.23.custom.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/socket.io/socket.io-1.0.6.js'); ?>"></script>
@@ -47,6 +54,21 @@ require_once 'core.php';
 	<div id="wrap" class="wrapper">
 		<div id="nickname">
 			<form id="set-nickname" class="wrap">
+
+                <div id="user-register-view" ng-controller="UserRegisterCtrl">
+
+                <ul>
+                    <li ng-repeat="phone in phones">
+                        <span>{{phone.name}}</span>
+                        <p>{{phone.snippet}}</p>
+                    </li>
+                </ul>
+                    <p>Hello, {{name}}!</p>
+
+                </div>
+                <br>
+                <input class="clean-gray btn btn-large" type="submit" value="Register">
+
 				<h1>Ophmisu Trivia</h1>
 				<input id="nick" placeholder="Nickname" /><input type="submit" value="Join" class="clean-gray btn btn-large" />
 				<p><em>Connect with <a href="javascript:void(0);" onclick="return maybeLogin();" class="unavailable">Facebook</a> or join as <a href="javascript:void(0);" class="go-incognito">guest</a>.</em></p>
@@ -99,7 +121,6 @@ require_once 'core.php';
 
             ga('create', '<?php echo $config['app']['trackingCode']; ?>', 'auto');
             ga('send', 'pageview');
-
         </script>
     <?php endif; ?>
 </body>

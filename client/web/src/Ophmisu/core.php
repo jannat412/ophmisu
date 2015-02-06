@@ -9,8 +9,6 @@
  * @link        https://github.com/wsergio/ophmisu
  */
 
-if (!defined('HOST')) define('HOST', $_SERVER['HTTP_HOST']);
-
 date_default_timezone_set('Europe/Bucharest');
 ini_set('display_errors', 1);
 

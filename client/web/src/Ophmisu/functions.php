@@ -9,8 +9,6 @@
  * @link        https://github.com/wsergio/ophmisu
  */
 
-if (!defined('HOST')) define('HOST', $_SERVER['HTTP_HOST']);
-
 function formatUrl($uri, $protocol = 'http')
 {
     global $config;

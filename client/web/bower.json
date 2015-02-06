@@ -1,0 +1,22 @@
+{
+  "name": "ophmisu-web-client",
+  "version": "0.1",
+  "homepage": "https://github.com/wsergio/ophmisu",
+  "authors": [
+    "Sergiu VLAD <sergiu@disruptive.academy>"
+  ],
+  "description": "Ophmisu Web Client",
+  "keywords": [
+    "ophmisu",
+	"web",
+	"client"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
