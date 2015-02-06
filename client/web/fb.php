@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * Ophmisu Trivia (https://github.com/wsergio/ophmisu)
+ *
+ * @package     Ophmisu
+ * @author      Sergiu Valentin VLAD <sergiu@disruptive.academy>
+ * @copyright   Copyright (c) 2012-2015 Sergiu Valentin VLAD
+ * @license     http://opensource.org/licenses/MIT  The MIT License (MIT)
+ * @link        https://github.com/wsergio/ophmisu
+ */
 
 if (!empty($_POST['auth']) && $_POST['auth'] == 'facebook')
 {

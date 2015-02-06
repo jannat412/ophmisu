@@ -1,4 +1,17 @@
-<?php require_once 'core.php'; ?><!DOCTYPE html>
+<?php
+/**
+ * Ophmisu Trivia (https://github.com/wsergio/ophmisu)
+ *
+ * @package     Ophmisu
+ * @author      Sergiu Valentin VLAD <sergiu@disruptive.academy>
+ * @copyright   Copyright (c) 2012-2015 Sergiu Valentin VLAD
+ * @license     http://opensource.org/licenses/MIT  The MIT License (MIT)
+ * @link        https://github.com/wsergio/ophmisu
+ */
+
+require_once 'core.php';
+
+?><!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -42,7 +55,6 @@
 				<p><a style="font-size:8pt;" href="/app.apk" target="_blank" class="btn btn-large">Install <img style="vertical-align: middle;" src="/assets/images/android.png" height="30" /> App</a>&nbsp;&nbsp;&nbsp;<a style="font-size:8pt;" href="https://github.com/wsergio/ophmisu" target="_blank" class="btn btn-large">Fork me on GitHub</a></p>
 				<br />
 				<p><small><a href="https://github.com/wsergio/ophmisu">Ophmisu Trivia</a> is open source and available under the <a href="http://opensource.org/licenses/MIT">MIT license</a>.</small></p>
-				<p><small>About <a href="/about.html">trivia.play.ai</a>.</small></p>
 			</form>
 
 			<?php echo getRecentActivity(); ?>
@@ -77,16 +89,17 @@
 		</div>
 		<!--googleon: all-->
 	</div>
+    <?php if (!empty($config['app']['trackingCode'])) : ?>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', '<?php echo $config['app']['trackingCode']; ?>', 'auto');
+            ga('send', 'pageview');
 
-	  ga('create', 'UA-29128613-11', 'play.ai');
-	  ga('send', 'pageview');
-
-	</script>
+        </script>
+    <?php endif; ?>
 </body>
 </html>

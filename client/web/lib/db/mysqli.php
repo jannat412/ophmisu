@@ -39,7 +39,9 @@ function driver_db_query($query)
 	if (empty($result)) {
 		// Lost connection, try to reconnect (max - 3 times)
 		if (driver_db_errno() == 2013 && $reconnect_attempts < 3) {
-			$db = db_initiate($DB_HOST, $DB_USER, $DB_PASS, $DB_DATABASE);
+            if (defined('DB_HOST')) {
+			    $db = db_initiate(DB_HOST, DB_USER, DB_PASS, DB_DATABASE);
+            }
 			$reconnect_attempts++;
 			db_query($query);
 

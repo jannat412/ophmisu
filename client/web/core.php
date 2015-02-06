@@ -1,12 +1,36 @@
 <?php
+/**
+ * Ophmisu Trivia (https://github.com/wsergio/ophmisu)
+ *
+ * @package     Ophmisu
+ * @author      Sergiu Valentin VLAD <sergiu@disruptive.academy>
+ * @copyright   Copyright (c) 2012-2015 Sergiu Valentin VLAD
+ * @license     http://opensource.org/licenses/MIT  The MIT License (MIT)
+ * @link        https://github.com/wsergio/ophmisu
+ */
+
 if (!defined('HOST')) define('HOST', $_SERVER['HTTP_HOST']);
+
 date_default_timezone_set('Europe/Bucharest');
 ini_set('display_errors', 1);
-require_once 'functions.php';
 
+define('AREA', 'user');
+define('ACTIVITY_LOG_FILE', 'activity.txt');
+$config = require_once 'config.php';
+
+require_once 'functions.php';
 require_once 'users.php';
 require_once 'fb.php';
-define('ACTIVITY_LOG_FILE', 'activity.txt');
+
+session_start();
+require_once 'lib/db/db.php';
+global $db;
+$db = db_initiate(
+    $config['database']['hostname'],
+    $config['database']['username'],
+    $config['database']['password'],
+    $config['database']['name']
+);
 
 $activity = array();
 if (file_exists(ACTIVITY_LOG_FILE))
@@ -23,35 +47,13 @@ if (file_exists(ACTIVITY_LOG_FILE))
 			$activity = array();
 	}
 }
-function getRecentActivity()
-{
-	global $activity;
-	if (empty($activity)) return;
-	$html = '';
-	foreach ($activity as $entry)
-	{
-		list($time, $type, $args) = $entry;
-		if ($type == 'user message')
-		{
-			$html .= '<p>'.microdataTime($time).microdataPerson($args[0]).'<span class="message">'.$args[1].'</span></p>';
-		}
-	}
-	if (empty($html)) return '';
-	$html = '<div class="recent-activity lines"><h2>Recent activity</h2>'.$html.'</div>';
-	return $html;
-}
+
 
 if (isset($_REQUEST['ra']))
 {
 	echo getRecentActivity();
 	exit;
 }
-
-function gs($var)
-{
-	return empty($_SESSION['temp'][$var]) ? '' : $_SESSION['temp'][$var];
-}
-
 
 
 if ($_POST)

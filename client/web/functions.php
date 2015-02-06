@@ -1,39 +1,39 @@
 <?php
+/**
+ * Ophmisu Trivia (https://github.com/wsergio/ophmisu)
+ *
+ * @package     Ophmisu
+ * @author      Sergiu Valentin VLAD <sergiu@disruptive.academy>
+ * @copyright   Copyright (c) 2012-2015 Sergiu Valentin VLAD
+ * @license     http://opensource.org/licenses/MIT  The MIT License (MIT)
+ * @link        https://github.com/wsergio/ophmisu
+ */
+
 if (!defined('HOST')) define('HOST', $_SERVER['HTTP_HOST']);
-session_start();
 
-if (isset($_REQUEST['å'])) 
-	if (!isset($_SESSION['å'])) $_SESSION['å'] = 1;
-	else unset($_SESSION['å']);
-	
-if (isset($_REQUEST['isdj'])) 
-	if (!isset($_SESSION['isdj'])) $_SESSION['isdj'] = 1;
-	else unset($_SESSION['isdj']);
-function is_dj()
+function gs($var)
 {
-	return isset($_SESSION['isdj']);
-}
-function is_me()
-{
-	return isset($_SESSION['å']);
+    return empty($_SESSION['temp'][$var]) ? '' : $_SESSION['temp'][$var];
 }
 
-if (!function_exists('is_developer')) { function is_developer() { return true; } }
-if (!function_exists('aa')) { function aa($a, $flag=0) { /* code stripped */ } }
-if (!function_exists('fnx')) { function fnx($a = '') { /* code stripped */ } }
+function getRecentActivity()
+{
+    global $activity;
+    if (empty($activity)) return;
+    $html = '';
+    foreach ($activity as $entry)
+    {
+        list($time, $type, $args) = $entry;
+        if ($type == 'user message')
+        {
+            $html .= '<p>'.microdataTime($time).microdataPerson($args[0]).'<span class="message">'.$args[1].'</span></p>';
+        }
+    }
+    if (empty($html)) return '';
+    $html = '<div class="recent-activity lines"><h2>Recent activity</h2>'.$html.'</div>';
 
-define('AREA', 'user');
-
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'ophmisu');
-define('DB_USER', 'ophmisu');
-define('DB_PASS', '');
-
-require_once 'lib/db/db.php';
-global $db;
-$db = db_initiate(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-
+    return $html;
+}
 
 function microdataTime($time)
 {
@@ -43,7 +43,6 @@ function microdataPerson($nickname)
 {
 	return '<span itemscope itemtype="http://data-vocabulary.org/Person"><span class="user" itemprop="name"><a target="_blank" href="https://trivia.play.ai/people/'.$nickname.'" itemprop="url">'.$nickname.'</a></span><span class="hdn" itemprop="role">player</span></span>';
 }
-
 
 function ago($datefrom, $dateto=-1)
 {
