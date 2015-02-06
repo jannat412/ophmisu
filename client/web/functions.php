@@ -11,6 +11,11 @@
 
 if (!defined('HOST')) define('HOST', $_SERVER['HTTP_HOST']);
 
+function formatUrl($uri, $protocol = 'http')
+{
+    global $config;
+    return $protocol . '://' . $config['app']['hostname'] . $config['app']['path'] . trim($uri, '/');
+}
 function gs($var)
 {
     return empty($_SESSION['temp'][$var]) ? '' : $_SESSION['temp'][$var];

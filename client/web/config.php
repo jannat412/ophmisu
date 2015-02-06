@@ -19,8 +19,9 @@ $config['database']['password'] = '';
 $config['database']['hostname'] = '127.0.0.1';
 
 $config['app'] = array();
-$config['app']['trackingCode'] = 'UA-29128613-11';
 $config['app']['hostname'] = 'trivia.play.ai';
+$config['app']['path'] = '/';
+$config['app']['trackingCode'] = 'UA-29128613-11';
 
 if (file_exists('config.local.php')) {
     require_once('config.local.php');

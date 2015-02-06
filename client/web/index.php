@@ -19,13 +19,13 @@ require_once 'core.php';
 	<title>Ophmisu Trivia - joc trivia (realtime & web based) - pentru cei plictisiti </title>
 	<meta name="description" content="Joc de cultura generala (trivia) - realtime, web based, in limba romana." />
 	<meta name="keywords" content="joc,cultura,generala,trivia,intrebari,romana,web,based,ophmisu" />
-	<link rel="canonical" href="https://trivia.play.ai/">
-	<link type="text/css" href="/assets/reset.css" rel="stylesheet" />
-	<link type="text/css" href="/assets/style.css" rel="stylesheet" />
-	<link type="text/css" href="/assets/bootstrap/todc-bootstrap.css" rel="stylesheet" />
-	<link type="text/css" href="/assets/themes/clean.css" rel="stylesheet" id="themefile" />
+	<link rel="canonical" href="<?php echo formatUrl(''); ?>">
+	<link type="text/css" href="<?php echo formatUrl('assets/reset.css'); ?>" rel="stylesheet" />
+	<link type="text/css" href="<?php echo formatUrl('assets/style.css'); ?>" rel="stylesheet" />
+	<link type="text/css" href="<?php echo formatUrl('assets/bootstrap/todc-bootstrap.css'); ?>" rel="stylesheet" />
+	<link type="text/css" href="<?php echo formatUrl('assets/themes/clean.css'); ?>" rel="stylesheet" id="themefile" />
 	<link href='//fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
-	<link type="text/css" href="/js/jqueryui/css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+	<link type="text/css" href="<?php echo formatUrl('js/jqueryui/css/ui-lightness/jquery-ui-1.8.23.custom.css'); ?>" rel="stylesheet" />
 	<script type="text/javascript">
 		var HOST = "<?php echo HOST; ?>";
 		var requestParams = decodeURIComponent(window.location.search.slice(1)).split('&').reduce(function _reduce (/*Object*/ a, /*String*/ b) {
@@ -34,12 +34,13 @@ require_once 'core.php';
 			return a;
 		}, {});
 	</script>
-	<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
-	<script type="text/javascript" src="/js/jqueryui/jquery-ui-1.8.23.custom.min.js"></script>
-	<script type="text/javascript" src="/js/socket.io/socket.io-1.0.6.js"></script>
-	<script type="text/javascript" src="/js/jquery.inputHistory.js"></script>
-	<script type="text/javascript" src="/js/ophmisu.js"></script>
-	<script type="text/javascript" src="/js/fb.js"></script>
+
+	<script type="text/javascript" src="<?php echo formatUrl('js/jquery-1.8.0.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('js/jqueryui/jquery-ui-1.8.23.custom.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('js/socket.io/socket.io-1.0.6.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('js/jquery.inputHistory.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('js/fb.js'); ?>"></script>
 </head>
 <body>
 	<div id="fb-root"></div>

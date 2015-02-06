@@ -17,5 +17,6 @@
 $config['database']['name'] = 'ophmisu';
 $config['database']['username'] = 'ophmisu';
 $config['database']['password'] = '';
-$config['app']['trackingCode'] = 'UA-29128613-11';
 $config['app']['hostname'] = 'trivia.play.ai';
+$config['app']['path'] = '/';
+$config['app']['trackingCode'] = 'UA-29128613-11';
