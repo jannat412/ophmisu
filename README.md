@@ -27,6 +27,12 @@ Live demo at http://trivia.play.ai/
 - [x] support ssl (so SPDY can do its job)
 - [ ] socket multiplexing (allow both http/https) (check SockJS)
 - [ ] redefine dependencies
+- [ ] add user registration
+- [ ] create simple administration interface to manage questions (CRUD, import)
+- [ ] add user groups and define permissions for in-game commands (Alexandru Canavoiu)
+- [ ] add "Top players" view
+- [ ] add "Player profile" view
+
 
 ## License
 Ophmisu Trivia is available under the [MIT license](http://opensource.org/licenses/MIT).

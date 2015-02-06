@@ -183,7 +183,7 @@ function initSocket()
 
 	socket.on('error', function (e)
 	{
-        console.log('on error');
+        console.log('on error', e);
 		if (!e || typeof(e) == "object") e = "Panic attack! Wtf just happened?!";
 		message('System', e);
 	});

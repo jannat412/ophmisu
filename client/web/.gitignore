@@ -1,0 +1,8 @@
+.DS_Store
+.idea
+.vagrant
+.project
+nbproject
+
+node_modules
+activity.txt
