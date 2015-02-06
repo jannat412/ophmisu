@@ -33,10 +33,10 @@ Live demo at http://trivia.play.ai/
 - [ ] socket multiplexing (allow both http/https) (check SockJS)
 - [ ] redefine dependencies
 - [ ] add user registration
-- [ ] create simple administration interface to manage questions (CRUD, import)
+- [ ] create simple administration interface to manage questions (CRUD, import) (Alexandru Canavoiu)
 - [ ] add user groups and define permissions for in-game commands (Alexandru Canavoiu)
-- [ ] add "Top players" view
-- [ ] add "Player profile" view
+- [ ] add "Top players" view (Alexandru Canavoiu)
+- [ ] add "Player profile" view (Alexandru Canavoiu)
 
 
 ## License
