@@ -6,13 +6,16 @@ Live demo at http://ophmisu.com/
 ## Installation
 
 ### Client for web
+```
 cd ophmisu/client/web
 bower install
-
+```
 ### Server
+```
 cd ophmisu/server
 mysql --default-character-set=utf8 --user=ophmisu --password= ophmisu < latest.sql
 ...todo
+```
 
 ## Changelog
 2014.05.21:
