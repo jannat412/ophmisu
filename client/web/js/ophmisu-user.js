@@ -1,6 +1,4 @@
-var userApp = angular.module('ophmisu.user', [
-  'ui.router'
-])
+var userApp = angular.module('ophmisu.user', ['ui.router']);
 
 userApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider,   $urlRouterProvider) {
       $stateProvider

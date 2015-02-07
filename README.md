@@ -6,6 +6,7 @@ Live demo at http://trivia.play.ai/
 ## Installation
 
 ### Client for web
+cd ophmisu/client/web
 bower install
 
 ### Server
