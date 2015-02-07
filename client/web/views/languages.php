@@ -9,23 +9,18 @@
  * @link        https://github.com/wsergio/ophmisu
  */
 $currentLocale = getLocale();
-
-$currentLanguageLabel = 'language_' . substr($currentLocale, 0, 2);
-foreach ($config['app']['languages']['available'] as $locale) {
-    $url = formatUrl('index.php?' . LOCALE_REQUEST_PARAM . '=' . $locale);
-    $lang = substr($locale, 0, 2);
-    $label = ___("language_" . $lang);
-    $active = $locale == $currentLocale ? 'class="active"' : '';
-    $html .= '<li '.$active.'><a href="'. $url .'">'.$label.'</a></li>';
-}
+$labels = array(
+    'ro_RO' => _('language_ro'),
+    'en_US' => _('language_en')
+);
 ?>
 
 <ul class="nav navbar-nav navbar-right">
-
     <li class="dropdown">
-        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $currentLanguageLabel; ?> <span class="caret"></span></a>
+        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $labels[$currentLocale]; ?> <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
-            <?php echo $html; ?>
+            <li <?php echo $currentLocale == 'ro_RO' ? 'class="active"' : '' ?>><a href="<?php echo formatUrl('index.php?' . LOCALE_REQUEST_PARAM . '=ro_RO')?>"><?php __('language_ro'); ?></a></li>
+            <li <?php echo $currentLocale == 'en_US' ? 'class="active"' : '' ?>><a href="<?php echo formatUrl('index.php?' . LOCALE_REQUEST_PARAM . '=en_US')?>"><?php __('language_en'); ?></a></li>
         </ul>
     </li>
 </ul>
