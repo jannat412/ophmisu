@@ -18,7 +18,7 @@ class Users
         if (empty($user)) {
             return false;
         }
-        return password_verify($input['password'], $user['password']);
+        return $user['password'] == crypt($input['password'], $user['password']);
     }
 	public static function add($input)
 	{
@@ -52,7 +52,7 @@ class Users
 		if (!empty($exists)) {
             return array('errors' => array('Username not available, try another..'));
         }
-        $input['password'] = password_hash($input['password'], PASSWORD_DEFAULT);
+        $input['password'] = crypt($input['password']);
 		
 		$user_id = db_query('INSERT INTO users ?e', $input);
 
