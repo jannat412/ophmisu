@@ -22,7 +22,6 @@ require_once 'src/Ophmisu/core.php';
 	<link rel="canonical" href="<?php echo formatUrl(''); ?>">
 	<link type="text/css" href="<?php echo formatUrl('assets/reset.css'); ?>" rel="stylesheet" />
 	<link type="text/css" href="<?php echo formatUrl('assets/style.css'); ?>" rel="stylesheet" />
-	<link type="text/css" href="<?php echo formatUrl('assets/bootstrap/todc-bootstrap.css'); ?>" rel="stylesheet" />
 	<link type="text/css" href="<?php echo formatUrl('assets/themes/clean.css'); ?>" rel="stylesheet" id="themefile" />
 	<link href='//fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
 	<link type="text/css" href="<?php echo formatUrl('js/jqueryui/css/ui-lightness/jquery-ui-1.8.23.custom.css'); ?>" rel="stylesheet" />
@@ -40,7 +39,17 @@ require_once 'src/Ophmisu/core.php';
             }
         };
 	</script>
-	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular/angular.min.js'); ?>"></script>
+
+    <script type="text/javascript" src="<?php echo formatUrl('bower_components/jquery/dist/jquery.min.js'); ?>"></script>
+
+    <link type="text/css" href="<?php echo formatUrl('bower_components/bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet" />
+    <link type="text/css" href="<?php echo formatUrl('bower_components/bootstrap/dist/css/bootstrap-theme.min.css'); ?>" rel="stylesheet" />
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
+
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular/angular.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-bootstrap/ui-bootstrap.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'); ?>"></script>
+
 	<script type="text/javascript" src="<?php echo formatUrl('js/controllers.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jquery-1.8.0.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jqueryui/jquery-ui-1.8.23.custom.min.js'); ?>"></script>
@@ -53,23 +62,99 @@ require_once 'src/Ophmisu/core.php';
 	<div id="fb-root"></div>
 	<div id="wrap" class="wrapper">
 		<div id="nickname">
-			<form id="set-nickname" class="wrap">
 
-                <div id="user-register-view" ng-controller="UserRegisterCtrl">
 
-                <ul>
-                    <li ng-repeat="phone in phones">
-                        <span>{{phone.name}}</span>
-                        <p>{{phone.snippet}}</p>
-                    </li>
-                </ul>
-                    <p>Hello, {{name}}!</p>
 
-                </div>
-                <br>
-                <input class="clean-gray btn btn-large" type="submit" value="Register">
 
-				<h1>Ophmisu Trivia</h1>
+
+
+
+
+
+
+
+                    <div class="container-fluid" ng-controller="UserController">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 center-block">
+                                <h1>Ophmisu Trivia</h1>
+                                <ul>
+                                    <li ng-repeat="error in errors">
+                                        <div class="alert alert-danger" role="alert">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            <span class="sr-only">Error:</span>
+                                            {{ error}}
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li ng-repeat="msg in messages">
+                                        <div class="alert alert-success" role="alert">
+                                            <span><strong>Well done!</strong></span>
+                                            {{ msg }}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 center-block">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <form ng-submit="login()">
+                                        <div id="home" class="panel panel-default">
+                                            <div class="panel-heading">Login</div>
+                                            <div class="panel-body">
+                                                <div class="">
+                                                    <input ng-model="form.username" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                                                </div>
+                                                <div class="">
+                                                    <input ng-model="form.password" type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1">
+                                                </div>
+
+                                            </div>
+                                            <div class="panel-footer">
+                                                <div class="input-group">
+                                                    <button type="submit" class="btn btn-default">Login</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <form ng-submit="register()">
+                                        <div id="home" class="panel panel-default">
+                                            <div class="panel-heading">Sign up</div>
+                                            <div class="panel-body">
+                                                <div class="">
+                                                    <input ng-model="form.username" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                                                </div>
+                                                <div class="">
+                                                    <input ng-model="form.password" type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1">
+                                                </div>
+                                                <div class="">
+                                                    <input ng-model="form.email" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon1">
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <div class="input-group">
+                                                    <button type="submit" class="btn btn-default">Sign up</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            <form id="set-nickname" class="wrap">
+
+
+
+
+
+
+
+
+
 				<input id="nick" placeholder="Nickname" /><input type="submit" value="Join" class="clean-gray btn btn-large" />
 				<p><em>Connect with <a href="javascript:void(0);" onclick="return maybeLogin();" class="unavailable">Facebook</a> or join as <a href="javascript:void(0);" class="go-incognito">guest</a>.</em></p>
 				<br />

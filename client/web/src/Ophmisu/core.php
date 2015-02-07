@@ -9,6 +9,7 @@
  * @link        https://github.com/wsergio/ophmisu
  */
 
+
 date_default_timezone_set('Europe/Bucharest');
 ini_set('display_errors', 1);
 
@@ -53,31 +54,23 @@ if (isset($_REQUEST['ra']))
 	exit;
 }
 
-
-if ($_POST)
-{
-	$dispatch = $_REQUEST['dispatch'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	$dispatch = $_REQUEST['action'];
 	$redirect = '.';
-	if ($dispatch == 'register')
-	{
-		$data = array();
-		
-		$data['username'] = $_REQUEST['username'];
-		$data['email'] = $_REQUEST['email'];
-		$data['password'] = $_REQUEST['password'];
-		$data['password2'] = $_REQUEST['password2'];
-		$_SESSION['temp'] = $data;
-		
-		$r = Users::add($data);
-		
-		if (!empty($r['errors']))
-		{
-			$_SESSION['errors'] = $r['errors'];
-		}
-		$redirect = $r === true ? '.' : '.';
-		
+    $response = array();
+    $post = json_decode(file_get_contents("php://input"), true);
+    if ($dispatch == 'register') {
+		$response = Users::add($post['form']);
 	}
-	
-	header('Location: '.$redirect);
+    if ($dispatch == 'login') {
+        if (Users::login($post['form'])) {
+            $response['messages'] = array('Okay!');
+        }
+        else {
+            $response['errors'] = array('No, you didn\'t!');
+        }
+    }
+    $response = json_encode($response);
+    print_r($response);
 	exit;
 }
