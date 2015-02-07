@@ -12,7 +12,7 @@
 require_once 'src/Ophmisu/core.php';
 
 ?><!DOCTYPE html>
-<html ng-app="ophmisuApp">
+<html ng-app="ophmisu">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, width=device-width, maximum-scale=1.0" />
@@ -47,28 +47,29 @@ require_once 'src/Ophmisu/core.php';
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
 
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular/angular.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-route/angular-route.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-ui-router/release/angular-ui-router.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-animate/angular-animate.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-bootstrap/ui-bootstrap.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'); ?>"></script>
 
-	<script type="text/javascript" src="<?php echo formatUrl('js/controllers.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-user.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-game.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-engine.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jquery-1.8.0.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jqueryui/jquery-ui-1.8.23.custom.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/socket.io/socket.io-1.0.6.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jquery.inputHistory.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo formatUrl('js/fb.js'); ?>"></script>
 </head>
 <body>
 	<div id="fb-root"></div>
 
+
+
     <div class="view-animate-container">
-        <div ng-view class="view-animate">
+        <div ui-view class="view-animate">
         </div>
     </div>
-
-
 
 
     <?php if (!empty($config['app']['trackingCode'])) : ?>
