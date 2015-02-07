@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ophmisu Web Client\n"
-"POT-Creation-Date: 2015-02-07 18:28+0200\n"
-"PO-Revision-Date: 2015-02-07 18:32+0200\n"
+"POT-Creation-Date: 2015-02-08 01:44+0200\n"
+"PO-Revision-Date: 2015-02-08 01:44+0200\n"
 "Last-Translator: \n"
 "Language-Team: Sergiu VLAD <sergiu@disruptive.academy>\n"
 "Language: en_US\n"
@@ -16,54 +16,62 @@ msgstr ""
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: index.php:19
+#: index.php:19 index__.php:19
 msgid "homepage_page_title"
 msgstr "Ophmisu Trivia Game - realtime, web based and mobile-friendly"
 
-#: index.php:20
+#: index.php:20 index__.php:20
 msgid "homepage_meta_description"
 msgstr "General knowledge game (trivia) - realtime, web based and mobile-friendly"
 
-#: index.php:21
+#: index.php:21 index__.php:21
 msgid "homepage_meta_keywords"
 msgstr "game, culture, general, trivia, questions, web based, ophmisu"
 
-#: index.php:79
+#: index.php:82 views/home.php:18
 msgid "homepage_title"
 msgstr "Ophmisu Trivia"
 
-#: index.php:84
+#: src/Ophmisu/zerg.php:11
+msgid "language_ro"
+msgstr "Română"
+
+#: src/Ophmisu/zerg.php:12
+msgid "language_en"
+msgstr "English"
+
+#: views/errors.php:16
 msgid "error_label"
 msgstr "Oops"
 
-#: index.php:92
+#: views/errors.php:24
 msgid "success_label"
 msgstr "Swell"
 
-#: index.php:102
+#: views/home.php:25
 msgid "login_block_title"
 msgstr "Login"
 
-#: index.php:105 index.php:126
+#: views/home.php:28 views/home.php:49
 msgid "username"
 msgstr "Username"
 
-#: index.php:108 index.php:129
+#: views/home.php:31 views/home.php:52
 msgid "password"
 msgstr "Password"
 
-#: index.php:114
+#: views/home.php:37
 msgid "login_block_button"
 msgstr "Login"
 
-#: index.php:123
+#: views/home.php:46
 msgid "register_block_title"
 msgstr "Register"
 
-#: index.php:132
+#: views/home.php:55
 msgid "email"
 msgstr "Email"
 
-#: index.php:137
+#: views/home.php:60
 msgid "register_block_button"
 msgstr "Register"

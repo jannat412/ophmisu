@@ -55,3 +55,7 @@ function __($text)
 {
     echo _($text);
 }
+function ___($text)
+{
+    return _($text);
+}

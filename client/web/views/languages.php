@@ -9,12 +9,12 @@
  * @link        https://github.com/wsergio/ophmisu
  */
 $currentLocale = getLocale();
-// __('language_label')
+
 $currentLanguageLabel = 'language_' . substr($currentLocale, 0, 2);
 foreach ($config['app']['languages']['available'] as $locale) {
     $url = formatUrl('index.php?' . LOCALE_REQUEST_PARAM . '=' . $locale);
     $lang = substr($locale, 0, 2);
-    $label = "language_" . $lang;
+    $label = ___("language_" . $lang);
     $active = $locale == $currentLocale ? 'class="active"' : '';
     $html .= '<li '.$active.'><a href="'. $url .'">'.$label.'</a></li>';
 }
