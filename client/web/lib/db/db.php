@@ -455,6 +455,13 @@ function db_error($result, $query, $trace)
  */
 function db_initiate($host, $user, $password, $name) {
 	global $db;
+    if (!defined('DB_HOST')) {
+        define('DB_HOST', $host);
+        define('DB_NAME', $name);
+        define('DB_USER', $user);
+        define('DB_PASS', $password);
+    }
+
 	$db = driver_db_connect($host, $user, $password);
 	if (!empty($db))
 		return driver_db_select($name) ? $db : false;

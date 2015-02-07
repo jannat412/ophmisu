@@ -4,5 +4,7 @@
 .project
 nbproject
 
+bower_components
 node_modules
 activity.txt
+config.local.php

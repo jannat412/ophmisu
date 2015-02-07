@@ -1,9 +1,13 @@
-var config = {};
+/**
+ * Ophmisu Trivia (https://github.com/wsergio/ophmisu)
+ *
+ * @package     Ophmisu
+ * @author      Sergiu Valentin VLAD <sergiu@disruptive.academy>
+ * @copyright   Copyright (c) 2012-2015 Sergiu Valentin VLAD
+ * @license     http://opensource.org/licenses/MIT  The MIT License (MIT)
+ * @link        https://github.com/wsergio/ophmisu
+ */
 
-config.app = {};
-config.app.hostname = 'ophmisu.dev';
-config.app.httpPort = 2013;
-config.app.httpsPort = 2014;
 //localStorage.debug='*';
 var recentActivityId = 0;
 var autoreconnect = false;

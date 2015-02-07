@@ -3,6 +3,13 @@
 Ophmisu Trivia - realtime &amp; web based (node.js, socket.io, mysql).
 Live demo at http://trivia.play.ai/
 
+## Installation
+
+### Client for web
+bower install
+
+### Server
+...todo
 
 ## Changelog
 2014.05.21:
@@ -27,12 +34,12 @@ Live demo at http://trivia.play.ai/
     "winston": "0.6.x"
 }
 ```
-.. work in progress.
+
 ## Todo
 - [x] support ssl (so SPDY can do its job)
 - [ ] socket multiplexing (allow both http/https) (check SockJS)
 - [ ] redefine dependencies
-- [ ] add user registration
+- [ ] finish basic user registration
 - [ ] create simple administration interface to manage questions (CRUD, import) (Alexandru Canavoiu)
 - [ ] add user groups and define permissions for in-game commands (Alexandru Canavoiu)
 - [ ] add "Top players" view (Alexandru Canavoiu)
