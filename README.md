@@ -1,14 +1,17 @@
 # Ophmisu
 
 Ophmisu Trivia - realtime &amp; web based (node.js, socket.io, mysql).
-Live demo at http://trivia.play.ai/
+Live demo at http://ophmisu.com/
 
 ## Installation
 
 ### Client for web
+cd ophmisu/client/web
 bower install
 
 ### Server
+cd ophmisu/server
+mysql --default-character-set=utf8 --user=ophmisu --password= ophmisu < latest.sql
 ...todo
 
 ## Changelog

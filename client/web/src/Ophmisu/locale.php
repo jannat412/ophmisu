@@ -13,7 +13,7 @@ define('SESSION_LOCALE_KEY', 'locale');
 define('DEFAULT_LOCALE', $config['app']['languages']['default']);
 define('LOCALE_REQUEST_PARAM', 'lang');
 define('WEBSITE_DOMAIN', 'messages');
-define('LANG_DIR', dirname(__FILE__) . '../../../lang');
+define('LANG_DIR', dirname(__FILE__) . '/../../lang/');
 
 if (array_key_exists(LOCALE_REQUEST_PARAM, $_REQUEST) && isSupportedLocale($_REQUEST[LOCALE_REQUEST_PARAM])) {
     $current_locale = $_REQUEST[LOCALE_REQUEST_PARAM];
@@ -26,7 +26,7 @@ $_SESSION[SESSION_LOCALE_KEY] = $current_locale;
 putenv("LC_ALL=$current_locale");
 setlocale(LC_ALL, $current_locale, str_replace('_', '-', strtolower($current_locale)));
 if (!file_exists(LANG_DIR)) {
-    die('Languages directory not found');
+    die('Languages directory not found: ' . LANG_DIR);
 }
 bindtextdomain(WEBSITE_DOMAIN, LANG_DIR);
 bind_textdomain_codeset(WEBSITE_DOMAIN, 'UTF-8');

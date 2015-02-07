@@ -7,6 +7,7 @@
  * @copyright   Copyright (c) 2012-2015 Sergiu Valentin VLAD
  * @license     http://opensource.org/licenses/MIT  The MIT License (MIT)
  * @link        https://github.com/wsergio/ophmisu
+ * @link        http://ophmisu.com
  */
 
 function formatUrl($uri, $protocol = 'http')
@@ -44,7 +45,7 @@ function microdataTime($time)
 }
 function microdataPerson($nickname)
 {
-	return '<span itemscope itemtype="http://data-vocabulary.org/Person"><span class="user" itemprop="name"><a target="_blank" href="https://trivia.play.ai/people/'.$nickname.'" itemprop="url">'.$nickname.'</a></span><span class="hdn" itemprop="role">player</span></span>';
+	return '<span itemscope itemtype="http://data-vocabulary.org/Person"><span class="user" itemprop="name"><a target="_blank" href="https://ophmisu.com/people/'.$nickname.'" itemprop="url">'.$nickname.'</a></span><span class="hdn" itemprop="role">player</span></span>';
 }
 
 function ago($datefrom, $dateto=-1)
