@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ophmisu Web Client\n"
-"POT-Creation-Date: 2015-02-08 01:43+0200\n"
-"PO-Revision-Date: 2015-02-08 01:44+0200\n"
+"POT-Creation-Date: 2015-02-08 01:51+0200\n"
+"PO-Revision-Date: 2015-02-08 01:51+0200\n"
 "Last-Translator: \n"
 "Language-Team: Sergiu VLAD <sergiu@disruptive.academy>\n"
 "Language: ro_RO\n"
@@ -33,11 +33,11 @@ msgstr "joc,cultura,generala,trivia,intrebari,romana,web,based,ophmisu"
 msgid "homepage_title"
 msgstr "Ophmisu Trivia"
 
-#: src/Ophmisu/zerg.php:11
+#: src/Ophmisu/zerg.php:11 views/languages.php:13 views/languages.php:22
 msgid "language_ro"
 msgstr "Romănă"
 
-#: src/Ophmisu/zerg.php:12
+#: src/Ophmisu/zerg.php:12 views/languages.php:14 views/languages.php:23
 msgid "language_en"
 msgstr "English"
 
