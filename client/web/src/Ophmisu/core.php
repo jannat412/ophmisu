@@ -11,7 +11,7 @@
 
 error_reporting(E_ALL);
 date_default_timezone_set('Europe/Bucharest');
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 session_start();
 
 define('AREA', 'user');
