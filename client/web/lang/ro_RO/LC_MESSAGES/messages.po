@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ophmisu Web Client\n"
-"POT-Creation-Date: 2015-02-07 18:16+0200\n"
-"PO-Revision-Date: 2015-02-07 18:16+0200\n"
+"POT-Creation-Date: 2015-02-08 01:30+0200\n"
+"PO-Revision-Date: 2015-02-08 01:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: Sergiu VLAD <sergiu@disruptive.academy>\n"
 "Language: ro_RO\n"
@@ -17,10 +17,54 @@ msgstr ""
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: index.php:19
+#: index.php:19 index__.php:19
 msgid "homepage_page_title"
 msgstr "Ophmisu Trivia - joc trivia realtime & web based"
 
-#: index.php:79 src/Ophmisu/locale.php:35
+#: index.php:20 index__.php:20
+msgid "homepage_meta_description"
+msgstr "Joc de cultura generala (trivia) - realtime, web based"
+
+#: index.php:21 index__.php:21
+msgid "homepage_meta_keywords"
+msgstr "joc,cultura,generala,trivia,intrebari,romana,web,based,ophmisu"
+
+#: index.php:82 views/home.php:18
 msgid "homepage_title"
 msgstr "Ophmisu Trivia"
+
+#: views/errors.php:16
+msgid "error_label"
+msgstr "Eroare"
+
+#: views/errors.php:24
+msgid "success_label"
+msgstr "Bun!"
+
+#: views/home.php:25
+msgid "login_block_title"
+msgstr "Ai deja cont?"
+
+#: views/home.php:28 views/home.php:49
+msgid "username"
+msgstr "Utilizator"
+
+#: views/home.php:31 views/home.php:52
+msgid "password"
+msgstr "Parolă"
+
+#: views/home.php:37
+msgid "login_block_button"
+msgstr "Conectează-te"
+
+#: views/home.php:46
+msgid "register_block_title"
+msgstr "Ești nou-venit?"
+
+#: views/home.php:55
+msgid "email"
+msgstr "Email"
+
+#: views/home.php:60
+msgid "register_block_button"
+msgstr "Înregistrează-te"
