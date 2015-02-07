@@ -13,7 +13,7 @@ define('SESSION_LOCALE_KEY', 'locale');
 define('DEFAULT_LOCALE', $config['app']['languages']['default']);
 define('LOCALE_REQUEST_PARAM', 'lang');
 define('WEBSITE_DOMAIN', 'messages');
-define('LANG_DIR', dirname(__FILE__) . '/../../../lang/');
+define('LANG_DIR', dirname(__FILE__) . '/../../lang/');
 
 if (array_key_exists(LOCALE_REQUEST_PARAM, $_REQUEST) && isSupportedLocale($_REQUEST[LOCALE_REQUEST_PARAM])) {
     $current_locale = $_REQUEST[LOCALE_REQUEST_PARAM];
