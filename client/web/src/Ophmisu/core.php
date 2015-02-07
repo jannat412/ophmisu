@@ -12,16 +12,18 @@
 
 date_default_timezone_set('Europe/Bucharest');
 ini_set('display_errors', 1);
+session_start();
 
 define('AREA', 'user');
 define('ACTIVITY_LOG_FILE', 'activity.txt');
 $config = require_once 'config.php';
 
+require_once 'locale.php';
 require_once 'functions.php';
 require_once 'users.php';
 require_once 'fb.php';
 
-session_start();
+
 require_once 'lib/db/db.php';
 global $db;
 $db = db_initiate(

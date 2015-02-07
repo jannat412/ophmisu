@@ -16,7 +16,7 @@ require_once 'src/Ophmisu/core.php';
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, width=device-width, maximum-scale=1.0" />
-	<title>Ophmisu Trivia - joc trivia (realtime & web based) - pentru cei plictisiti </title>
+	<title><?php __('homepage_title'); ?></title>
 	<meta name="description" content="Joc de cultura generala (trivia) - realtime, web based, in limba romana." />
 	<meta name="keywords" content="joc,cultura,generala,trivia,intrebari,romana,web,based,ophmisu" />
 	<link rel="canonical" href="<?php echo formatUrl(''); ?>">
@@ -76,7 +76,7 @@ require_once 'src/Ophmisu/core.php';
                     <div class="container-fluid" ng-controller="UserController">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 center-block">
-                                <h1>Ophmisu Trivia</h1>
+                                <h1>Ophmisu Trivia (<?php echo getLocale(); ?>)</h1>
                                 <ul>
                                     <li ng-repeat="error in errors">
                                         <div class="alert alert-danger" role="alert">
