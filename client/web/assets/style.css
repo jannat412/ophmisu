@@ -374,6 +374,7 @@ html {
 }
 
 .view-animate {
+    padding-top: 50px;
 }
 
 .view-animate.ng-enter, .view-animate.ng-leave {
