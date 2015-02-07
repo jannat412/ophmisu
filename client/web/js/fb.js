@@ -129,7 +129,7 @@ Date.prototype.format = function (mask, utc) {
 window.fbAsyncInit = function() {
 	FB.init({
 		appId      : '223613734449845', // App ID
-		channelUrl : '//trivia.play.ai/channel.html', // Channel File
+		channelUrl : '//ophmisu.com/channel.html', // Channel File
 		status     : true, // check login status
 		cookie     : true, // enable cookies to allow the server to access the session
 		xfbml      : true  // parse XFBML
