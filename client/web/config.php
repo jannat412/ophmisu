@@ -25,6 +25,10 @@ $config['app']['httpPort'] = 2013;
 $config['app']['httpsPort'] = 2014;
 $config['app']['trackingCode'] = 'UA-29128613-11';
 
+$config['app']['languages'] = array();
+$config['app']['languages']['default'] = 'en_US';
+$config['app']['languages']['available'] = ['en_US', 'ro_RO'];
+
 if (file_exists('config.local.php')) {
     require_once('config.local.php');
 }

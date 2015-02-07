@@ -8,19 +8,155 @@
  * @link        https://github.com/wsergio/ophmisu
  */
 
-var ophmisuApp = angular.module('ophmisuApp', ['ui.bootstrap']);
+var ophmisuApp = angular.module('ophmisuApp', ['ui.bootstrap', 'ngRoute', 'ngAnimate']);
 
-ophmisuApp.controller('UserController', function ($scope, userService) {
-    $scope.phones = [
-        {'name': 'Nexus S',
-            'snippet': 'Fast just got faster with Nexus S.'},
-        {'name': 'Motorola XOOM™ with Wi-Fi',
-            'snippet': 'The Next, Next Generation tablet.'},
-        {'name': 'MOTOROLA XOOM™',
-            'snippet': 'The Next, Next Generation tablet.'}
-    ];
-    $scope.name = "World";
+ophmisuApp.config(['$routeProvider', '$locationProvider',
+    function($routeProvider, $locationProvider) {
+        $routeProvider
+            .when('/game', {
+                templateUrl: 'index.php?view=game',
+                controller: 'GameController',
+                controllerAs: 'game'
+            })
+            .when('/', {
+                templateUrl: 'index.php?view=home',
+                controller: 'GameController',
+                controllerAs: 'game'
+            })
+            .when('/Book/:bookId/ch/:chapterId', {
+                templateUrl: 'chapter.html',
+                controller: 'ChapterCtrl',
+                controllerAs: 'chapter'
+            }).otherwise({
+                //template: function(args) { return $('#default-page').html(); },
+                //templateUrl: 'index.php?view=home',
+                controller: function ($scope) {
+                    //$scope.message = 'Welcome!!';
+                }
+            });
 
+        //$locationProvider.html5Mode(true);
+    }
+]);
+
+ophmisuApp.controller('MainCtrl', ['$route', '$routeParams', '$location',
+    function($route, $routeParams, $location) {
+        this.$route = $route;
+        this.$location = $location;
+        this.$routeParams = $routeParams;
+    }]);
+
+
+ophmisuApp.controller('UserController', function ($scope, $location, userService) {
+    $scope.form = {
+        username: "",
+        password: "",
+        email: ""
+    };
+    $scope.errors = [];
+    $scope.messages = [];
+
+    $scope.register = function() {
+        userService.register( $scope.form )
+            .then(function(response) {
+                $scope.messages = [];
+                $scope.errors = [];
+                if (response.messages)
+                {
+                    $scope.messages = response.messages;
+                }
+                else if (response.errors)
+                {
+                    $scope.errors = response.errors;
+                }
+            }, function( errorMessage ) {
+                console.warn( errorMessage );
+            }
+        );
+    };
+
+    $scope.login = function() {
+
+        userService.login( $scope.form )
+            .then(function(response) {
+
+                $scope.messages = [];
+                $scope.errors = [];
+                if (response.messages)
+                {
+                    $scope.messages = response.messages;
+                    $location.path('/game');
+                }
+                else if (response.errors)
+                {
+                    $scope.errors = response.errors;
+                    console.log(response.errors);
+
+                }
+            }, function( errorMessage ) {
+                console.warn( errorMessage );
+            }
+        );
+    };
+});
+
+// I act a repository for the remote friend collection.
+ophmisuApp.service(
+    "userService",
+    function( $http, $q ) {
+        return({
+            register: register,
+            login: login
+        });
+
+        function register(data) {
+            var request = $http({
+                method: "post",
+                url: "index.php",
+                params: {
+                    action: "register"
+                },
+                data: {
+                    form: data
+                }
+            });
+
+            return( request.then( handleSuccess, handleError ) );
+        }
+
+        function login(data) {
+            var request = $http({
+                method: "post",
+                url: "index.php",
+                params: {
+                    action: "login"
+                },
+                data: {
+                    form: data
+                }
+            });
+
+            return( request.then( handleSuccess, handleError ) );
+        }
+
+        function handleError( response ) {
+            if (!angular.isObject( response.data ) || !response.data.message) {
+                return( $q.reject( "An unknown error occurred." ) );
+            }
+
+            return( $q.reject( response.data.message ) );
+        }
+        function handleSuccess( response ) {
+            return( response.data );
+        }
+
+    }
+);
+
+
+
+
+ophmisuApp.controller('GameController', function ($scope, $location, userService) {
     $scope.form = {
         username: "",
         password: "",
@@ -56,6 +192,8 @@ ophmisuApp.controller('UserController', function ($scope, userService) {
                 if (response.messages)
                 {
                     $scope.messages = response.messages;
+                    console.log($location,1);
+                    $location.path('xxx.html');
                 }
                 else if (response.errors)
                 {
@@ -66,109 +204,4 @@ ophmisuApp.controller('UserController', function ($scope, userService) {
             }
         );
     };
-
 });
-
-ophmisuApp.controller('CollapseDemoCtrl', function ($scope) {
-    $scope.isCollapsed = true;
-});
-
-ophmisuApp.controller('TabsDemoCtrl', function ($scope, $window) {
-    $scope.tabs = [
-        { title:'Dynamic Title 1', content:'Dynamic content 1' },
-        { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
-    ];
-
-    $scope.alertMe = function() {
-        setTimeout(function() {
-            $window.alert('You\'ve selected the alert tab!');
-        });
-    };
-});
-
-// I act a repository for the remote friend collection.
-ophmisuApp.service(
-    "userService",
-    function( $http, $q ) {
-
-        // Return public API.
-        return({
-            register: register,
-            login: login
-        });
-
-
-        // ---
-        // PUBLIC METHODS.
-        // ---
-
-
-        function register(data) {
-            var request = $http({
-                method: "post",
-                url: "index.php",
-                params: {
-                    action: "register"
-                },
-                data: {
-                    form: data
-                }
-            });
-
-            return( request.then( handleSuccess, handleError ) );
-        }
-
-        function login(data) {
-            var request = $http({
-                method: "post",
-                url: "index.php",
-                params: {
-                    action: "login"
-                },
-                data: {
-                    form: data
-                }
-            });
-
-            return( request.then( handleSuccess, handleError ) );
-        }
-
-
-        // ---
-        // PRIVATE METHODS.
-        // ---
-
-
-        // I transform the error response, unwrapping the application dta from
-        // the API response payload.
-        function handleError( response ) {
-
-            // The API response from the server should be returned in a
-            // nomralized format. However, if the request was not handled by the
-            // server (or what not handles properly - ex. server error), then we
-            // may have to normalize it on our end, as best we can.
-            if (
-                ! angular.isObject( response.data ) ||
-                ! response.data.message
-            ) {
-
-                return( $q.reject( "An unknown error occurred." ) );
-
-            }
-
-            // Otherwise, use expected error message.
-            return( $q.reject( response.data.message ) );
-
-        }
-
-
-        // I transform the successful response, unwrapping the application data
-        // from the API response payload.
-        function handleSuccess( response ) {
-
-            return( response.data );
-
-        }
-
-    }
-);

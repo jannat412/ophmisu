@@ -62,15 +62,93 @@ require_once 'src/Ophmisu/core.php';
 </head>
 <body>
 	<div id="fb-root"></div>
+	<div id="wrap" class="wrapper">
+		<div id="nickname">
 
-    <div class="view-animate-container">
-        <div ng-view class="view-animate">
-        </div>
-    </div>
+            <div class="view-animate-container">
+                <div ng-view class="view-animate">
+                </div>
+            </div>
+
+            <div ng-controller="MainCtrl as main">
+                Choose:
+                <a href="/home">Home</a> |
+                <a href="/game">Game</a> |
+            </div>
+
+            <div id="default-page">
+                <?php include_once './views/home.php'; ?>
+
+            </div>
 
 
 
 
+
+
+                    <div class="container-fluid" ng-controller="UserController">
+                        <div class="row">
+
+
+
+
+
+                        </div>
+                    </div>
+
+
+            <form id="set-nickname" class="wrap">
+
+
+
+
+
+
+
+
+
+				<input id="nick" placeholder="Nickname" /><input type="submit" value="Join" class="clean-gray btn btn-large" />
+				<p><em>Connect with <a href="javascript:void(0);" onclick="return maybeLogin();" class="unavailable">Facebook</a> or join as <a href="javascript:void(0);" class="go-incognito">guest</a>.</em></p>
+				<br />
+				<br />
+				<br />
+				<p><a style="font-size:8pt;" href="/app.apk" target="_blank" class="btn btn-large">Install <img style="vertical-align: middle;" src="/assets/images/android.png" height="30" /> App</a>&nbsp;&nbsp;&nbsp;<a style="font-size:8pt;" href="https://github.com/wsergio/ophmisu" target="_blank" class="btn btn-large">Fork me on GitHub</a></p>
+				<br />
+				<p><small><a href="https://github.com/wsergio/ophmisu">Ophmisu Trivia</a> is open source and available under the <a href="http://opensource.org/licenses/MIT">MIT license</a>.</small></p>
+			</form>
+
+			<?php echo getRecentActivity(); ?>
+		</div>
+
+		<!--googleoff: all-->
+		<div id="connecting">
+			<div class="wrap">
+				<p>Connecting to server..</p>
+				<br />
+				<p><a id="logout" href="javascript:void(0);" title="Logout" class="">Cancel</a></p>
+			</div>
+		</div>
+		<div id="chat">
+			<div id="header" class="wrapper">
+				<div id="controls">
+					<a id="clear" href="javascript:void(0);" title="Clear messages" class="">Clear</a>
+					<!-- <a id="reconnect" href="javascript:void(0);" title="Reconnect" class="">Reconnect</a> -->
+					<a id="logout" href="javascript:void(0);" onclick="disconnect();" title="Logout" class="">Disconnect</a>
+				</div>
+				<div class="hdn">Available chat rooms: <span id="rooms"></span></div>
+				<div id="nicknames"></div>
+			</div>
+			<div id="messages"><div id="lines"></div></div>
+			<div id="send-message-wrap" class="wrapper">
+				<div id="send-message-container">
+					<form id="send-message">
+						<input id="message" type="text" autocomplete="off" class="wrapper"><button class="btn">Send</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--googleon: all-->
+	</div>
     <?php if (!empty($config['app']['trackingCode'])) : ?>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

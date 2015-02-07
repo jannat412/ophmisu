@@ -9,7 +9,7 @@
  * @link        https://github.com/wsergio/ophmisu
  */
 
-
+error_reporting(E_ALL);
 date_default_timezone_set('Europe/Bucharest');
 ini_set('display_errors', 1);
 session_start();
@@ -54,6 +54,25 @@ if (isset($_REQUEST['ra']))
 {
 	echo getRecentActivity();
 	exit;
+}
+
+if (!empty($_REQUEST['view'])) {
+    $view = $_REQUEST['view'];
+    $view = html_entity_decode($view);
+    $view = urldecode($view);
+    $view = str_replace('..', '', $view);
+    $filename = './views/' . $view . '.php';
+
+    if (file_exists($filename)) {
+        ob_start();
+        include($filename);
+        $content = ob_get_clean();
+    } else {
+        $content = 'Oops!';
+    }
+
+    echo $content;
+    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
