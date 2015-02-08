@@ -62,8 +62,7 @@ body {
 }
 #rooms span.active {text-decoration:underline;}
 #messages {
-  margin-top: 60px;
-  padding-bottom: 60px;
+    padding-bottom: 50px;
 }
 .lines p .time {
   display: inline-block;
@@ -78,9 +77,10 @@ body {
 }
 .lines p,
 #lines p {
-  padding: 10px;
-  background: #fafafa;
-  overflow: hidden;
+    margin: 0;
+    padding: 4px 8px;
+    background: #fafafa;
+    overflow: hidden;
 }
 .lines p:nth-child(even),
 #lines p:nth-child(even) {

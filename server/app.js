@@ -72,13 +72,9 @@ ophmisu.init();
 initApp(sio, 'http');
 initApp(sios, 'https');
 
-
 setInterval(function() {
-    sio.sockets.emit('user message', "PING");
-    for (var i in nicknames) {
-        var nick = nicknames[i];
-        //console.log('PING ' + nick);
-    }
+    //sio.sockets.emit('user message', "PING");
+    //sio.sockets.emit('announcement', 1001, 'Journey', "trivia");
 
 }, 3000);
 

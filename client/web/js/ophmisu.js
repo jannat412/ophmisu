@@ -8,7 +8,29 @@
  * @link        https://github.com/wsergio/ophmisu
  */
 
-var ophmisu = angular.module('ophmisu', ['ophmisu.user', 'ophmisu.game','ui.bootstrap', 'ui.router', 'ngAnimate']);
+var ophmisu = angular.module('ophmisu', [
+    'btford.socket-io',
+    'ophmisu.user',
+    'ophmisu.game',
+    'ui.bootstrap',
+    'ui.router',
+    'ngAnimate']);
+ophmisu.factory('socket', function (socketFactory) {
+    var opts = {};
+    opts.port = config.app.httpPort;
+    opts['force new connection'] = true;
+    if (window.location.protocol == 'https:')
+    {
+        opts.port = config.app.httpsPort;
+        opts.secure = true;
+    }
+
+    return socketFactory({
+        //prefix: 'foo~',
+        ioSocket: io.connect(window.location.protocol+'//' + config.app.hostname + ':'+opts.port, opts)
+    });
+});
+
 ophmisu.run(
     [ '$rootScope', '$state', '$stateParams',
         function ($rootScope, $state, $stateParams) {

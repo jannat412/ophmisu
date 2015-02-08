@@ -24,6 +24,8 @@
         "angular-ui-router": "0.2.x",
         "angular-animate": "~1.2.x",
         "angular-bootstrap": "0.12.0",
-        "bootstrap": "3.3.x"
+        "bootstrap": "3.3.x",
+        "angular-socket-io": "~0.7.0",
+        "sprintf": "~1.0.2"
     }
 }

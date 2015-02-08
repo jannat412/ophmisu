@@ -38,6 +38,9 @@ require_once 'src/Ophmisu/core.php';
                 'httpsPort': '<?php echo $config['app']['httpsPort'] ?>'
             }
         };
+        <?php
+            echo 'var translationMap = '.json_encode($translationMap) . ';';
+        ?>
 	</script>
 
     <script type="text/javascript" src="<?php echo formatUrl('bower_components/jquery/dist/jquery.min.js'); ?>"></script>
@@ -51,11 +54,15 @@ require_once 'src/Ophmisu/core.php';
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-animate/angular-animate.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-bootstrap/ui-bootstrap.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-socket-io/socket.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/sprintf/dist/sprintf.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/sprintf/dist/angular-sprintf.min.js'); ?>"></script>
 
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-user.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-game.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-engine.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-translator.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jquery-1.8.0.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jqueryui/jquery-ui-1.8.23.custom.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/socket.io/socket.io-1.0.6.js'); ?>"></script>
@@ -64,10 +71,7 @@ require_once 'src/Ophmisu/core.php';
 <body ng-controller="AppController">
 	<div id="fb-root"></div>
 
-
-
     <div class="view-animate-container">
-
 
         <!-- Fixed navbar -->
         <nav class="navbar navbar-default navbar-fixed-top">

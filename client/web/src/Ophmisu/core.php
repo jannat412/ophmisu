@@ -19,6 +19,7 @@ define('ACTIVITY_LOG_FILE', 'activity.txt');
 $config = require_once 'config.php';
 
 require_once 'locale.php';
+require_once 'zerg.php';
 require_once 'functions.php';
 require_once 'users.php';
 require_once 'fb.php';

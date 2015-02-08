@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ophmisu Web Client\n"
-"POT-Creation-Date: 2015-02-08 01:51+0200\n"
-"PO-Revision-Date: 2015-02-08 01:51+0200\n"
+"POT-Creation-Date: 2015-02-08 19:35+0200\n"
+"PO-Revision-Date: 2015-02-08 19:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: Sergiu VLAD <sergiu@disruptive.academy>\n"
 "Language: en_US\n"
@@ -28,17 +28,41 @@ msgstr "General knowledge game (trivia) - realtime, web based and mobile-friendl
 msgid "homepage_meta_keywords"
 msgstr "game, culture, general, trivia, questions, web based, ophmisu"
 
-#: index.php:82 views/home.php:18
+#: index.php:85 views/home.php:18
 msgid "homepage_title"
 msgstr "Ophmisu Trivia"
 
-#: src/Ophmisu/zerg.php:11 views/languages.php:13 views/languages.php:22
+#: index.php:104
+msgid "profile"
+msgstr "Profile"
+
+#: index.php:110
+msgid "logout"
+msgstr "Logout"
+
+#: src/Ophmisu/zerg.php:11 views/languages.php:13 views/languages.php:21
 msgid "language_ro"
 msgstr "Română"
 
-#: src/Ophmisu/zerg.php:12 views/languages.php:14 views/languages.php:23
+#: src/Ophmisu/zerg.php:12 views/languages.php:14 views/languages.php:22
 msgid "language_en"
 msgstr "English"
+
+#: src/Ophmisu/zerg.php:15
+msgid "ac_user_join"
+msgstr "%s joined room %s"
+
+#: views/connect.php:17
+msgid "Connecting"
+msgstr "Connecting.."
+
+#: views/connect.php:20
+msgid "connect"
+msgstr "Connect"
+
+#: views/connect.php:21
+msgid "cancel"
+msgstr "Cancel"
 
 #: views/errors.php:16
 msgid "error_label"
@@ -47,6 +71,10 @@ msgstr "Oops"
 #: views/errors.php:24
 msgid "success_label"
 msgstr "Swell"
+
+#: views/game.php:38
+msgid "send"
+msgstr "Send"
 
 #: views/home.php:25
 msgid "login_block_title"

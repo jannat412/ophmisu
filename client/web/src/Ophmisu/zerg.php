@@ -10,3 +10,7 @@
  */
 _('language_ro');
 _('language_en');
+
+$translationMap = array(
+    1001 => _('ac_user_join')
+);
