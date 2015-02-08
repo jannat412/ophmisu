@@ -25,3 +25,23 @@ ophmisu.config(['$stateProvider', '$urlRouterProvider',
 
     }
 ]);
+
+ophmisu.controller('AppController', function ($scope, $location, userService) {
+    $scope.user = null;
+    $scope.users = [];
+    $scope.rooms = [];
+
+    $scope.$on('updateUsers', function(event, items) {
+        console.log('AppController: updateUsers!');
+        $scope.users = items;
+        $scope.$digest();
+    });
+
+    $scope.$on('updateRooms', function(event, items) {
+        console.log('AppController: updateRooms!');
+        $scope.rooms = items;
+        $scope.$digest();
+    });
+
+
+});

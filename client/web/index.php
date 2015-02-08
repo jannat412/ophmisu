@@ -61,7 +61,7 @@ require_once 'src/Ophmisu/core.php';
 	<script type="text/javascript" src="<?php echo formatUrl('js/socket.io/socket.io-1.0.6.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jquery.inputHistory.js'); ?>"></script>
 </head>
-<body>
+<body ng-controller="AppController">
 	<div id="fb-root"></div>
 
 
@@ -84,8 +84,7 @@ require_once 'src/Ophmisu/core.php';
                 </div>
 
                 <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-left nav-pills" role="tablist" ng-controller="GameController">
-{{ rooms }}
+                    <ul class="nav navbar-nav navbar-left nav-pills" role="tablist">
                         <li role="presentation" ng-repeat="room in rooms" ng-class="{'active':room == currentRoom}">
                             <a href="javascript:void(0);">
                                 {{ room }} <span class="badge">{{ room == currentRoom ? userCount : "0"}}</span>
@@ -95,7 +94,6 @@ require_once 'src/Ophmisu/core.php';
                         <li role="presentation" ng-repeat="user in users">
                             <a href="javascript:void(0);">{{ user }}</a>
                         </li>
-
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">

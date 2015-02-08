@@ -30,7 +30,7 @@ userApp.controller('UserController', function ($scope, $location, userService) {
                 $scope.errors = [];
                 if (response.messages)
                 {
-                    $scope.user = user;
+                    $scope.user = response.user;
                     $scope.messages = response.messages;
                 }
                 else if (response.errors)

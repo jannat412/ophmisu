@@ -73,6 +73,15 @@ initApp(sio, 'http');
 initApp(sios, 'https');
 
 
+setInterval(function() {
+    sio.sockets.emit('user message', "PING");
+    for (var i in nicknames) {
+        var nick = nicknames[i];
+        //console.log('PING ' + nick);
+    }
+
+}, 3000);
+
 
 
 var flogData = [], 
@@ -144,7 +153,7 @@ function initApp(ioi, iname)
 				
 				socket.room = room;
 				socket.join(room);
-				socket.broadcast.to(room).emit('announcement', nick + ' has join room "'+room+'"');
+				socket.broadcast.to(room).emit('announcement', 1001, nick, room);
 				socket.emit('update_rooms', rooms, room);
 				console.log("Connected `"+nick+"`");
 				//socket.broadcast.emit('announcement', nick + ' connected');

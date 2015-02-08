@@ -11,7 +11,7 @@
 ?>
 <div class="container-fluid">
     <div class="row">
-        <div id="chat" ng-controller="GameController">
+        <div id="chat" data-ng-controller="GameController">
             <div id="header" class="wrapper">
                 <div id="controls">
                     <a id="clear" href="javascript:void(0);" title="Clear messages" class="">Clear</a>
@@ -21,7 +21,17 @@
                 <div class="hdn">Available chat rooms: <span id="rooms"></span></div>
                 <div id="nicknames"></div>
             </div>
-            <div id="messages"><div id="lines"></div></div>
+            <div>
+                <a ng-click="debug()">Debug</a>
+                <div role="presentation" ng-repeat="message in xxx">
+                    <a href="javascript:void(0);">{{ message }}</a>
+                </div>
+            </div>
+
+            <div id="messages"><div id="lines">
+
+
+            </div></div>
 
             <nav class="navbar navbar-default navbar-fixed-bottom">
                     <div class="row">

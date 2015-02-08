@@ -4,14 +4,15 @@ game.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $
       $stateProvider
             .state("game", {
                 url: "/game",
-                templateUrl: 'index.php?view=game'
+                templateUrl: 'index.php?view=game',
+                //controller: 'GameController'
             })
             .state('connect', {
                 url: '/connect',
                 //template: 'Connecting..',
                 templateUrl: 'index.php?view=connect',
-                controller: 'GameController',
-                controllerAs: 'game'
+                //controller: 'GameController',
+                //controllerAs: 'game'
             });
     }
   ]
@@ -21,26 +22,43 @@ game.controller('GameController', function ($scope, $state, $location, userServi
     var self = this;
 
     self.socket = null;
+    self.$scope = $scope;
 
     $scope.user = userService.getUser();
     $scope.connectRequested = $scope.connectRequested || false;
     $scope.nickname = 'Leya';
+    console.log('User: ', $scope.user);
     if ($scope.user) {
         $scope.nickname = $scope.user.nickname || $scope.nickname;
 
     }
     $scope.errors = [];
     $scope.messages = [];
+    $scope.xxx = ['INIX'];
 
     $scope.users = [];
     $scope.userCount = 0;
     $scope.rooms = [];
     $scope.currentRoom = null;
 
-    $scope.$on('updateRooms', function(rooms) {
-        $scope.rooms = rooms;
+    $scope.message = function(text) {
+        $scope.xxx.push(text);
+        //$scope.$digest();
+        $scope.$apply()
+        //console.log('Pused', text);
+        console.log('Pused ' + text + ' to $scope ', self.$scope.$id, $scope);
+    };
+
+    $scope.$on('message', function(event, message) {
+        console.log('GameController: received message event', message);
+        $scope.message(message)
     });
 
+
+    $scope.debug = function() {
+        console.log('Debug: ', $scope.xxx);
+        $scope.message('OKA!');
+    };
 
     $scope.connect = function() {
         console.log(userService.getUser());
@@ -68,7 +86,7 @@ game.controller('GameController', function ($scope, $state, $location, userServi
         }
         catch (e)
         {
-            console.log(e);
+            console.log('Exception', e);
         }
         socket.on('connect', function () {
             console.log('on connect');
@@ -90,6 +108,7 @@ game.controller('GameController', function ($scope, $state, $location, userServi
                 if (!nicknameInUse) {
                     $scope.initCommunication(this);
                     $state.go('game');
+                    $scope.$emit('message', 'Connected');
                 }
                 else {
                     $scope.errors = ["You are already connected"];
@@ -101,25 +120,24 @@ game.controller('GameController', function ($scope, $state, $location, userServi
             });
         });
 
-        socket.on('error', function (e)
-        {
+        socket.on('error', function (e) {
             console.log('on error', e);
             if (!e || typeof(e) == "object") e = "Panic attack! Wtf just happened?!";
-            message('System', e);
+            $scope.message('System', e);
         });
 
         socket.on('disconnect', function (){
             console.log('disconnected');
             socket.destroy();
-            maybeAutoreconnect();
+            // maybeAutoreconnect();
 
         });
         socket.on('reconnect_failed', function () {
-            console.log(a,b,c);
+            console.log('reconnect_failed');
         });
 
         socket.on('connect_failed', function (a,b,c) {
-            console.log(a,b,c);
+            console.log('connect_failed');
         });
     };
 
@@ -131,19 +149,12 @@ game.controller('GameController', function ($scope, $state, $location, userServi
     $scope.initCommunication = function(socket) {
         socket.on('update_rooms', function(rooms, current_room) {
             console.log('on update_rooms', rooms, current_room);
-
-            //$scope.$digest();
-            $scope.$apply(function() {
-                console.log(rooms, current_room);
-                //$scope.rooms = rooms;
-                //$scope.currentRoom = current_room;
-                $scope.$broadcast('updateRooms', rooms);
-
-            });
+            $scope.$emit('updateRooms', rooms);
         });
 
-        socket.on('announcement', function (msg) {
-            console.log('on announcement', msg);
+        socket.on('announcement', function (msg,a,b,c,d) {
+            console.log('on announcement', arguments);
+            $scope.message('SHiT!');
             $('#lines').append($('<p>').append($('<em>').text(msg)));
             scrollDown();
         });
@@ -159,6 +170,7 @@ game.controller('GameController', function ($scope, $state, $location, userServi
         });
         socket.on('nicknames', function (nicknames) {
             console.log('on nicknames', nicknames);
+            $scope.$emit('updateUsers', nicknames);
             $scope.users = nicknames;
             $scope.userCount = 0;
             for (var i in nicknames) {
@@ -167,16 +179,18 @@ game.controller('GameController', function ($scope, $state, $location, userServi
             $scope.$digest();
         });
 
-        socket.on('user message', message);
+        socket.on('user message', $scope.message);
 
         socket.on('reconnect', function () {
             console.log('on reconnect');
             $('#lines').html("");
-            message('System', 'Reconnected to the server');
+            $scope.message('System', 'Reconnected to the server');
         });
 
 
     };
+
+
 
 
     if ($scope.connectRequested) {
@@ -184,23 +198,3 @@ game.controller('GameController', function ($scope, $state, $location, userServi
     }
 
 });
-
-
-
-
-
-var lines = 0;
-function message(from, msg)
-{
-    msg = msg.replace(/</g, '&lt;');
-    msg = msg.replace(/>/g, '&gt;');
-    msg = $("<div/>").html(msg).text();
-
-    msg = msg.replace(/\n/g, '<br />');
-    msg = $('<p>').append('<span class="time">'+(new Date().format("isoTime"))+'</span>', $('<span class="user ophmisu">').text(from), msg);
-    if (++lines > MAX_LINES)
-        $('#lines p:first').remove();
-    $('#lines').append(msg);
-    if ($('#lines').length > 0)
-        scrollDown();
-}
