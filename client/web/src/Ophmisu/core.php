@@ -84,8 +84,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$response = Users::add($post['form']);
 	}
     if ($dispatch == 'login') {
-        if (Users::login($post['form'])) {
+        $username = $post['form']['username'];
+        $password = $post['form']['password'];
+
+        if (Users::login($username, $password)) {
             $response['messages'] = array('Okay!');
+            $response['user'] = Users::findByUsername($username);
+            unset($response['user']['password']);
         }
         else {
             $response['errors'] = array('No, you didn\'t!');

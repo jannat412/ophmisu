@@ -22,13 +22,21 @@
                 <div id="nicknames"></div>
             </div>
             <div id="messages"><div id="lines"></div></div>
-            <div id="send-message-wrap" class="wrapper">
-                <div id="send-message-container">
-                    <form id="send-message">
-                        <input id="message" type="text" autocomplete="off" class="wrapper"><button class="btn">Send</button>
-                    </form>
-                </div>
-            </div>
+
+            <nav class="navbar navbar-default navbar-fixed-bottom">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="input-group input-group-lg">
+                                <input type="text" placeholder="Search for..." class="form-control">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default"><?php __('send') ?></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+            </nav>
+
+
         </div>
 
 

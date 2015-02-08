@@ -2,16 +2,12 @@ var userApp = angular.module('ophmisu.user', ['ui.router']);
 
 userApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider,   $urlRouterProvider) {
       $stateProvider
-        //////////////
-        // Contacts //
-        //////////////
         .state('home', {
           url: '/',
           templateUrl: 'index.php?view=home',
           controller: ['$scope', '$state', function (  $scope,   $state) {
-
             }]
-        })
+        });
     }
   ]
 );
@@ -23,6 +19,7 @@ userApp.controller('UserController', function ($scope, $location, userService) {
         password: "",
         email: ""
     };
+    $scope.user = null;
     $scope.errors = [];
     $scope.messages = [];
 
@@ -33,10 +30,12 @@ userApp.controller('UserController', function ($scope, $location, userService) {
                 $scope.errors = [];
                 if (response.messages)
                 {
+                    $scope.user = user;
                     $scope.messages = response.messages;
                 }
                 else if (response.errors)
                 {
+                    $scope.user = null;
                     $scope.errors = response.errors;
                 }
             }, function( errorMessage ) {
@@ -55,13 +54,12 @@ userApp.controller('UserController', function ($scope, $location, userService) {
                 if (response.messages)
                 {
                     $scope.messages = response.messages;
-                    $location.path('/game');
+                    userService.setUser(response.user);
+                    $location.path('/connect');
                 }
                 else if (response.errors)
                 {
                     $scope.errors = response.errors;
-                    console.log(response.errors);
-
                 }
             }, function( errorMessage ) {
                 console.warn( errorMessage );
@@ -70,15 +68,25 @@ userApp.controller('UserController', function ($scope, $location, userService) {
     };
 });
 
-// I act a repository for the remote friend collection.
 userApp.service(
     "userService",
     function( $http, $q ) {
+        this.user = null;
+
         return({
             register: register,
-            login: login
+            login: login,
+            setUser: setUser,
+            getUser: getUser
         });
 
+        function setUser(user) {
+            this.user = user;
+        }
+
+        function getUser(user) {
+            return this.user;
+        }
         function register(data) {
             var request = $http({
                 method: "post",
@@ -119,6 +127,5 @@ userApp.service(
         function handleSuccess( response ) {
             return( response.data );
         }
-
     }
 );

@@ -15,12 +15,10 @@ $labels = array(
 );
 ?>
 
-<ul class="nav navbar-nav navbar-right">
-    <li class="dropdown">
-        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $labels[$currentLocale]; ?> <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
-            <li <?php echo $currentLocale == 'ro_RO' ? 'class="active"' : '' ?>><a href="<?php echo formatUrl('index.php?' . LOCALE_REQUEST_PARAM . '=ro_RO')?>"><?php __('language_ro'); ?></a></li>
-            <li <?php echo $currentLocale == 'en_US' ? 'class="active"' : '' ?>><a href="<?php echo formatUrl('index.php?' . LOCALE_REQUEST_PARAM . '=en_US')?>"><?php __('language_en'); ?></a></li>
-        </ul>
-    </li>
-</ul>
+<li class="dropdown">
+    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $labels[$currentLocale]; ?> <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <li <?php echo $currentLocale == 'ro_RO' ? 'class="active"' : '' ?>><a href="<?php echo formatUrl('index.php?' . LOCALE_REQUEST_PARAM . '=ro_RO')?>"><?php __('language_ro'); ?></a></li>
+        <li <?php echo $currentLocale == 'en_US' ? 'class="active"' : '' ?>><a href="<?php echo formatUrl('index.php?' . LOCALE_REQUEST_PARAM . '=en_US')?>"><?php __('language_en'); ?></a></li>
+    </ul>
+</li>

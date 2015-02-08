@@ -72,6 +72,7 @@ require_once 'src/Ophmisu/core.php';
         <!-- Fixed navbar -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
+
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
@@ -81,12 +82,40 @@ require_once 'src/Ophmisu/core.php';
                     </button>
                     <a class="navbar-brand" href="#"><?php __('homepage_title'); ?></a>
                 </div>
+
                 <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav navbar-left nav-pills" role="tablist" ng-controller="GameController">
+{{ rooms }}
+                        <li role="presentation" ng-repeat="room in rooms" ng-class="{'active':room == currentRoom}">
+                            <a href="javascript:void(0);">
+                                {{ room }} <span class="badge">{{ room == currentRoom ? userCount : "0"}}</span>
+                            </a>
+                        </li>
+
+                        <li role="presentation" ng-repeat="user in users">
+                            <a href="javascript:void(0);">{{ user }}</a>
+                        </li>
 
                     </ul>
-                    <?php include 'views/languages.php';?>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="javascript:void(0);" role="button" aria-expanded="false">
+                                <?php __('profile'); ?>
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" ui-sref="home" role="button" aria-expanded="false">
+                                <?php __('logout'); ?>
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                            </a>
+
+                        </li>
+                        <?php include 'views/languages.php';?>
+                    </ul>
                 </div><!--/.nav-collapse -->
+
             </div>
         </nav>
         <div ui-view class="view-animate">

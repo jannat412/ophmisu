@@ -12,13 +12,20 @@
 
 class Users
 {
-	public static function login($input)
+	public static function findByUsername($username)
     {
-        $user = db_row('SELECT * FROM users WHERE username = ?s', $input['username']);
+        $user = db_row('SELECT * FROM users WHERE username = ?s', $username);
+
+        return $user;
+    }
+	public static function login($username, $password)
+    {
+        $user = self::findByUsername($username);
         if (empty($user)) {
             return false;
         }
-        return $user['password'] == crypt($input['password'], $user['password']);
+
+        return $user['password'] == crypt($password, $user['password']);
     }
 	public static function add($input)
 	{
@@ -39,9 +46,9 @@ class Users
 			}
 		}
 		if (!empty($errors)) {}
-		elseif (strlen($input['password']) < 4)
+		elseif (strlen($input['password']) < 1)
 		{
-			$errors[] = 'A minimum 4 characters password is required';
+			$errors[] = 'A minimum 1 characters password is required';
 		}
 		
 		if (!empty($errors)) return array('errors' => $errors);
@@ -57,7 +64,5 @@ class Users
 		$user_id = db_query('INSERT INTO users ?e', $input);
 
         return array('messages' => array('Your account has been created!'));
-//        return true;
-		
 	}
 }
