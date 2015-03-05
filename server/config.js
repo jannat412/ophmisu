@@ -7,7 +7,7 @@ config.ophmisu.triviaRoom = 'trivia';
 
 config.app = {};
 config.app.debug = true; // set DEBUG=*,-not_this
-config.app.hostname = 'ophmisu.dev';
+config.app.hostname = 'dev.ophmisu.com';
 config.app.httpPort = 2013;
 config.app.httpsPort = 2014;
 

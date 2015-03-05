@@ -1,12 +1,19 @@
 function htmlEscape(text) {
 	return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;').replace(/'/g, '&#039;');
 }
-
+var fs = require('fs');
+var utils = require('./utils');
 var config = require('./config');
 
-var rooms = config.ophmisu.rooms;
-var defaultRoom = config.ophmisu.defaultRoom;
-var triviaRoom = config.ophmisu.triviaRoom ;
+try {
+    if (fs.openSync('./local.config.js', 'r')) {
+        config = require('./local.config')(config);
+    }
+} catch (e) {}
+
+var rooms = config.ophmisu.rooms,
+    defaultRoom = config.ophmisu.defaultRoom,
+    triviaRoom = config.ophmisu.triviaRoom ;
 
 
 var debug = require('debug')('app');
@@ -17,7 +24,6 @@ winston.add(winston.transports.File, { filename: 'logs/log.log' });
 winston.remove(winston.transports.Console);
 
 
-var fs = require('fs');
 var options = {
 	requestCert: true,
 	rejectUnauthorized: false,
