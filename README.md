@@ -13,6 +13,7 @@ bower install
 ### Server
 ```
 cd ophmisu/server
+npm install
 mysql --default-character-set=utf8 --user=ophmisu --password= ophmisu < latest.sql
 ...todo
 ```
