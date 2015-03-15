@@ -15,13 +15,13 @@ var rooms = config.ophmisu.rooms,
     defaultRoom = config.ophmisu.defaultRoom,
     triviaRoom = config.ophmisu.triviaRoom ;
 
-
+//  set DEBUG=*,-not_this
 var debug = require('debug')('app');
 debug('booting %s', "");
 
-var winston = require('winston');
-winston.add(winston.transports.File, { filename: 'logs/log.log' });
-winston.remove(winston.transports.Console);
+//var winston = require('winston');
+//winston.add(winston.transports.File, { filename: 'logs/log.log' });
+//winston.remove(winston.transports.Console);
 
 
 var options = {
@@ -131,7 +131,19 @@ function initApp(ioi, iname)
     console.log('Initializing routes for '+iname);
 
 	ioi.sockets.on('connection', function (socket) {
-        // console.log('Got socket connection', socket);
+        console.log('Got socket connection');
+
+        // if socket hasn't present a nickname after a while, just kill it
+        socket.killId = setTimeout(function() {
+            //if (!)
+            console.log('socket.nickname', socket.nickname);
+            if (!socket.nickname) {
+                socket.disconnect();
+                console.log('Killing socket..');
+                return;
+            }
+            //console.log(this == socket);
+        }, 2000);
 		
 		socket.on('nickname', function (args, fn) {
 			var nick = args.nickname;
@@ -200,7 +212,7 @@ function initApp(ioi, iname)
 			if (msg.length > MESSAGE_MAX_LENGTH && socket.nickname != ophmisu.nickname) msg = msg.substring(0, MESSAGE_MAX_LENGTH-5)+' (..)';
             
 			//socket.in(socket.room).broadcast.emit('user message', socket.nickname, htmlEscape(msg));
-			
+
             sio.sockets.emit('user message', socket.nickname, htmlEscape(msg));
             sios.sockets.emit('user message', socket.nickname, htmlEscape(msg));
             debug("Broadcasting message to "+sio.sockets.length+" HTTP sockets");

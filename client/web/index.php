@@ -51,6 +51,7 @@ require_once 'src/Ophmisu/core.php';
 
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular/angular.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-ui-router/release/angular-ui-router.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-sanitize/angular-sanitize.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-animate/angular-animate.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-bootstrap/ui-bootstrap.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'); ?>"></script>
@@ -88,27 +89,21 @@ require_once 'src/Ophmisu/core.php';
                 </div>
 
                 <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-left nav-pills" role="tablist">
-                        <li role="presentation" ng-repeat="room in rooms" ng-class="{'active':room == currentRoom}">
-                            <a href="javascript:void(0);">
-                                {{ room }} <span class="badge">{{ room == currentRoom ? userCount : "0"}}</span>
-                            </a>
-                        </li>
-
-                        <li role="presentation" ng-repeat="user in users">
-                            <a href="javascript:void(0);">{{ user }}</a>
-                        </li>
-                    </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="javascript:void(0);" role="button" aria-expanded="false">
+                            <a href="javascript:void(0);" ui-sref="game" class=""><?php __('game'); ?>
+                                <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" ui-sref="profile" role="button" aria-expanded="false">
                                 <?php __('profile'); ?>
                                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" ui-sref="home" role="button" aria-expanded="false">
+                            <a href="javascript:void(0);" ng-click="disconnect()" role="button" aria-expanded="false">
                                 <?php __('logout'); ?>
                                 <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                             </a>

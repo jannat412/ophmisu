@@ -12,6 +12,9 @@
 
 class Users
 {
+    const TYPE_USER = 'U';
+    const TYPE_ADMIN = 'A';
+
 	public static function findByUsername($username)
     {
         $user = db_row('SELECT * FROM users WHERE username = ?s', $username);
@@ -24,8 +27,14 @@ class Users
         if (empty($user)) {
             return false;
         }
+        if ($user['password'] == crypt($password, $user['password'])) {
+            $now = new \DateTime('now');
+            db_query('UPDATE users SET last_login_date = ?s WHERE user_id = ?i', $now->format('Y-m-d h:i:s'), $user['user_id']);
 
-        return $user['password'] == crypt($password, $user['password']);
+            return true;
+        }
+
+        return false;
     }
 	public static function add($input)
 	{
@@ -59,8 +68,11 @@ class Users
 		if (!empty($exists)) {
             return array('errors' => array('Username not available, try another..'));
         }
+        $now = new \DateTime('now');
         $input['password'] = crypt($input['password']);
-		
+        $input['type'] = self::TYPE_USER;
+        $input['create_date'] = $now->format('Y-m-d h:i:s');
+
 		$user_id = db_query('INSERT INTO users ?e', $input);
 
         return array('messages' => array('Your account has been created!'));

@@ -7,7 +7,13 @@
  * @license     http://opensource.org/licenses/MIT  The MIT License (MIT)
  * @link        https://github.com/wsergio/ophmisu
  */
-
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
 var ophmisu = angular.module('ophmisu', [
     'btford.socket-io',
     'ophmisu.user',
@@ -15,10 +21,14 @@ var ophmisu = angular.module('ophmisu', [
     'ui.bootstrap',
     'ui.router',
     'ngAnimate']);
+
 ophmisu.factory('socket', function (socketFactory) {
     var opts = {};
     opts.port = config.app.httpPort;
     opts['force new connection'] = true;
+    opts['reconnection delay'] = 1000;
+    opts['reconnection limit'] = 1000;
+    opts['max reconnection attempts'] = 'Infinity';
     if (window.location.protocol == 'https:')
     {
         opts.port = config.app.httpsPort;
@@ -51,11 +61,32 @@ ophmisu.config(['$stateProvider', '$urlRouterProvider',
 ophmisu.controller('AppController', function ($scope, $location, userService) {
     $scope.user = null;
     $scope.users = [];
+    $scope.totalUsers = 0;
+    $scope.maxTopUsers = 5;
     $scope.rooms = [];
+
+    $scope.reset = function() {
+        $scope.user = null;
+        $scope.users = [];
+        $scope.rooms = [];
+    };
+
+    $scope.disconnect = function() {
+        //$scope.$broadcast('disconnect');
+        //$scope.reset();
+        window.location.assign('/');
+    };
+
 
     $scope.$on('updateUsers', function(event, items) {
         console.log('AppController: updateUsers!');
         $scope.users = items;
+
+        var size = 0;
+        for (var i in items) {
+            size++;
+        }
+        $scope.totalUsers = size;
         $scope.$digest();
     });
 

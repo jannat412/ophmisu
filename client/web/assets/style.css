@@ -414,3 +414,23 @@ html {
     text-align: center;
 }
 /* /Home page */
+.inline {
+    display: inline;
+}
+
+/* Sidebar */
+.sidebar {
+    margin-top: 0;
+    overflow: auto;
+}
+.sidebar.full-height > ul {
+    margin-bottom: 60px;
+    padding-top: 15px;
+}
+html,body,
+.view-animate,
+.container-fluid,
+.full-height {
+    height: 100%;
+}
+/* /Sidebar */

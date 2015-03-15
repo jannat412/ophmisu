@@ -7,22 +7,30 @@ userApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider
           templateUrl: 'index.php?view=home',
           controller: ['$scope', '$state', function (  $scope,   $state) {
             }]
-        });
+        })
+      .state('profile', {
+          url: '/profile',
+          templateUrl: 'index.php?view=profile',
+          controller: ['$scope', '$state', function (  $scope,   $state) {
+          }]
+      })
+      ;
     }
   ]
 );
 
 
-userApp.controller('UserController', function ($scope, $location, userService) {
+userApp.controller('UserController', function ($scope, $state, $location, userService) {
     $scope.form = {
         username: "",
         password: "",
         email: ""
     };
-    $scope.user = null;
+    $scope.user = userService.getUser();
     $scope.errors = [];
     $scope.messages = [];
-
+    console.log('$state in UserController', $state);
+    console.log('$location in UserController', $location);
     $scope.register = function() {
         userService.register( $scope.form )
             .then(function(response) {
@@ -45,7 +53,6 @@ userApp.controller('UserController', function ($scope, $location, userService) {
     };
 
     $scope.login = function() {
-
         userService.login( $scope.form )
             .then(function(response) {
 
@@ -55,16 +62,23 @@ userApp.controller('UserController', function ($scope, $location, userService) {
                 {
                     $scope.messages = response.messages;
                     userService.setUser(response.user);
-                    $location.path('/connect');
+                    $scope.user = response.user;
+                    $location.path('/game');
                 }
                 else if (response.errors)
                 {
                     $scope.errors = response.errors;
+                    $scope.user = null;
                 }
             }, function( errorMessage ) {
                 console.warn( errorMessage );
             }
         );
+    };
+
+    $scope.update = function() {
+        userService.getUser().nickname = "xx";
+        console.log(userService.getUser());
     };
 });
 
