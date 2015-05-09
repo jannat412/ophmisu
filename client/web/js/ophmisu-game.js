@@ -134,9 +134,14 @@ game.service(
                 ss = $filter('pad')(date.getSeconds(), 2)
                 ;
 
-            obj.time =  hh + ':' + mm + ':' + ss;
+            obj.time = hh + ':' + mm + ':' + ss;
+            if (self.messages.length > 5000) {
+                self.messages = [];
+            }
             self.messages.push(obj);
-            $('.op-content-zone').scrollTop($('.op-content-zone #lines').height() + 3000)
+
+            var contentZone = $('.op-content-zone');
+            contentZone.animate({scrollTop: contentZone.get(0).scrollHeight}, 200);
         };
 
         function systemMessage() {

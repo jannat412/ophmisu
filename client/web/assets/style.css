@@ -436,7 +436,7 @@ html,body,
 }
 .op-content-zone {
     max-height: 100%;
-    overflow: scroll;
+    overflow: auto;
 }
 #lines {
     padding-bottom: 74px;
