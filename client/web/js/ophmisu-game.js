@@ -42,11 +42,15 @@ game.service(
          */
         return({
             data: self,
+            disconnect: disconnect,
             initialize: initialize,
             reset: reset,
             setScope: setScope
         });
 
+        function setScope(scope) {
+            self.scope = scope;
+        }
         /**
          * @TODO: move data into a model
          */
@@ -67,6 +71,7 @@ game.service(
         }
 
         function initialize() {
+
             self.nickname = self.nickname || 'Anonim-' + Math.round(Math.random() * 1000);
             self.notifications = self.notifications || [];
             self.messages = self.messages || [];
@@ -82,20 +87,23 @@ game.service(
                 self.nickname = self.user.nickname || self.nickname;
             }
 
-            initializeScope();
+            if (socket.secondRun) {
+                initializeScope();
+                connect();
+            }
 
             if (!socket.initialized) {
+                initializeScope();
                 initSocket(socket);
                 socket.initialized = 1;
-            } else {
+                socket.secondRun = 1;
             }
+
         }
 
         function initializeScope() {
             self.scope.$on('disconnect', function() {
-                socket.disconnect();
-                //$scope.disconnect();
-                //$scope.reset();
+                disconnect();
             });
 
             self.scope.talk = function() {
@@ -104,14 +112,38 @@ game.service(
             }
         }
 
-        function setScope(scope) {
-            self.scope = scope;
-        }
-
-
         /**
          * Internal methods
          */
+        function authenticate() {
+            console.log('connecting as ' + self.nickname);
+            socket.emit('nickname', {
+                nickname: self.nickname
+            }, function(error) {
+                if (!error) {
+                    systemMessage('Connected as ' + self.nickname);
+                    onConnect();
+                } else {
+                    systemMessage('Connection failed');
+                    console.error(error);
+                }
+            });
+        };
+        function onConnect() {
+            console.log('onConnect', arguments);
+            userService.setConnected(true);
+            $state.go('game');
+        };
+
+        function connect() {
+            console.log("connect");
+            socket.connect();
+        };
+        function disconnect() {
+            console.log('$scope disconnect', arguments);
+            userService.setConnected(false);
+            socket.disconnect();
+        };
         function message(who, text) {
             var obj = {};
             if (typeof(text) == 'object') {
@@ -153,37 +185,6 @@ game.service(
             message(null, text);
         };
 
-        function authenticate() {
-            console.log('connecting as ' + self.nickname);
-            socket.emit('nickname', {
-                nickname: self.nickname
-            }, function(error) {
-                if (!error) {
-                    systemMessage('Connected as ' + self.nickname);
-                    onConnect();
-                } else {
-                    systemMessage('Connection failed');
-                }
-            });
-        };
-
-
-
-        function onConnect() {
-            console.log('onConnect', arguments);
-            $state.go('game');
-        };
-
-        function connect() {
-            console.log("connect");
-            socket.connect();
-            //socket.connect(null,{'forceNew':true});
-        };
-        function disconnect() {
-            console.log('$scope disconnect', arguments);
-            //socket.disconnect();
-        };
-
         /***
          * Socket related stuff
          * @param socket
@@ -200,7 +201,7 @@ game.service(
                 systemMessage('Disconnected');
                 setTimeout(function() {
                     $state.go('home');
-                }, 1000);
+                }, 500);
             });
             socket.on('error', function (err) {
                 if (err.description) throw err.description;

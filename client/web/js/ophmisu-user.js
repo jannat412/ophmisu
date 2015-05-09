@@ -108,10 +108,18 @@ userApp.service(
             getRanks: getRanks,
             register: register,
             login: login,
+            setConnected: setConnected,
+            isConnected: isConnected,
             setUser: setUser,
             getUser: getUser
         });
 
+        function setConnected(bool) {
+            this.connected = bool;
+        }
+        function isConnected() {
+            return this.connected;
+        }
         function setUser(user) {
             this.user = user;
         }

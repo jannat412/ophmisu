@@ -34,6 +34,7 @@ require_once 'src/Ophmisu/core.php';
         var config = {
             'app': {
                 'timezone': '<?php echo $config['app']['timezone'] ?>',
+                'locale': '<?php echo getLocale() ?>',
                 'hostname': '<?php echo $config['app']['hostname'] ?>',
                 'httpPort': '<?php echo $config['app']['httpPort'] ?>',
                 'httpsPort': '<?php echo $config['app']['httpsPort'] ?>'
@@ -55,6 +56,7 @@ require_once 'src/Ophmisu/core.php';
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-animate/angular-animate.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-bootstrap/ui-bootstrap.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/socket.io-client/socket.io.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-socket-io/socket.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/sprintf/dist/sprintf.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/sprintf/dist/angular-sprintf.min.js'); ?>"></script>
@@ -62,6 +64,9 @@ require_once 'src/Ophmisu/core.php';
     <script type="text/javascript" src="<?php echo formatUrl('bower_components/moment/min/moment.min.js'); ?>"></script>
     <script type="text/javascript" src="<?php echo formatUrl('bower_components/moment-timezone/builds/moment-timezone-with-data.min.js'); ?>"></script>
     <script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-moment/angular-moment.min.js'); ?>"></script>
+    <?php if (getLocale() == 'ro_RO') : ?>
+        <script type="text/javascript" src="<?php echo formatUrl('bower_components/moment/locale/ro.js'); ?>"></script>
+    <?php endif ?>
 
     <link type="text/css" href="<?php echo formatUrl('bower_components/bootstrap-offcanvas/dist/css/bootstrap.offcanvas.min.css'); ?>" rel="stylesheet" />
     <script type="text/javascript" src="<?php echo formatUrl('bower_components/bootstrap-offcanvas/dist/js/bootstrap.offcanvas.min.js'); ?>"></script>
@@ -71,7 +76,6 @@ require_once 'src/Ophmisu/core.php';
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-game.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-engine.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-translator.js'); ?>"></script>
-    <script type="text/javascript" src="<?php echo formatUrl('js/socket.io/socket.io-1.0.6.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jqueryui/jquery-ui-1.8.23.custom.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jquery.inputHistory.js'); ?>"></script>
 
@@ -86,7 +90,7 @@ require_once 'src/Ophmisu/core.php';
             <div class="container">
 
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle offcanvas-toggle" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
+                    <button ng-if="userService.connected == true" type="button" class="navbar-toggle offcanvas-toggle" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -115,13 +119,13 @@ require_once 'src/Ophmisu/core.php';
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" ui-sref="profile" role="button" aria-expanded="false">
+                            <a href="javascript:void(0);" ui-sref="profile" role="button" aria-expanded="false" ng-if="userService.connected == true">
                                 <?php __('profile'); ?>
                                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" ng-click="disconnect()" role="button" aria-expanded="false">
+                            <a href="javascript:void(0);" role="button" aria-expanded="false" ng-if="userService.connected == true" ng-click="disconnect()">
                                 <?php __('logout'); ?>
                                 <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                             </a>
