@@ -67,6 +67,7 @@ game.service(
         }
 
         function initialize() {
+
             self.nickname = self.nickname || 'Anonim-' + Math.round(Math.random() * 1000);
             self.notifications = self.notifications || [];
             self.messages = self.messages || [];
@@ -84,16 +85,31 @@ game.service(
 
             initializeScope();
 
+
+
+            initSocket(socket);
+
+            console.log('QQ: IsConnected: ', userService.isConnected());
+            console.log('QQ: Socket Initialized: ', socket.initialized);
+
+            if (socket.secondRun) {
+                console.log('QQ:secondRun !!!!!!')
+                connect();
+            }
+
             if (!socket.initialized) {
-                initSocket(socket);
                 socket.initialized = 1;
+                socket.secondRun = 1;
             } else {
             }
+
+
         }
 
         function initializeScope() {
             self.scope.$on('disconnect', function() {
-                socket.disconnect();
+                disconnect();
+                //socket.disconnect();
                 //$scope.disconnect();
                 //$scope.reset();
             });
@@ -163,6 +179,7 @@ game.service(
                     onConnect();
                 } else {
                     systemMessage('Connection failed');
+                    console.error(error);
                 }
             });
         };
@@ -171,17 +188,22 @@ game.service(
 
         function onConnect() {
             console.log('onConnect', arguments);
+            userService.setConnected(true);
             $state.go('game');
         };
 
         function connect() {
             console.log("connect");
-            socket.connect();
+            //socket.connect();
             //socket.connect(null,{'forceNew':true});
+            socket.reconnect();
+            //authenticate();
         };
         function disconnect() {
             console.log('$scope disconnect', arguments);
-            //socket.disconnect();
+            userService.setConnected(false);
+            socket.disconnect();
+            socket.initialized = 0;
         };
 
         /***
@@ -191,6 +213,9 @@ game.service(
 
         function initSocket(socket) {
             console.log('Initializing socket');
+            socket.on('connection', function () {
+                console.log('XXXXXXXXXXX connection');
+            });
             socket.on('connect', function () {
                 console.log('on connect');
                 authenticate();

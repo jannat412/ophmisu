@@ -69,6 +69,7 @@ ophmisu.controller('AppController', function ($scope, $location, userService) {
     $scope.totalUsers = 0;
     $scope.maxTopUsers = 5;
     $scope.rooms = [];
+    $scope.userService = userService;
 
     $scope.reset = function() {
         $scope.user = null;
@@ -77,9 +78,9 @@ ophmisu.controller('AppController', function ($scope, $location, userService) {
     };
 
     $scope.disconnect = function() {
-        //$scope.$broadcast('disconnect');
+        $scope.$broadcast('disconnect');
         //$scope.reset();
-        window.location.assign('/');
+        //window.location.assign('/');
     };
 
 

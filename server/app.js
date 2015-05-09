@@ -134,9 +134,10 @@ function initApp(ioi, iname)
         console.log('Got socket connection');
 
         // if socket hasn't present a nickname after a while, just kill it
+        console.log('started killer');
         socket.killId = setTimeout(function() {
             //if (!)
-            console.log('socket.nickname', socket.nickname);
+            console.log('killer socket.nickname', socket.nickname);
             if (!socket.nickname) {
                 socket.disconnect();
                 console.log('Killing socket..');
