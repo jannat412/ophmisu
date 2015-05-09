@@ -4,8 +4,8 @@ Ophmisu Trivia - realtime &amp; web based.
 Technologies:
   1. Server app: Node.JS, MySQL, Socket.IO;
   2. Client apps:
-    2.1. Web client: AngularJS, jQuery, Bootstrap, Socket.IO, PHP;
-    2.2. Android client: Android SDK (Java), Web sockets.
+    1. Web client: AngularJS, jQuery, Bootstrap, Socket.IO, PHP;
+    2. Android client: Android SDK (Java), Web sockets.
 
 Live demo at http://ophmisu.com/
 
