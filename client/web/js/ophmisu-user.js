@@ -1,4 +1,8 @@
-var userApp = angular.module('ophmisu.user', ['ui.router']);
+var userApp = angular.module('ophmisu.user', ['ui.router', 'angularMoment'])
+    .constant('angularMomentConfig', {
+        //preprocess: 'unix', // optional
+        timezone: config.app.timezone
+    });
 
 userApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider,   $urlRouterProvider) {
       $stateProvider
@@ -24,7 +28,6 @@ userApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider
     }
   ]
 );
-
 
 userApp.controller('UserController', function ($scope, $state, $location, userService) {
     $scope.form = {

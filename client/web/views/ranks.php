@@ -26,6 +26,7 @@
                                 <th><?php __('rank'); ?></th>
                                 <th><?php __('username'); ?></th>
                                 <th><?php __('score'); ?></th>
+                                <th><?php __('last_seen'); ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,6 +34,11 @@
                                 <td>{{ user.rank }}</td>
                                 <td>{{ user.nickname }}</td>
                                 <td>{{ user.score }}</td>
+                                <td>
+                                    <div ng-if="user.last_login_date != null">
+                                        <span am-time-ago="user.last_login_date"></span>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

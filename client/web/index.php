@@ -33,6 +33,7 @@ require_once 'src/Ophmisu/core.php';
 		}, {});
         var config = {
             'app': {
+                'timezone': '<?php echo $config['app']['timezone'] ?>',
                 'hostname': '<?php echo $config['app']['hostname'] ?>',
                 'httpPort': '<?php echo $config['app']['httpPort'] ?>',
                 'httpsPort': '<?php echo $config['app']['httpsPort'] ?>'
@@ -57,6 +58,10 @@ require_once 'src/Ophmisu/core.php';
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-socket-io/socket.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/sprintf/dist/sprintf.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/sprintf/dist/angular-sprintf.min.js'); ?>"></script>
+
+    <script type="text/javascript" src="<?php echo formatUrl('bower_components/moment/min/moment.min.js'); ?>"></script>
+    <script type="text/javascript" src="<?php echo formatUrl('bower_components/moment-timezone/builds/moment-timezone-with-data.min.js'); ?>"></script>
+    <script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-moment/angular-moment.min.js'); ?>"></script>
 
     <link type="text/css" href="<?php echo formatUrl('bower_components/bootstrap-offcanvas/dist/css/bootstrap.offcanvas.min.css'); ?>" rel="stylesheet" />
     <script type="text/javascript" src="<?php echo formatUrl('bower_components/bootstrap-offcanvas/dist/js/bootstrap.offcanvas.min.js'); ?>"></script>

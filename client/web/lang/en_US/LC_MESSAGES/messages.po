@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ophmisu Web Client\n"
-"POT-Creation-Date: 2015-05-09 19:13+0200\n"
-"PO-Revision-Date: 2015-05-09 19:14+0200\n"
+"POT-Creation-Date: 2015-05-09 20:52+0200\n"
+"PO-Revision-Date: 2015-05-09 20:53+0200\n"
 "Last-Translator: \n"
 "Language-Team: Sergiu VLAD <sergiu@disruptive.academy>\n"
 "Language: en_US\n"
@@ -28,23 +28,23 @@ msgstr "General knowledge game (trivia) - realtime, web based and mobile-friendl
 msgid "homepage_meta_keywords"
 msgstr "game, culture, general, trivia, questions, web based, ophmisu"
 
-#: index.php:97 views/home.php:18
+#: index.php:102 views/home.php:18
 msgid "homepage_title"
 msgstr "Ophmisu Trivia"
 
-#: index.php:103
+#: index.php:108
 msgid "ranks"
 msgstr "Ranks"
 
-#: index.php:108
+#: index.php:113
 msgid "game"
 msgstr "Game"
 
-#: index.php:114
+#: index.php:119
 msgid "profile"
 msgstr "Profile"
 
-#: index.php:120
+#: index.php:125
 msgid "logout"
 msgstr "Logout"
 
@@ -151,6 +151,10 @@ msgstr "Rank"
 #: views/ranks.php:28
 msgid "score"
 msgstr "Score"
+
+#: views/ranks.php:29
+msgid "last_seen"
+msgstr "Last seen"
 
 #~ msgid "users_list_button"
 #~ msgstr "Online users"

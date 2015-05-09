@@ -58,11 +58,7 @@
             </nav>
         </div>
 
-
     </div>
-
 </div>
-
-
 
 <script type="text/javascript" src="<?php echo formatUrl('bower_components/bootstrap-offcanvas/dist/js/bootstrap.offcanvas.min.js'); ?>"></script>

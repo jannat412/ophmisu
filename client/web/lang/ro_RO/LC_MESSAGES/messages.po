@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ophmisu Web Client\n"
-"POT-Creation-Date: 2015-05-09 19:13+0200\n"
-"PO-Revision-Date: 2015-05-09 19:13+0200\n"
+"POT-Creation-Date: 2015-05-09 20:53+0200\n"
+"PO-Revision-Date: 2015-05-09 20:53+0200\n"
 "Last-Translator: \n"
 "Language-Team: Sergiu VLAD <sergiu@disruptive.academy>\n"
 "Language: ro_RO\n"
@@ -29,23 +29,23 @@ msgstr "Joc de cultura generala (trivia) - realtime, web based"
 msgid "homepage_meta_keywords"
 msgstr "joc,cultura,generala,trivia,intrebari,romana,web,based,ophmisu"
 
-#: index.php:97 views/home.php:18
+#: index.php:102 views/home.php:18
 msgid "homepage_title"
 msgstr "Ophmisu Trivia"
 
-#: index.php:103
+#: index.php:108
 msgid "ranks"
 msgstr "Clasament"
 
-#: index.php:108
+#: index.php:113
 msgid "game"
 msgstr "Joc"
 
-#: index.php:114
+#: index.php:119
 msgid "profile"
 msgstr "Profil"
 
-#: index.php:120
+#: index.php:125
 msgid "logout"
 msgstr "Deconectare"
 
@@ -152,3 +152,7 @@ msgstr "Locul"
 #: views/ranks.php:28
 msgid "score"
 msgstr "Scor"
+
+#: views/ranks.php:29
+msgid "last_seen"
+msgstr "Ultima vizită"
