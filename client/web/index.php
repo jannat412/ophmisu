@@ -38,39 +38,84 @@ require_once 'src/Ophmisu/core.php';
                 'httpsPort': '<?php echo $config['app']['httpsPort'] ?>'
             }
         };
+        <?php
+            echo 'var translationMap = '.json_encode($translationMap) . ';';
+        ?>
 	</script>
 
     <script type="text/javascript" src="<?php echo formatUrl('bower_components/jquery/dist/jquery.min.js'); ?>"></script>
 
-    <link type="text/css" href="<?php echo formatUrl('bower_components/bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet" />
-    <link type="text/css" href="<?php echo formatUrl('bower_components/bootstrap/dist/css/bootstrap-theme.min.css'); ?>" rel="stylesheet" />
+    <link type="text/css" href="//bootswatch.com/cosmo/bootstrap.min.css" rel="stylesheet" />
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
 
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular/angular.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-ui-router/release/angular-ui-router.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-sanitize/angular-sanitize.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-animate/angular-animate.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-bootstrap/ui-bootstrap.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-socket-io/socket.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/sprintf/dist/sprintf.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('bower_components/sprintf/dist/angular-sprintf.min.js'); ?>"></script>
 
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-user.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-game.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-engine.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo formatUrl('js/jquery-1.8.0.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-translator.js'); ?>"></script>
+    <script type="text/javascript" src="<?php echo formatUrl('js/socket.io/socket.io-1.0.6.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jqueryui/jquery-ui-1.8.23.custom.min.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo formatUrl('js/socket.io/socket.io-1.0.6.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jquery.inputHistory.js'); ?>"></script>
 </head>
-<body>
+<body ng-controller="AppController">
 	<div id="fb-root"></div>
 
-
-
     <div class="view-animate-container">
+
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" ui-sref="home" href="#"><?php __('homepage_title'); ?></a>
+                </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="javascript:void(0);" ui-sref="game" class=""><?php __('game'); ?>
+                                <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" ui-sref="profile" role="button" aria-expanded="false">
+                                <?php __('profile'); ?>
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" ng-click="disconnect()" role="button" aria-expanded="false">
+                                <?php __('logout'); ?>
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                            </a>
+
+                        </li>
+                        <?php include 'views/languages.php';?>
+                    </ul>
+                </div><!--/.nav-collapse -->
+
+            </div>
+        </nav>
         <div ui-view class="view-animate">
         </div>
     </div>
-
 
     <?php if (!empty($config['app']['trackingCode'])) : ?>
         <script>

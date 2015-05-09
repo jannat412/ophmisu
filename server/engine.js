@@ -57,7 +57,7 @@ var Ophmisu = function Ophmisu(){
 	this.config.auto_start = false;
 	this.config.level = 8;
 	this.config.domain = "math";
-	this.config.speed = 3000;
+	this.config.speed = 8000;
 	
 	this.status = 0;
 	this.ID = 0;

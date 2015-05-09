@@ -1,23 +1,29 @@
 function htmlEscape(text) {
 	return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;').replace(/'/g, '&#039;');
 }
-
+var fs = require('fs');
+var utils = require('./utils');
 var config = require('./config');
 
-var rooms = config.ophmisu.rooms;
-var defaultRoom = config.ophmisu.defaultRoom;
-var triviaRoom = config.ophmisu.triviaRoom ;
+try {
+    if (fs.openSync('./local.config.js', 'r')) {
+        config = require('./local.config')(config);
+    }
+} catch (e) {}
 
+var rooms = config.ophmisu.rooms,
+    defaultRoom = config.ophmisu.defaultRoom,
+    triviaRoom = config.ophmisu.triviaRoom ;
 
+//  set DEBUG=*,-not_this
 var debug = require('debug')('app');
 debug('booting %s', "");
 
-var winston = require('winston');
-winston.add(winston.transports.File, { filename: 'logs/log.log' });
-winston.remove(winston.transports.Console);
+//var winston = require('winston');
+//winston.add(winston.transports.File, { filename: 'logs/log.log' });
+//winston.remove(winston.transports.Console);
 
 
-var fs = require('fs');
 var options = {
 	requestCert: true,
 	rejectUnauthorized: false,
@@ -72,6 +78,11 @@ ophmisu.init();
 initApp(sio, 'http');
 initApp(sios, 'https');
 
+setInterval(function() {
+    //sio.sockets.emit('user message', "PING");
+    //sio.sockets.emit('announcement', 1001, 'Journey', "trivia");
+
+}, 3000);
 
 
 
@@ -120,7 +131,19 @@ function initApp(ioi, iname)
     console.log('Initializing routes for '+iname);
 
 	ioi.sockets.on('connection', function (socket) {
-        // console.log('Got socket connection', socket);
+        console.log('Got socket connection');
+
+        // if socket hasn't present a nickname after a while, just kill it
+        socket.killId = setTimeout(function() {
+            //if (!)
+            console.log('socket.nickname', socket.nickname);
+            if (!socket.nickname) {
+                socket.disconnect();
+                console.log('Killing socket..');
+                return;
+            }
+            //console.log(this == socket);
+        }, 2000);
 		
 		socket.on('nickname', function (args, fn) {
 			var nick = args.nickname;
@@ -144,7 +167,7 @@ function initApp(ioi, iname)
 				
 				socket.room = room;
 				socket.join(room);
-				socket.broadcast.to(room).emit('announcement', nick + ' has join room "'+room+'"');
+				socket.broadcast.to(room).emit('announcement', 1001, nick, room);
 				socket.emit('update_rooms', rooms, room);
 				console.log("Connected `"+nick+"`");
 				//socket.broadcast.emit('announcement', nick + ' connected');
@@ -189,7 +212,7 @@ function initApp(ioi, iname)
 			if (msg.length > MESSAGE_MAX_LENGTH && socket.nickname != ophmisu.nickname) msg = msg.substring(0, MESSAGE_MAX_LENGTH-5)+' (..)';
             
 			//socket.in(socket.room).broadcast.emit('user message', socket.nickname, htmlEscape(msg));
-			
+
             sio.sockets.emit('user message', socket.nickname, htmlEscape(msg));
             sios.sockets.emit('user message', socket.nickname, htmlEscape(msg));
             debug("Broadcasting message to "+sio.sockets.length+" HTTP sockets");

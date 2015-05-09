@@ -2,30 +2,35 @@ var userApp = angular.module('ophmisu.user', ['ui.router']);
 
 userApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider,   $urlRouterProvider) {
       $stateProvider
-        //////////////
-        // Contacts //
-        //////////////
         .state('home', {
           url: '/',
           templateUrl: 'index.php?view=home',
           controller: ['$scope', '$state', function (  $scope,   $state) {
-
             }]
         })
+      .state('profile', {
+          url: '/profile',
+          templateUrl: 'index.php?view=profile',
+          controller: ['$scope', '$state', function (  $scope,   $state) {
+          }]
+      })
+      ;
     }
   ]
 );
 
 
-userApp.controller('UserController', function ($scope, $location, userService) {
+userApp.controller('UserController', function ($scope, $state, $location, userService) {
     $scope.form = {
         username: "",
         password: "",
         email: ""
     };
+    $scope.user = userService.getUser();
     $scope.errors = [];
     $scope.messages = [];
-
+    console.log('$state in UserController', $state);
+    console.log('$location in UserController', $location);
     $scope.register = function() {
         userService.register( $scope.form )
             .then(function(response) {
@@ -33,10 +38,12 @@ userApp.controller('UserController', function ($scope, $location, userService) {
                 $scope.errors = [];
                 if (response.messages)
                 {
+                    $scope.user = response.user;
                     $scope.messages = response.messages;
                 }
                 else if (response.errors)
                 {
+                    $scope.user = null;
                     $scope.errors = response.errors;
                 }
             }, function( errorMessage ) {
@@ -46,7 +53,6 @@ userApp.controller('UserController', function ($scope, $location, userService) {
     };
 
     $scope.login = function() {
-
         userService.login( $scope.form )
             .then(function(response) {
 
@@ -55,30 +61,48 @@ userApp.controller('UserController', function ($scope, $location, userService) {
                 if (response.messages)
                 {
                     $scope.messages = response.messages;
-                    $location.path('/game');
+                    userService.setUser(response.user);
+                    $scope.user = response.user;
+                    setTimeout(function() {
+                        $state.go('game');
+                    }, 500);
                 }
                 else if (response.errors)
                 {
                     $scope.errors = response.errors;
-                    console.log(response.errors);
-
+                    $scope.user = null;
                 }
             }, function( errorMessage ) {
                 console.warn( errorMessage );
             }
         );
     };
+
+    $scope.update = function() {
+        userService.getUser().nickname = "xx";
+        console.log(userService.getUser());
+    };
 });
 
-// I act a repository for the remote friend collection.
 userApp.service(
     "userService",
     function( $http, $q ) {
+        this.user = null;
+
         return({
             register: register,
-            login: login
+            login: login,
+            setUser: setUser,
+            getUser: getUser
         });
 
+        function setUser(user) {
+            this.user = user;
+        }
+
+        function getUser(user) {
+            return this.user;
+        }
         function register(data) {
             var request = $http({
                 method: "post",
@@ -119,6 +143,5 @@ userApp.service(
         function handleSuccess( response ) {
             return( response.data );
         }
-
     }
 );

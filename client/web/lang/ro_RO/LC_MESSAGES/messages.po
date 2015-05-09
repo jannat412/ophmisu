@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ophmisu Web Client\n"
-"POT-Creation-Date: 2015-02-07 18:16+0200\n"
-"PO-Revision-Date: 2015-02-07 18:16+0200\n"
+"POT-Creation-Date: 2015-03-16 00:43+0200\n"
+"PO-Revision-Date: 2015-03-16 00:45+0200\n"
 "Last-Translator: \n"
 "Language-Team: Sergiu VLAD <sergiu@disruptive.academy>\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.7.5\n"
 "X-Poedit-Basepath: ../../../\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
@@ -21,6 +21,118 @@ msgstr ""
 msgid "homepage_page_title"
 msgstr "Ophmisu Trivia - joc trivia realtime & web based"
 
-#: index.php:79 src/Ophmisu/locale.php:35
+#: index.php:20
+msgid "homepage_meta_description"
+msgstr "Joc de cultura generala (trivia) - realtime, web based"
+
+#: index.php:21
+msgid "homepage_meta_keywords"
+msgstr "joc,cultura,generala,trivia,intrebari,romana,web,based,ophmisu"
+
+#: index.php:88 views/home.php:18
 msgid "homepage_title"
 msgstr "Ophmisu Trivia"
+
+#: index.php:95
+msgid "game"
+msgstr "Joc"
+
+#: index.php:101
+msgid "profile"
+msgstr "Profil"
+
+#: index.php:107
+msgid "logout"
+msgstr "Deconectare"
+
+#: src/Ophmisu/zerg.php:11 views/languages.php:13 views/languages.php:21
+msgid "language_ro"
+msgstr "Romănă"
+
+#: src/Ophmisu/zerg.php:12 views/languages.php:14 views/languages.php:22
+msgid "language_en"
+msgstr "English"
+
+#: src/Ophmisu/zerg.php:15
+msgid "ac_user_join"
+msgstr "%s a intrat in camera %s"
+
+#: views/connect.php:17
+msgid "Connecting"
+msgstr "Conectare"
+
+#: views/connect.php:20
+msgid "connect"
+msgstr "Conectează-te"
+
+#: views/connect.php:21
+msgid "cancel"
+msgstr "Anulare"
+
+#: views/errors.php:16
+msgid "error_label"
+msgstr "Eroare"
+
+#: views/errors.php:24
+msgid "success_label"
+msgstr "Bun!"
+
+#: views/game.php:57
+msgid "send"
+msgstr "Trimite"
+
+#: views/home.php:25
+msgid "login_block_title"
+msgstr "Ai deja cont?"
+
+#: views/home.php:28 views/home.php:49
+msgid "username"
+msgstr "Utilizator"
+
+#: views/home.php:31 views/home.php:52
+msgid "password"
+msgstr "Parolă"
+
+#: views/home.php:37
+msgid "login_block_button"
+msgstr "Conectează-te"
+
+#: views/home.php:46
+msgid "register_block_title"
+msgstr "Ești nou-venit?"
+
+#: views/home.php:55
+msgid "email"
+msgstr "Email"
+
+#: views/home.php:60
+msgid "register_block_button"
+msgstr "Înregistrează-te"
+
+#: views/profile.php:18
+msgid "profile_block_title"
+msgstr "Profilul tău"
+
+#: views/profile.php:27
+msgid "nickname"
+msgstr "Nume"
+
+#: views/profile.php:34
+msgid "profile_score"
+msgstr "Scor"
+
+#: views/profile.php:41
+msgid "profile_username"
+msgstr "Nume utilizator"
+
+#: views/profile.php:47
+msgid "profile_email"
+msgstr "Email"
+
+#: views/profile.php:56
+msgid "update"
+msgstr "Salvează"
+
+#: views/profile.php:57
+msgid "return_to_game"
+msgstr "Întoarce-te la joc"

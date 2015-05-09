@@ -12,13 +12,29 @@
 
 class Users
 {
-	public static function login($input)
+    const TYPE_USER = 'U';
+    const TYPE_ADMIN = 'A';
+
+	public static function findByUsername($username)
     {
-        $user = db_row('SELECT * FROM users WHERE username = ?s', $input['username']);
+        $user = db_row('SELECT * FROM users WHERE username = ?s', $username);
+
+        return $user;
+    }
+	public static function login($username, $password)
+    {
+        $user = self::findByUsername($username);
         if (empty($user)) {
             return false;
         }
-        return $user['password'] == crypt($input['password'], $user['password']);
+        if ($user['password'] == crypt($password, $user['password'])) {
+            $now = new \DateTime('now');
+            db_query('UPDATE users SET last_login_date = ?s WHERE user_id = ?i', $now->format('Y-m-d h:i:s'), $user['user_id']);
+
+            return true;
+        }
+
+        return false;
     }
 	public static function add($input)
 	{
@@ -39,9 +55,9 @@ class Users
 			}
 		}
 		if (!empty($errors)) {}
-		elseif (strlen($input['password']) < 4)
+		elseif (strlen($input['password']) < 1)
 		{
-			$errors[] = 'A minimum 4 characters password is required';
+			$errors[] = 'A minimum 1 characters password is required';
 		}
 		
 		if (!empty($errors)) return array('errors' => $errors);
@@ -52,12 +68,13 @@ class Users
 		if (!empty($exists)) {
             return array('errors' => array('Username not available, try another..'));
         }
+        $now = new \DateTime('now');
         $input['password'] = crypt($input['password']);
-		
+        $input['type'] = self::TYPE_USER;
+        $input['create_date'] = $now->format('Y-m-d h:i:s');
+
 		$user_id = db_query('INSERT INTO users ?e', $input);
 
         return array('messages' => array('Your account has been created!'));
-//        return true;
-		
 	}
 }

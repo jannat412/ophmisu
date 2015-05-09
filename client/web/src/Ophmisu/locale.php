@@ -17,6 +17,9 @@ define('LANG_DIR', dirname(__FILE__) . '/../../lang/');
 
 if (array_key_exists(LOCALE_REQUEST_PARAM, $_REQUEST) && isSupportedLocale($_REQUEST[LOCALE_REQUEST_PARAM])) {
     $current_locale = $_REQUEST[LOCALE_REQUEST_PARAM];
+    if (!empty($_SERVER['HTTP_REFERER'])) {
+        $redirect = $_SERVER['HTTP_REFERER'];
+    }
 } elseif (array_key_exists(SESSION_LOCALE_KEY, $_SESSION) && isSupportedLocale($_SESSION[SESSION_LOCALE_KEY])) {
     $current_locale = $_SESSION[SESSION_LOCALE_KEY];
 } else {
@@ -32,6 +35,11 @@ bindtextdomain(WEBSITE_DOMAIN, LANG_DIR);
 bind_textdomain_codeset(WEBSITE_DOMAIN, 'UTF-8');
 textdomain(WEBSITE_DOMAIN);
 
+if (!empty($redirect)) {
+    header('Location: ' . $redirect);
+    exit;
+}
+
 function isSupportedLocale($locale)
 {
     global $config;
@@ -46,4 +54,8 @@ function getLocale()
 function __($text)
 {
     echo _($text);
+}
+function ___($text)
+{
+    return _($text);
 }

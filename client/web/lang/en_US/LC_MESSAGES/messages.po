@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ophmisu Web Client\n"
-"POT-Creation-Date: 2015-02-07 18:28+0200\n"
-"PO-Revision-Date: 2015-02-07 18:32+0200\n"
+"POT-Creation-Date: 2015-03-16 00:45+0200\n"
+"PO-Revision-Date: 2015-03-16 00:45+0200\n"
 "Last-Translator: \n"
 "Language-Team: Sergiu VLAD <sergiu@disruptive.academy>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.7.5\n"
 "X-Poedit-Basepath: ../../../\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -28,42 +28,113 @@ msgstr "General knowledge game (trivia) - realtime, web based and mobile-friendl
 msgid "homepage_meta_keywords"
 msgstr "game, culture, general, trivia, questions, web based, ophmisu"
 
-#: index.php:79
+#: index.php:88 views/home.php:18
 msgid "homepage_title"
 msgstr "Ophmisu Trivia"
 
-#: index.php:84
+#: index.php:95
+msgid "game"
+msgstr "Game"
+
+#: index.php:101
+msgid "profile"
+msgstr "Profile"
+
+#: index.php:107
+msgid "logout"
+msgstr "Logout"
+
+#: src/Ophmisu/zerg.php:11 views/languages.php:13 views/languages.php:21
+msgid "language_ro"
+msgstr "Română"
+
+#: src/Ophmisu/zerg.php:12 views/languages.php:14 views/languages.php:22
+msgid "language_en"
+msgstr "English"
+
+#: src/Ophmisu/zerg.php:15
+msgid "ac_user_join"
+msgstr "%s joined room %s"
+
+#: views/connect.php:17
+msgid "Connecting"
+msgstr "Connecting.."
+
+#: views/connect.php:20
+msgid "connect"
+msgstr "Connect"
+
+#: views/connect.php:21
+msgid "cancel"
+msgstr "Cancel"
+
+#: views/errors.php:16
 msgid "error_label"
 msgstr "Oops"
 
-#: index.php:92
+#: views/errors.php:24
 msgid "success_label"
 msgstr "Swell"
 
-#: index.php:102
+#: views/game.php:57
+msgid "send"
+msgstr "Send"
+
+#: views/home.php:25
 msgid "login_block_title"
 msgstr "Login"
 
-#: index.php:105 index.php:126
+#: views/home.php:28 views/home.php:49
 msgid "username"
 msgstr "Username"
 
-#: index.php:108 index.php:129
+#: views/home.php:31 views/home.php:52
 msgid "password"
 msgstr "Password"
 
-#: index.php:114
+#: views/home.php:37
 msgid "login_block_button"
 msgstr "Login"
 
-#: index.php:123
+#: views/home.php:46
 msgid "register_block_title"
 msgstr "Register"
 
-#: index.php:132
+#: views/home.php:55
 msgid "email"
 msgstr "Email"
 
-#: index.php:137
+#: views/home.php:60
 msgid "register_block_button"
 msgstr "Register"
+
+#: views/profile.php:18
+msgid "profile_block_title"
+msgstr "Update your profile"
+
+#: views/profile.php:27
+msgid "nickname"
+msgstr "Nickname"
+
+#: views/profile.php:34
+msgid "profile_score"
+msgstr "Your score"
+
+#: views/profile.php:41
+msgid "profile_username"
+msgstr "Username"
+
+#: views/profile.php:47
+msgid "profile_email"
+msgstr "Email"
+
+#: views/profile.php:56
+msgid "update"
+msgstr "Update"
+
+#: views/profile.php:57
+msgid "return_to_game"
+msgstr "Return to the game"
+
+#~ msgid "users_list_button"
+#~ msgstr "Online users"

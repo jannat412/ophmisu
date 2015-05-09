@@ -9,7 +9,7 @@ function Animal(config, nickname) {
 
     this.socket.on('connect', function(){
         console.log('Connected');
-        self.chatter();
+        //self.chatter();
     });
     this.socket.on('event', function(data){
         self.log('Event', data);
@@ -49,7 +49,7 @@ method.rand = function(low, high) {
 method.chatter = function() {
     var self = this;
     self.lines = this.readFile('./text.txt');
-    self.delay = this.rand(1000, 12000);
+    self.delay = this.rand(2000, 12000);
     self.log("Chat in " + self.delay);
     setTimeout(function() {
         var line = self.lines[Math.floor(Math.random()*self.lines.length)];

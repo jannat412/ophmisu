@@ -24,16 +24,13 @@
                         <div class="panel panel-default">
                             <div class="panel-heading"><?php __('login_block_title'); ?></div>
                             <div class="panel-body">
-                                <div class="">
+                                <div class="form-group">
                                     <input ng-model="form.username" type="text" class="form-control" placeholder="<?php __('username'); ?>" aria-describedby="basic-addon1">
                                 </div>
-                                <div class="">
+                                <div class="form-group">
                                     <input ng-model="form.password" type="password" class="form-control" placeholder="<?php __('password'); ?>" aria-describedby="basic-addon1">
                                 </div>
-
-                            </div>
-                            <div class="panel-footer">
-                                <div class="input-group">
+                                <div class="form-group">
                                     <button type="submit" class="btn btn-default"><?php __('login_block_button'); ?></button>
                                 </div>
                             </div>
@@ -45,18 +42,16 @@
                         <div class="panel panel-default">
                             <div class="panel-heading"><?php __('register_block_title'); ?></div>
                             <div class="panel-body">
-                                <div class="">
+                                <div class="form-group">
                                     <input ng-model="form.username" type="text" class="form-control" placeholder="<?php __('username'); ?>" aria-describedby="basic-addon1">
                                 </div>
-                                <div class="">
+                                <div class="form-group">
                                     <input ng-model="form.password" type="password" class="form-control" placeholder="<?php __('password'); ?>" aria-describedby="basic-addon1">
                                 </div>
-                                <div class="">
+                                <div class="form-group">
                                     <input ng-model="form.email" type="email" class="form-control" placeholder="<?php __('email'); ?>" aria-describedby="basic-addon1">
                                 </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="input-group">
+                                <div class="form-group">
                                     <button type="submit" class="btn btn-default"><?php __('register_block_button'); ?></button>
                                 </div>
                             </div>

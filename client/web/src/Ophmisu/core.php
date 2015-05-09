@@ -19,6 +19,7 @@ define('ACTIVITY_LOG_FILE', 'activity.txt');
 $config = require_once 'config.php';
 
 require_once 'locale.php';
+require_once 'zerg.php';
 require_once 'functions.php';
 require_once 'users.php';
 require_once 'fb.php';
@@ -84,8 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$response = Users::add($post['form']);
 	}
     if ($dispatch == 'login') {
-        if (Users::login($post['form'])) {
+        $username = $post['form']['username'];
+        $password = $post['form']['password'];
+
+        if (Users::login($username, $password)) {
             $response['messages'] = array('Okay!');
+            $response['user'] = Users::findByUsername($username);
+            unset($response['user']['password']);
         }
         else {
             $response['errors'] = array('No, you didn\'t!');
