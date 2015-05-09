@@ -47,6 +47,9 @@ game.service(
             setScope: setScope
         });
 
+        function setScope(scope) {
+            self.scope = scope;
+        }
         /**
          * @TODO: move data into a model
          */
@@ -83,35 +86,23 @@ game.service(
                 self.nickname = self.user.nickname || self.nickname;
             }
 
-            initializeScope();
-
-
-
-            initSocket(socket);
-
-            console.log('QQ: IsConnected: ', userService.isConnected());
-            console.log('QQ: Socket Initialized: ', socket.initialized);
-
             if (socket.secondRun) {
-                console.log('QQ:secondRun !!!!!!')
+                initializeScope();
                 connect();
             }
 
             if (!socket.initialized) {
+                initializeScope();
+                initSocket(socket);
                 socket.initialized = 1;
                 socket.secondRun = 1;
-            } else {
             }
-
 
         }
 
         function initializeScope() {
             self.scope.$on('disconnect', function() {
                 disconnect();
-                //socket.disconnect();
-                //$scope.disconnect();
-                //$scope.reset();
             });
 
             self.scope.talk = function() {
@@ -120,14 +111,38 @@ game.service(
             }
         }
 
-        function setScope(scope) {
-            self.scope = scope;
-        }
-
-
         /**
          * Internal methods
          */
+        function authenticate() {
+            console.log('connecting as ' + self.nickname);
+            socket.emit('nickname', {
+                nickname: self.nickname
+            }, function(error) {
+                if (!error) {
+                    systemMessage('Connected as ' + self.nickname);
+                    onConnect();
+                } else {
+                    systemMessage('Connection failed');
+                    console.error(error);
+                }
+            });
+        };
+        function onConnect() {
+            console.log('onConnect', arguments);
+            userService.setConnected(true);
+            $state.go('game');
+        };
+
+        function connect() {
+            console.log("connect");
+            socket.connect();
+        };
+        function disconnect() {
+            console.log('$scope disconnect', arguments);
+            userService.setConnected(false);
+            socket.disconnect();
+        };
         function message(who, text) {
             var obj = {};
             if (typeof(text) == 'object') {
@@ -169,43 +184,6 @@ game.service(
             message(null, text);
         };
 
-        function authenticate() {
-            console.log('connecting as ' + self.nickname);
-            socket.emit('nickname', {
-                nickname: self.nickname
-            }, function(error) {
-                if (!error) {
-                    systemMessage('Connected as ' + self.nickname);
-                    onConnect();
-                } else {
-                    systemMessage('Connection failed');
-                    console.error(error);
-                }
-            });
-        };
-
-
-
-        function onConnect() {
-            console.log('onConnect', arguments);
-            userService.setConnected(true);
-            $state.go('game');
-        };
-
-        function connect() {
-            console.log("connect");
-            //socket.connect();
-            //socket.connect(null,{'forceNew':true});
-            socket.reconnect();
-            //authenticate();
-        };
-        function disconnect() {
-            console.log('$scope disconnect', arguments);
-            userService.setConnected(false);
-            socket.disconnect();
-            socket.initialized = 0;
-        };
-
         /***
          * Socket related stuff
          * @param socket
@@ -213,9 +191,6 @@ game.service(
 
         function initSocket(socket) {
             console.log('Initializing socket');
-            socket.on('connection', function () {
-                console.log('XXXXXXXXXXX connection');
-            });
             socket.on('connect', function () {
                 console.log('on connect');
                 authenticate();
@@ -225,7 +200,7 @@ game.service(
                 systemMessage('Disconnected');
                 setTimeout(function() {
                     $state.go('home');
-                }, 1000);
+                }, 500);
             });
             socket.on('error', function (err) {
                 if (err.description) throw err.description;
