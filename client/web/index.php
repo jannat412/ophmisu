@@ -88,7 +88,6 @@ require_once 'src/Ophmisu/core.php';
         <!-- Fixed navbar -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
-
                 <div class="navbar-header">
                     <button ng-if="userService.connected == true" type="button" class="navbar-toggle offcanvas-toggle" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
                         <span class="sr-only">Toggle navigation</span>
@@ -125,7 +124,7 @@ require_once 'src/Ophmisu/core.php';
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" role="button" aria-expanded="false" ng-if="userService.connected == true" ng-click="disconnect()">
+                            <a href="javascript:void(0);" role="button" aria-expanded="false" ng-if="userService.connected == true && $state.current.name == 'game'" ng-click="disconnect()">
                                 <?php __('logout'); ?>
                                 <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                             </a>

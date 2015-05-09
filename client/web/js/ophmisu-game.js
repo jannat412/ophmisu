@@ -28,7 +28,6 @@ game.controller('GameController', function ($scope, $state, $location, gameServi
     gameService.setScope($scope);
     gameService.initialize();
     $scope.gameService = gameService;
-
 });
 
 game.service(

@@ -19,8 +19,7 @@ var ophmisu = angular.module('ophmisu', [
     'ophmisu.user',
     'ophmisu.game',
     'ui.bootstrap',
-    'ui.router',
-    'ngAnimate']);
+    'ui.router']);
 
 ophmisu.factory('socket', function (socketFactory) {
     var opts = {};
@@ -63,7 +62,7 @@ ophmisu.config(['$stateProvider', '$urlRouterProvider',
     }
 ]);
 
-ophmisu.controller('AppController', function ($scope, $location, userService, gameService) {
+ophmisu.controller('AppController', function ($scope, $state, $location, userService) {
     $scope.user = null;
     $scope.users = [];
     $scope.totalUsers = 0;
@@ -78,8 +77,8 @@ ophmisu.controller('AppController', function ($scope, $location, userService, ga
     };
 
     $scope.disconnect = function() {
-        //$scope.$broadcast('disconnect');
-        gameService.disconnect();
+        $scope.$broadcast('disconnect');
+        //gameService.disconnect();
         //$scope.reset();
         //window.location.assign('/');
     };
