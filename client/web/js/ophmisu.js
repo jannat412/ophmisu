@@ -19,8 +19,7 @@ var ophmisu = angular.module('ophmisu', [
     'ophmisu.user',
     'ophmisu.game',
     'ui.bootstrap',
-    'ui.router',
-    'ngAnimate']);
+    'ui.router']);
 
 ophmisu.factory('socket', function (socketFactory) {
     var opts = {};
