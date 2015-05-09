@@ -141,7 +141,9 @@ game.service(
             self.messages.push(obj);
 
             var contentZone = $('.op-content-zone');
-            contentZone.animate({scrollTop: contentZone.get(0).scrollHeight}, 200);
+            if (contentZone && contentZone.length == 1) {
+                contentZone.animate({scrollTop: contentZone.get(0).scrollHeight}, 200);
+            }
         };
 
         function systemMessage() {

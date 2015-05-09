@@ -100,6 +100,11 @@ require_once 'src/Ophmisu/core.php';
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
+                            <a href="javascript:void(0);" ui-sref="ranks" class=""><?php __('ranks'); ?>
+                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="javascript:void(0);" ui-sref="game" class=""><?php __('game'); ?>
                                 <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
                             </a>

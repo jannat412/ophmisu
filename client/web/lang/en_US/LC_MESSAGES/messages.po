@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ophmisu Web Client\n"
-"POT-Creation-Date: 2015-03-16 00:45+0200\n"
-"PO-Revision-Date: 2015-03-16 00:45+0200\n"
+"POT-Creation-Date: 2015-05-09 19:13+0200\n"
+"PO-Revision-Date: 2015-05-09 19:14+0200\n"
 "Last-Translator: \n"
 "Language-Team: Sergiu VLAD <sergiu@disruptive.academy>\n"
 "Language: en_US\n"
@@ -28,19 +28,23 @@ msgstr "General knowledge game (trivia) - realtime, web based and mobile-friendl
 msgid "homepage_meta_keywords"
 msgstr "game, culture, general, trivia, questions, web based, ophmisu"
 
-#: index.php:88 views/home.php:18
+#: index.php:97 views/home.php:18
 msgid "homepage_title"
 msgstr "Ophmisu Trivia"
 
-#: index.php:95
+#: index.php:103
+msgid "ranks"
+msgstr "Ranks"
+
+#: index.php:108
 msgid "game"
 msgstr "Game"
 
-#: index.php:101
+#: index.php:114
 msgid "profile"
 msgstr "Profile"
 
-#: index.php:107
+#: index.php:120
 msgid "logout"
 msgstr "Logout"
 
@@ -76,7 +80,7 @@ msgstr "Oops"
 msgid "success_label"
 msgstr "Swell"
 
-#: views/game.php:57
+#: views/game.php:54
 msgid "send"
 msgstr "Send"
 
@@ -84,27 +88,27 @@ msgstr "Send"
 msgid "login_block_title"
 msgstr "Login"
 
-#: views/home.php:28 views/home.php:49
+#: views/home.php:28 views/home.php:46 views/ranks.php:27
 msgid "username"
 msgstr "Username"
 
-#: views/home.php:31 views/home.php:52
+#: views/home.php:31 views/home.php:49
 msgid "password"
 msgstr "Password"
 
-#: views/home.php:37
+#: views/home.php:34
 msgid "login_block_button"
 msgstr "Login"
 
-#: views/home.php:46
+#: views/home.php:43
 msgid "register_block_title"
 msgstr "Register"
 
-#: views/home.php:55
+#: views/home.php:52
 msgid "email"
 msgstr "Email"
 
-#: views/home.php:60
+#: views/home.php:55
 msgid "register_block_button"
 msgstr "Register"
 
@@ -135,6 +139,18 @@ msgstr "Update"
 #: views/profile.php:57
 msgid "return_to_game"
 msgstr "Return to the game"
+
+#: views/ranks.php:18
+msgid "ranks_block_title"
+msgstr "Ranks"
+
+#: views/ranks.php:26
+msgid "rank"
+msgstr "Rank"
+
+#: views/ranks.php:28
+msgid "score"
+msgstr "Score"
 
 #~ msgid "users_list_button"
 #~ msgstr "Online users"

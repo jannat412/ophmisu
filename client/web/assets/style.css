@@ -118,58 +118,6 @@ body {
 	border-radius: 0px 2px 2px 0px !important;
 	overflow:hidden;
 }
-#themes {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 20px;
-  overflow: hidden;
-}
-#themes a {
-  -moz-opacity: 0.1;
-  -webkit-opacity: 0.1;
-  -o-opacity: 0.1;
-  -ms-opacity: 0.1;
-  opacity: 0.1;
-  display: block;
-  width: 20px;
-  height: 20px;
-  text-indent: -9999px;
-  -moz-transition: height 0.2s;
-  -webkit-transition: height 0.2s;
-  -o-transition: height 0.2s;
-  -ms-transition: height 0.2s;
-  transition: height 0.2s;
-  -moz-transition: height 0.2s;
-  -webkit-transition: height 0.2s;
-  -o-transition: height 0.2s;
-}
-#themes a:hover {
-  -moz-opacity: 1;
-  -webkit-opacity: 1;
-  -o-opacity: 1;
-  -ms-opacity: 1;
-  opacity: 1;
-  height: 30px;
-}
-#themes .pink {
-  background: #ca0065;
-}
-#themes .monochrome {
-  background: -webkit-gradient(linear, left top, color-stop(0.5, #000), color-stop(0.5, #fff));
-  background: -moz-linear-gradient(left, #000 50%, #fff 50%);
-  background: -webkit-linear-gradient(left, #000 50%, #fff 50%);
-  background: -o-linear-gradient(left, #000 50%, #fff 50%);
-  background: -ms-linear-gradient(left, #000 50%, #fff 50%);
-  background: -moz-linear-gradient(to right, #000 50%, #fff 50%);
-  background: -webkit-linear-gradient(to right, #000 50%, #fff 50%);
-  background: -o-linear-gradient(to right, #000 50%, #fff 50%);
-  background: -ms-linear-gradient(to right, #000 50%, #fff 50%);
-  background: linear-gradient(to right, #000 50%, #fff 50%);
-}
-#themes .clean {
-  background: #fff;
-}
 body,
 div,
 p,
@@ -222,29 +170,6 @@ span,
 
 
 
-
-
-
-
-
-
-/*
-#nickname {
-  display: block;
-}
-
-#nickname,
-#connecting {
-  position: absolute;
-  height: 100%;
-  z-index: 100;
-  left: 0;
-  top: 0;
-  background: #fff;
-  text-align: center;
-  width: 100%;
-  color: #666;
-}*/
 #nickname .wrap,
 #connecting .wrap {
   padding-top: 5%;
@@ -395,6 +320,14 @@ html {
 }
 .center-block > div {text-align: left;}
 
+/* Main navigation */
+#navbar .glyphicon {
+    vertical-align: sub;
+    margin-left: 2px;
+}
+
+/* /Main navigation */
+
 /* Home page */
 .home-page .panel-body {
     min-height:130px;
@@ -403,6 +336,7 @@ html {
     text-align: center;
 }
 /* /Home page */
+
 .inline {
     display: inline;
 }

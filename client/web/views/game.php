@@ -47,7 +47,7 @@
 
         <div class="col-lg-12 op-chat-zone">
             <nav class="navbar navbar-default navbar-fixed-bottom">
-                <form ng-submit="talk()">
+                <form ng-submit="talk()" autocomplete="off">
                     <div class="input-group input-group-lg">
                         <input ng-model="gameService.data.currentMessage" type="text" placeholder="" class="form-control" autocomplete="off">
                         <span class="input-group-btn">

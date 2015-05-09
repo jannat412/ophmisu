@@ -77,4 +77,22 @@ class Users
 
         return array('messages' => array('Your account has been created!'));
 	}
+
+    public static function getRanks()
+    {
+
+        $users = db_array('
+            SELECT
+                user_id,
+                username,
+                nickname,
+                score
+            FROM users ORDER BY score DESC, user_id ASC
+            ');
+        foreach ($users as $i => &$user) {
+            $user['rank'] = $i + 1;
+        }
+
+        return $users;
+    }
 }

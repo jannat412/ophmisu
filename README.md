@@ -26,13 +26,15 @@ node app.js
 ```
 
 ## Todo
+- [ ] add support for multiple server nodes
+- [ ] add support for multiple rooms / channels
 - [x] support ssl (so SPDY can do its job)
 - [ ] socket multiplexing (allow both http/https) (check SockJS)
 - [x] redefine dependencies
 - [x] finish basic user registration
 - [ ] create simple administration interface to manage questions (CRUD, import) (Alexandru Canavoiu)
 - [ ] add user groups and define permissions for in-game commands (Alexandru Canavoiu)
-- [ ] add "Top players" view (Alexandru Canavoiu)
+- [x] add "Top players" view (Alexandru Canavoiu)
 - [ ] add "Player profile" view (Alexandru Canavoiu)
 
 
