@@ -327,7 +327,6 @@ var Ophmisu = function Ophmisu(){
 		!domains - shows a list of available question domains<br />\
 		!help - shows this help message<br />\
 		!ping - ping-pong round-trip test (NIY)<br />\
-		!crash - crashes the server (for testing purposes only)<br />\
 		");
 	};
 	this.emitTop = function() {
