@@ -42,6 +42,7 @@ game.service(
          */
         return({
             data: self,
+            disconnect: disconnect,
             initialize: initialize,
             reset: reset,
             setScope: setScope

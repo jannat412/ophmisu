@@ -63,7 +63,7 @@ ophmisu.config(['$stateProvider', '$urlRouterProvider',
     }
 ]);
 
-ophmisu.controller('AppController', function ($scope, $location, userService) {
+ophmisu.controller('AppController', function ($scope, $location, userService, gameService) {
     $scope.user = null;
     $scope.users = [];
     $scope.totalUsers = 0;
@@ -78,7 +78,8 @@ ophmisu.controller('AppController', function ($scope, $location, userService) {
     };
 
     $scope.disconnect = function() {
-        $scope.$broadcast('disconnect');
+        //$scope.$broadcast('disconnect');
+        gameService.disconnect();
         //$scope.reset();
         //window.location.assign('/');
     };
