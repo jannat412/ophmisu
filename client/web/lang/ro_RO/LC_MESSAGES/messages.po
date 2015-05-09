@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ophmisu Web Client\n"
-"POT-Creation-Date: 2015-03-16 00:43+0200\n"
-"PO-Revision-Date: 2015-03-16 00:45+0200\n"
+"POT-Creation-Date: 2015-05-09 20:53+0200\n"
+"PO-Revision-Date: 2015-05-09 20:53+0200\n"
 "Last-Translator: \n"
 "Language-Team: Sergiu VLAD <sergiu@disruptive.academy>\n"
 "Language: ro_RO\n"
@@ -29,19 +29,23 @@ msgstr "Joc de cultura generala (trivia) - realtime, web based"
 msgid "homepage_meta_keywords"
 msgstr "joc,cultura,generala,trivia,intrebari,romana,web,based,ophmisu"
 
-#: index.php:88 views/home.php:18
+#: index.php:102 views/home.php:18
 msgid "homepage_title"
 msgstr "Ophmisu Trivia"
 
-#: index.php:95
+#: index.php:108
+msgid "ranks"
+msgstr "Clasament"
+
+#: index.php:113
 msgid "game"
 msgstr "Joc"
 
-#: index.php:101
+#: index.php:119
 msgid "profile"
 msgstr "Profil"
 
-#: index.php:107
+#: index.php:125
 msgid "logout"
 msgstr "Deconectare"
 
@@ -77,7 +81,7 @@ msgstr "Eroare"
 msgid "success_label"
 msgstr "Bun!"
 
-#: views/game.php:57
+#: views/game.php:54
 msgid "send"
 msgstr "Trimite"
 
@@ -85,27 +89,27 @@ msgstr "Trimite"
 msgid "login_block_title"
 msgstr "Ai deja cont?"
 
-#: views/home.php:28 views/home.php:49
+#: views/home.php:28 views/home.php:46 views/ranks.php:27
 msgid "username"
 msgstr "Utilizator"
 
-#: views/home.php:31 views/home.php:52
+#: views/home.php:31 views/home.php:49
 msgid "password"
 msgstr "Parolă"
 
-#: views/home.php:37
+#: views/home.php:34
 msgid "login_block_button"
 msgstr "Conectează-te"
 
-#: views/home.php:46
+#: views/home.php:43
 msgid "register_block_title"
 msgstr "Ești nou-venit?"
 
-#: views/home.php:55
+#: views/home.php:52
 msgid "email"
 msgstr "Email"
 
-#: views/home.php:60
+#: views/home.php:55
 msgid "register_block_button"
 msgstr "Înregistrează-te"
 
@@ -136,3 +140,19 @@ msgstr "Salvează"
 #: views/profile.php:57
 msgid "return_to_game"
 msgstr "Întoarce-te la joc"
+
+#: views/ranks.php:18
+msgid "ranks_block_title"
+msgstr "Clasament"
+
+#: views/ranks.php:26
+msgid "rank"
+msgstr "Locul"
+
+#: views/ranks.php:28
+msgid "score"
+msgstr "Scor"
+
+#: views/ranks.php:29
+msgid "last_seen"
+msgstr "Ultima vizită"

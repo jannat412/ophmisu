@@ -1,17 +1,27 @@
-var userApp = angular.module('ophmisu.user', ['ui.router']);
+var userApp = angular.module('ophmisu.user', ['ui.router', 'angularMoment'])
+    .constant('angularMomentConfig', {
+        //preprocess: 'unix', // optional
+        timezone: config.app.timezone
+    });
 
 userApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider,   $urlRouterProvider) {
       $stateProvider
         .state('home', {
           url: '/',
           templateUrl: 'index.php?view=home',
-          controller: ['$scope', '$state', function (  $scope,   $state) {
+          controller: ['$scope', '$state', function ($scope, $state) {
             }]
         })
       .state('profile', {
           url: '/profile',
           templateUrl: 'index.php?view=profile',
-          controller: ['$scope', '$state', function (  $scope,   $state) {
+          controller: ['$scope', '$state', function ($scope, $state) {
+          }]
+      })
+      .state('ranks', {
+          url: '/ranks',
+          templateUrl: 'index.php?view=ranks',
+          controller: ['$scope', '$state', function ($scope, $state, userService) {
           }]
       })
       ;
@@ -19,18 +29,24 @@ userApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider
   ]
 );
 
-
 userApp.controller('UserController', function ($scope, $state, $location, userService) {
     $scope.form = {
         username: "",
         password: "",
         email: ""
     };
+
     $scope.user = userService.getUser();
     $scope.errors = [];
     $scope.messages = [];
-    console.log('$state in UserController', $state);
-    console.log('$location in UserController', $location);
+
+    if ($state.$current.name == 'ranks') {
+        $scope.ranks = userService.getRanks(function(data, status, headers, config) {
+            $scope.ranks = data.ranks;
+        });
+    }
+
+
     $scope.register = function() {
         userService.register( $scope.form )
             .then(function(response) {
@@ -80,7 +96,6 @@ userApp.controller('UserController', function ($scope, $state, $location, userSe
 
     $scope.update = function() {
         userService.getUser().nickname = "xx";
-        console.log(userService.getUser());
     };
 });
 
@@ -90,6 +105,7 @@ userApp.service(
         this.user = null;
 
         return({
+            getRanks: getRanks,
             register: register,
             login: login,
             setUser: setUser,
@@ -103,6 +119,7 @@ userApp.service(
         function getUser(user) {
             return this.user;
         }
+
         function register(data) {
             var request = $http({
                 method: "post",
@@ -129,6 +146,25 @@ userApp.service(
                     form: data
                 }
             });
+
+            return( request.then( handleSuccess, handleError ) );
+        }
+
+        function getRanks(successCallback) {
+            return request('ranks', {}, successCallback);
+        }
+
+        function request(action, data, successCallback) {
+            var request = $http({
+                method: "post",
+                url: "index.php",
+                params: {
+                    action: action
+                },
+                data: {
+                    form: data
+                }
+            }).success(successCallback);
 
             return( request.then( handleSuccess, handleError ) );
         }

@@ -12,6 +12,11 @@
 namespace Ophmisu\Authentication;
 
 
+/**
+ * Class Facebook
+ * @Deprecated To be removed
+ * @package Ophmisu\Authentication
+ */
 class Facebook
 {
     public static function get($fb_user_id, $fb_access_token)

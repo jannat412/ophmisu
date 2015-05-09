@@ -33,6 +33,7 @@ require_once 'src/Ophmisu/core.php';
 		}, {});
         var config = {
             'app': {
+                'timezone': '<?php echo $config['app']['timezone'] ?>',
                 'hostname': '<?php echo $config['app']['hostname'] ?>',
                 'httpPort': '<?php echo $config['app']['httpPort'] ?>',
                 'httpsPort': '<?php echo $config['app']['httpsPort'] ?>'
@@ -58,6 +59,13 @@ require_once 'src/Ophmisu/core.php';
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/sprintf/dist/sprintf.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('bower_components/sprintf/dist/angular-sprintf.min.js'); ?>"></script>
 
+    <script type="text/javascript" src="<?php echo formatUrl('bower_components/moment/min/moment.min.js'); ?>"></script>
+    <script type="text/javascript" src="<?php echo formatUrl('bower_components/moment-timezone/builds/moment-timezone-with-data.min.js'); ?>"></script>
+    <script type="text/javascript" src="<?php echo formatUrl('bower_components/angular-moment/angular-moment.min.js'); ?>"></script>
+
+    <link type="text/css" href="<?php echo formatUrl('bower_components/bootstrap-offcanvas/dist/css/bootstrap.offcanvas.min.css'); ?>" rel="stylesheet" />
+    <script type="text/javascript" src="<?php echo formatUrl('bower_components/bootstrap-offcanvas/dist/js/bootstrap.offcanvas.min.js'); ?>"></script>
+
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-user.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/ophmisu-game.js'); ?>"></script>
@@ -66,6 +74,7 @@ require_once 'src/Ophmisu/core.php';
     <script type="text/javascript" src="<?php echo formatUrl('js/socket.io/socket.io-1.0.6.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jqueryui/jquery-ui-1.8.23.custom.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo formatUrl('js/jquery.inputHistory.js'); ?>"></script>
+
 </head>
 <body ng-controller="AppController">
 	<div id="fb-root"></div>
@@ -77,6 +86,13 @@ require_once 'src/Ophmisu/core.php';
             <div class="container">
 
                 <div class="navbar-header">
+                    <button type="button" class="navbar-toggle offcanvas-toggle" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
@@ -87,8 +103,12 @@ require_once 'src/Ophmisu/core.php';
                 </div>
 
                 <div id="navbar" class="navbar-collapse collapse">
-
                     <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="javascript:void(0);" ui-sref="ranks" class=""><?php __('ranks'); ?>
+                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            </a>
+                        </li>
                         <li>
                             <a href="javascript:void(0);" ui-sref="game" class=""><?php __('game'); ?>
                                 <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
@@ -113,6 +133,7 @@ require_once 'src/Ophmisu/core.php';
 
             </div>
         </nav>
+
         <div ui-view class="view-animate">
         </div>
     </div>

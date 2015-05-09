@@ -24,6 +24,7 @@ $config['app']['hostname'] = $_SERVER['HTTP_HOST'];
 $config['app']['httpPort'] = 2013;
 $config['app']['httpsPort'] = 2014;
 $config['app']['trackingCode'] = 'UA-29128613-11';
+$config['app']['timezone'] = 'Europe/London';
 
 $config['app']['languages'] = array();
 $config['app']['languages']['default'] = 'en_US';

@@ -224,7 +224,6 @@ function initApp(ioi, iname)
 			if (msg == "!domains") ophmisu.getDomains();
 			if (msg == "!math") ophmisu.setDomain("math");
 			if (msg == "!stop") ophmisu.stop();
-			if (msg == "!cheat") ophmisu.toggleCheat();
 			if (msg == "!ping") ophmisu.showPong(socket.nickname);
 			if (msg.substring(0,6) == "!level") {
 				var level = msg.split(/ /);
@@ -237,8 +236,12 @@ function initApp(ioi, iname)
 				ophmisu.setSpeed(socket.nickname, speed);
 			}
 			if (msg == "!top") ophmisu.showTop();
-			if (msg == "!crash") throw new Exception("WtfXxX");
-			
+
+            if (socket.nickname == config.app.developer) {
+                if (msg == "!crash") throw new Exception("WtfXxX");
+                if (msg == "!cheat") ophmisu.toggleCheat();
+            }
+
 			ophmisu.checkAnswer(socket.nickname, msg);
 			flog('user message', [socket.nickname, msg])
 		});

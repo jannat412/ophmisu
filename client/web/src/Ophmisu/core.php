@@ -81,6 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$redirect = '.';
     $response = array();
     $post = json_decode(file_get_contents("php://input"), true);
+    if ($dispatch == 'ranks') {
+        $response['ranks'] = Users::getRanks();
+    }
+
     if ($dispatch == 'register') {
 		$response = Users::add($post['form']);
 	}

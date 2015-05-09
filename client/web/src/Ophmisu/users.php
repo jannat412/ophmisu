@@ -29,7 +29,7 @@ class Users
         }
         if ($user['password'] == crypt($password, $user['password'])) {
             $now = new \DateTime('now');
-            db_query('UPDATE users SET last_login_date = ?s WHERE user_id = ?i', $now->format('Y-m-d h:i:s'), $user['user_id']);
+            db_query('UPDATE users SET last_login_date = ?s WHERE user_id = ?i', $now->format('Y-m-d H:i:s'), $user['user_id']);
 
             return true;
         }
@@ -77,4 +77,22 @@ class Users
 
         return array('messages' => array('Your account has been created!'));
 	}
+
+    public static function getRanks()
+    {
+        $users = db_array('
+            SELECT
+                user_id,
+                username,
+                nickname,
+                DATE_FORMAT(last_login_date, "%Y-%m-%dT%T") AS last_login_date,
+                score
+            FROM users ORDER BY score DESC, user_id ASC
+            ');
+        foreach ($users as $i => &$user) {
+            $user['rank'] = $i + 1;
+        }
+
+        return $users;
+    }
 }
