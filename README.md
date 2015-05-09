@@ -1,7 +1,13 @@
 # Ophmisu
 
-Ophmisu Trivia - realtime &amp; web based (node.js, socket.io, mysql).
-Live demo at http://ophmisu.com/
+Ophmisu Trivia - realtime &amp; web based.
+Technologies:
+  1. Server app: Node.JS, MySQL, Socket.IO;
+  2. Client apps:
+    1. Web client: AngularJS, jQuery, Bootstrap, Socket.IO, PHP;
+    2. Android client: Android SDK (Java), Web sockets.
+
+A live demo is available at http://ophmisu.com/.
 
 ## Installation
 
@@ -17,31 +23,6 @@ cd ophmisu/server
 npm install
 mysql --default-character-set=utf8 --user=ophmisu --password= ophmisu < latest.sql
 node app.js
-...todo
-```
-
-## Changelog
-2014.05.21:
-* updated server app;
-* added android app;
-* added web-based app.
-
-## Dependencies
-
-```javascript
-"dependencies": {
-    "cors": "2.4.x",
-    "debug": "1.x",
-    "express": "4.6.x",
-    "socket.io": "1.x",
-    "socket.io-client": "1.x",
-    "jade": "0.16.4",
-    "stylus": "0.19.0",
-    "nib": "0.2.0",
-    "fluidity": "0.1.x",
-    "mysql": ">= 2.0.0-alpha5",
-    "winston": "0.6.x"
-}
 ```
 
 ## Todo
