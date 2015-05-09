@@ -49,10 +49,7 @@ ophmisu.run(
 
             $rootScope.$on('$stateChangeStart',
                 function(event, toState, toParams, fromState, fromParams){
-                    console.log('$stateChangeStart from ', fromState, toState);
-                    //console.log(unfoundState.to); // "lazy.state"
-                    //console.log(unfoundState.toParams); // {a:1, b:2}
-                    //console.log(unfoundState.options); // {inherit:false} + default options
+                    //console.log('$stateChangeStart from ', fromState, toState);
                 });
         }
     ]
@@ -87,7 +84,7 @@ ophmisu.controller('AppController', function ($scope, $location, userService) {
 
 
     $scope.$on('updateUsers', function(event, items) {
-        console.log('AppController: updateUsers!');
+        //console.log('AppController: updateUsers!');
         $scope.users = items;
 
         var size = 0;
@@ -99,7 +96,7 @@ ophmisu.controller('AppController', function ($scope, $location, userService) {
     });
 
     $scope.$on('updateRooms', function(event, items) {
-        console.log('AppController: updateRooms!');
+        //console.log('AppController: updateRooms!');
         $scope.rooms = items;
         $scope.$digest();
     });

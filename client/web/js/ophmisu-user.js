@@ -96,7 +96,6 @@ userApp.controller('UserController', function ($scope, $state, $location, userSe
 
     $scope.update = function() {
         userService.getUser().nickname = "xx";
-        console.log(userService.getUser());
     };
 });
 

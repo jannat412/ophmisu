@@ -25,7 +25,6 @@ game.filter('pad', function () {
 })
 
 game.controller('GameController', function ($scope, $state, $location, gameService) {
-    console.log('GameController scope #' + $scope.$id);
     gameService.setScope($scope);
     gameService.initialize();
     $scope.gameService = gameService;
@@ -68,8 +67,6 @@ game.service(
         }
 
         function initialize() {
-            console.log('initialize scope #' + self.scope.$id);
-
             self.nickname = self.nickname || 'Anonim-' + Math.round(Math.random() * 1000);
             self.notifications = self.notifications || [];
             self.messages = self.messages || [];
@@ -96,7 +93,6 @@ game.service(
 
         function initializeScope() {
             self.scope.$on('disconnect', function() {
-                console.log('$scope.$on(disconnect)', arguments);
                 socket.disconnect();
                 //$scope.disconnect();
                 //$scope.reset();
