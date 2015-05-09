@@ -93,12 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $password = $post['form']['password'];
 
         if (Users::login($username, $password)) {
-            $response['messages'] = array('Okay!');
+            $response['messages'] = array(_('login_success_message'));
             $response['user'] = Users::findByUsername($username);
             unset($response['user']['password']);
         }
         else {
-            $response['errors'] = array('No, you didn\'t!');
+            $response['errors'] = array(_('login_fail_message'));
         }
     }
     $response = json_encode($response);

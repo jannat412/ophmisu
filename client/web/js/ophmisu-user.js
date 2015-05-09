@@ -7,26 +7,24 @@ var userApp = angular.module('ophmisu.user', ['ui.router', 'angularMoment'])
 userApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider,   $urlRouterProvider) {
       $stateProvider
         .state('home', {
-          url: '/',
-          templateUrl: 'index.php?view=home',
-          controller: ['$scope', '$state', function ($scope, $state) {
+            url: '/',
+            templateUrl: 'index.php?view=home',
+            controller: ['$scope', '$state', function ($scope, $state) {
             }]
         })
-      .state('profile', {
-          url: '/profile',
-          templateUrl: 'index.php?view=profile',
-          controller: ['$scope', '$state', function ($scope, $state) {
-          }]
-      })
-      .state('ranks', {
-          url: '/ranks',
-          templateUrl: 'index.php?view=ranks',
-          controller: ['$scope', '$state', function ($scope, $state, userService) {
-          }]
-      })
-      ;
-    }
-  ]
+        .state('profile', {
+            url: '/profile',
+            templateUrl: 'index.php?view=profile',
+            controller: ['$scope', '$state', function ($scope, $state) {
+            }]
+        })
+        .state('ranks', {
+            url: '/ranks',
+            templateUrl: 'index.php?view=ranks',
+            controller: ['$scope', '$state', function ($scope, $state, userService) {
+            }]
+        });
+    }]
 );
 
 userApp.controller('UserController', function ($scope, $state, $location, userService) {
