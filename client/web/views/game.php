@@ -14,7 +14,7 @@
         <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 full-height">
             <div class="sidebar full-height">
                 <ul role="menu">
-                    <li role="presentation" ng-repeat="user in users">
+                    <li role="presentation" ng-repeat="user in gameService.data.users">
                         <a href="javascript:void(0);">{{ user }}</a>
                     </li>
                 </ul>
@@ -35,7 +35,8 @@
                 </div>
 
                 <div id="lines">
-                    <div role="presentation" ng-repeat="message in messages track by $index">
+                    Hello {{ gameService.data.nickname }}
+                    <div role="presentation" ng-repeat="message in gameService.data.messages track by $index">
                         <p>
                             <span class="time" ng-if="message.time != ''">{{ message.time }}</span>
                             <span class="user" ng-if="message.sender != ''">{{ message.sender }}</span>
@@ -52,10 +53,10 @@
             <nav class="navbar navbar-default navbar-fixed-bottom">
                 <form ng-submit="talk()">
                     <div class="input-group input-group-lg">
-                        <input ng-model="currentMessage" type="text" placeholder="" class="form-control">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default"><?php __('send') ?></button>
-                            </span>
+                        <input ng-model="gameService.data.currentMessage" type="text" placeholder="" class="form-control" autocomplete="off">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default"><?php __('send') ?></button>
+                        </span>
                     </div>
                 </form>
             </nav>

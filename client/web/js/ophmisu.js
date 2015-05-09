@@ -46,6 +46,14 @@ ophmisu.run(
         function ($rootScope, $state, $stateParams) {
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
+
+            $rootScope.$on('$stateChangeStart',
+                function(event, toState, toParams, fromState, fromParams){
+                    console.log('$stateChangeStart from ', fromState, toState);
+                    //console.log(unfoundState.to); // "lazy.state"
+                    //console.log(unfoundState.toParams); // {a:1, b:2}
+                    //console.log(unfoundState.options); // {inherit:false} + default options
+                });
         }
     ]
 );

@@ -63,7 +63,9 @@ userApp.controller('UserController', function ($scope, $state, $location, userSe
                     $scope.messages = response.messages;
                     userService.setUser(response.user);
                     $scope.user = response.user;
-                    $location.path('/game');
+                    setTimeout(function() {
+                        $state.go('game');
+                    }, 500);
                 }
                 else if (response.errors)
                 {
