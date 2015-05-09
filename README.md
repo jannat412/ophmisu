@@ -13,13 +13,16 @@ A live demo is available at http://ophmisu.com/.
 
 ### Client for web
 ```
+npm install -g bower
 cd ophmisu/client/web
 bower install
 ```
 ### Server
 ```
 cd ophmisu/server
+npm install
 mysql --default-character-set=utf8 --user=ophmisu --password= ophmisu < latest.sql
+node app.js
 ```
 
 ## Todo
