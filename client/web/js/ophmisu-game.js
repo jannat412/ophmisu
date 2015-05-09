@@ -136,7 +136,7 @@ game.service(
 
             obj.time =  hh + ':' + mm + ':' + ss;
             self.messages.push(obj);
-            $('html, body').scrollTop(100000)
+            $('.op-content-zone').scrollTop($('.op-content-zone #lines').height() + 3000)
         };
 
         function systemMessage() {
