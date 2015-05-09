@@ -87,7 +87,9 @@ class Users
                 nickname,
                 DATE_FORMAT(last_login_date, "%Y-%m-%dT%T") AS last_login_date,
                 score
-            FROM users ORDER BY score DESC, user_id ASC
+            FROM users
+            WHERE score > 0
+            ORDER BY score DESC, user_id ASC
             ');
         foreach ($users as $i => &$user) {
             $user['rank'] = $i + 1;
