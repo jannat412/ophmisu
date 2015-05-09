@@ -7,7 +7,7 @@ Technologies:
     1. Web client: AngularJS, jQuery, Bootstrap, Socket.IO, PHP;
     2. Android client: Android SDK (Java), Web sockets.
 
-Live demo at http://ophmisu.com/
+A live demo is available at http://ophmisu.com/.
 
 ## Installation
 
