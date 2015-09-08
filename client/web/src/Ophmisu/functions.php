@@ -10,9 +10,20 @@
  * @link        http://ophmisu.com
  */
 
-function formatUrl($uri, $protocol = 'http')
+function formatUrl($uri, $protocol = 'auto')
 {
     global $config;
+    
+    if ($protocol == 'auto') {
+        $protocol = 'http';
+        if (stripos($_SERVER['SERVER_PROTOCOL'],'https') === true) {
+            $protocol = 'https';
+        }
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+            $protocol = 'https';
+        }
+    }
+    
     return $protocol . '://' . $config['app']['hostname'] . $config['app']['path'] . trim($uri, '/');
 }
 function gs($var)

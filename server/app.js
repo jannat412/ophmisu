@@ -73,7 +73,6 @@ var nicknames = {}, sids = {};
 exports.io = sio;
 exports.ios = sios;
 var ophmisu = require("./engine.js");
-ophmisu.config.auto_start = false;
 ophmisu.init();
 initApp(sio, 'http');
 initApp(sios, 'https');
