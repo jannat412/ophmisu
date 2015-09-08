@@ -8,7 +8,7 @@ config.auto_start = true;
 
 config.app = {};
 config.app.debug = true; // set DEBUG=*,-not_this
-config.app.hostname = 'dev.ophmisu.com';
+config.app.hostname = 'ophmisu.com';
 config.app.httpPort = 2013;
 config.app.httpsPort = 2014;
 config.app.developer = ''; // developer's nickname
