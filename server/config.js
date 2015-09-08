@@ -4,7 +4,7 @@ config.ophmisu = {};
 config.ophmisu.rooms = ['trivia', 'radio'];
 config.ophmisu.defaultRoom = 'trivia';
 config.ophmisu.triviaRoom = 'trivia';
-config.auto_start = true;
+config.ophmisu.autoStart = true;
 
 config.app = {};
 config.app.debug = true; // set DEBUG=*,-not_this
