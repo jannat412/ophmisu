@@ -14,9 +14,9 @@ config.app.httpsPort = 2014;
 config.app.developer = ''; // developer's nickname
 
 config.app.cert = {};
-config.app.cert.key = __dirname + '/cert/trivia.io.key';
-config.app.cert.crt = __dirname + '/cert/certificate-29616.crt';
-config.app.cert.pem = __dirname + '/cert/GandiStandardSSLCA.pem';
+config.app.cert.key = __dirname + '/cert/ophmisu.com/server.key';
+config.app.cert.crt = __dirname + '/cert/ophmisu.com/server.crt';
+config.app.cert.pem = __dirname + '/cert/ophmisu.com/sub.class1.server.ca.pem';
 
 config.database = {};
 config.database.name = process.env.DATABASE_NAME || 'ophmisu';
