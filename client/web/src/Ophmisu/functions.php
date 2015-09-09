@@ -34,7 +34,10 @@ function gs($var)
 function getRecentActivity()
 {
     global $activity;
-    if (empty($activity)) return;
+    if (empty($activity))  {
+        return;
+    }
+
     $html = '';
     foreach ($activity as $entry)
     {
@@ -46,7 +49,7 @@ function getRecentActivity()
     }
     if (empty($html)) return '';
     $html = '<div class="recent-activity lines"><h2>Recent activity</h2>'.$html.'</div>';
-    return '';
+
     return $html;
 }
 
