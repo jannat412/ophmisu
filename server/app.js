@@ -101,8 +101,9 @@ function flog(type, args)
 }
 global.flog = flog;
 setInterval(function() { 
-	var data = JSON.stringify(flogData);
-	fs.writeFile("../client/web/activity.txt", data);
+	var data = JSON.stringify(flogData),
+        file = __dirname + "/../client/web/activity.txt";
+	fs.writeFile(file, data);
 }, 1000*10);
 
 
