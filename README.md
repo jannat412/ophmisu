@@ -26,6 +26,7 @@ node app.js
 ```
 
 ## Todo
+- [ ] integrate the web client with Symfony2
 - [ ] add support for multiple server nodes
 - [ ] add support for multiple rooms / channels
 - [x] support ssl (so SPDY can do its job)
