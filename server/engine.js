@@ -61,8 +61,7 @@ var Ophmisu = function Ophmisu(){
 	
 	this.status = 0;
 	this.ID = 0;
-	var totalQuestions = 0;
-	
+
 	this.cheat = false;
 	this.currentHint = 0;
 	this.totalHints = 4;
@@ -183,8 +182,8 @@ var Ophmisu = function Ophmisu(){
 		self.currentHint++;
 		if (self.currentHint <= self.totalHints)
 		{
-			self.msg(self.q.question.escapeHtml());
-			self.msg("Sugestia "+self.currentHint+"/"+self.totalHints+": "+self.getHint());
+			self.msg({text: self.q.question.escapeHtml(), tags: self.q.tags});
+			self.msg("Sugestia "+self.currentHint+"/"+self.totalHints+": "+self.getHint() + "");
 		}
 		else
 		{
@@ -214,33 +213,41 @@ var Ophmisu = function Ophmisu(){
 			self.hintMaskPositions.shuffle();
 			
 		}
-		else
-			if (self.hintMaskPositions.length >= 0)
+		else if (self.hintMaskPositions.length >= 0)
 			{
 				var pos = self.hintMaskPositions.pop();
+				if (typeof(answer[pos]) == 'undefined') {
+					console.log('pre-mortem answer', self.q.answer, 'hintMaskPositions', self.hintMaskPositions);
+				}
+
 				self.hint = self.hint.replaceAt(pos, answer[pos]);
 			}
-		var newHint = self.hint;
+		var newHint = '<span>' + self.hint + '</span>';
 		
 		if (self.currentHint == 1) newHint += " (din "+self.q.answer.length+" caractere)";
-		if (self.cheat) newHint += " ("+self.q.answer+")";
+		//if (self.cheat) newHint += " ("+self.q.answer+")";
 		return newHint;
 	}
 	this.nextQuestion = function()
 	{
 		self.currentHint = 0;
 		self.hint = "";
-		
-		self.db.query("SELECT max(question_id) AS total FROM questions", function(err, results) {
-			self.totalQuestions = results[0].total; 
-			var where = 'question_id > 11459 ORDER BY RAND() LIMIT 0,1';
-			var where = "question_id = "+randomXToY(1, self.totalQuestions);
-			self.db.query("SELECT * FROM questions WHERE "+where, function(err, results) {
-				self.q = results[0];
-				self.totalHints = Math.floor(self.q.answer.length * (self.config.level/10));
-			});
-			
-			
+
+		var query = '' +
+			'SELECT ' +
+				'q.*, ' +
+				'GROUP_CONCAT(t.name SEPARATOR \', \') AS tags, ' +
+				'COUNT(t.name) AS tags_count ' +
+				'FROM questions AS q ' +
+			'JOIN question_tags AS qt ON qt.question_id = q.id ' +
+			'JOIN tags AS t ON t.id = qt.tag_id ' +
+			'WHERE t.name IN ( \'HTML\', \'CSS\', \'Frontend\' ) ' +
+			'GROUP BY q.id ' +
+			'ORDER BY RAND() LIMIT 0,1'
+			;
+		self.db.query(query, function(err, results) {
+			self.q = results[0];
+			self.totalHints = Math.floor(self.q.answer.length * (self.config.level/10));
 		});
 	};
 
@@ -280,11 +287,11 @@ var Ophmisu = function Ophmisu(){
 			self.q = undefined;
 			self.msg("<b>"+nickname+"</b>, raspuns <b>corect</b>: "+msg+". Urmatoarea intrebare..");
 			
-			self.db.query("SELECT * FROM users WHERE nickname = ?", nickname, function(err, results) {
+			self.db.query("SELECT * FROM users WHERE username = ?", nickname, function(err, results) {
 				if (results.length == 0)
 				{
 					console.log('Creating user '+nickname);
-					self.db.query('INSERT INTO users SET ?', {nickname: nickname, score: 1}, function(err, result) {
+					self.db.query('INSERT INTO users SET ?', {username: nickname, score: 1}, function(err, result) {
 						if (err) throw err;
 						var user_id = result.insertId;
 						self._emit("top_changed");
@@ -293,7 +300,7 @@ var Ophmisu = function Ophmisu(){
 				else
 				{
 					console.log('Updating user '+nickname);
-					self.db.query("UPDATE users SET score = score+1 WHERE nickname = '"+nickname+"'");
+					self.db.query("UPDATE users SET score = score+1 WHERE username = '"+nickname+"'");
 					self._emit("top_changed");
 				}
 			});
