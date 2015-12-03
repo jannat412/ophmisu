@@ -308,6 +308,7 @@ var Ophmisu = function Ophmisu() {
     };
     this.showTop = function () {
         var top = self.getTop();
+
         if (typeof(top) == 'undefined') {
             return self.getTop(true);
         }
@@ -315,8 +316,8 @@ var Ophmisu = function Ophmisu() {
         var rank = 1;
         for (var i in top) {
             var user = top[i];
-            if (!user || !user.nickname) continue;
-            var line = rank + ") " + user.nickname + "  " + user.score;
+            if (!user || !user.username) continue;
+            var line = rank + ") " + user.username + "  " + user.score;
             lines.push(line);
             rank++;
         }
