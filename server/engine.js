@@ -259,7 +259,13 @@ var Ophmisu = function Ophmisu() {
             self.db.query("SELECT * FROM users WHERE username = ?", nickname, function (err, results) {
                 if (results.length == 0) {
                     console.log('Creating user ' + nickname);
-                    self.db.query('INSERT INTO users SET ?', {username: nickname, score: 1}, function (err, result) {
+                    self.db.query('INSERT INTO users SET ?', {
+                        username: nickname,
+                        username_canonical: nickname,
+                        email: nickname + '@ophmisu.com',
+                        email_canonical: nickname + '@ophmisu.com',
+                        score: 1
+                    }, function (err, result) {
                         if (err) throw err;
                         var user_id = result.insertId;
                         self._emit("top_changed");
@@ -291,15 +297,16 @@ var Ophmisu = function Ophmisu() {
     };
     this.showHelp = function () {
         self.msg("Available commands: " + " <br />\
-		!! - jumps the current question<br />\
-		!start - starts the game<br />\
-		!stop - stops the game<br />\
-		!top - shows a list of top 10 players<br />\
-		!level [1-10] - shows or changes game's difficulty level<br />\
+		!!      - displays another hint<br />\
+		!skip   - jumps the current question<br />\
+		!start  - starts the game<br />\
+		!stop   - stops the game<br />\
+		!top    - shows a list of top 10 players<br />\
+		!level [1-10]       - shows or changes game's difficulty level<br />\
 		!speed [1000-10000] - shows or changes game's speed<br />\
 		!domains - shows a list of available question domains<br />\
-		!help - shows this help message<br />\
-		!ping - ping-pong round-trip test (NIY)<br />\
+		!help    - shows this help message<br />\
+		!ping    - ping-pong round-trip test (NIY)<br />\
 		");
     };
     this.emitTop = function () {

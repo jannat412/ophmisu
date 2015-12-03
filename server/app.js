@@ -220,7 +220,8 @@ function initApp(ioi, iname)
             debug("Broadcasting message to "+sios.sockets.length+" HTTPS sockets");
             
             if (msg == "!help") ophmisu.showHelp();
-			if (msg == "!!") ophmisu.nextQuestion();
+			if (msg == "!!") ophmisu.tick();
+			if (msg == "!skip") ophmisu.nextQuestion();
 			if (msg == "!start") ophmisu.start();
 			if (msg == "!domains") ophmisu.getDomains();
 			if (msg == "!math") ophmisu.setDomain("math");
