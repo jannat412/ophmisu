@@ -227,7 +227,19 @@ var Ophmisu = function Ophmisu() {
         self.msg("Domain set to: " + domain);
     };
     this.getDomains = function (domain) {
-        self.msg("Supported domains: math, general");
+        self.db.query("SELECT name FROM tags LIMIT 0,10", function (err, results) {
+            if (results.length != 0) {
+                var lines = [];
+                for (var i in results) {
+                    var tag = results[i];
+                    if (!tag || !tag.name) {
+                        continue;
+                    }
+                    lines.push(tag.name);
+                }
+                self.msg("Available domains: " + lines.join(",&nbsp;"));
+            }
+        });
     };
     this.setLevel = function (nickname, level) {
         if (level < 1) {
