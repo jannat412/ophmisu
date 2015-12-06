@@ -265,24 +265,36 @@ var Ophmisu = function Ophmisu() {
         self.cheat = !self.cheat;
     };
     this.correctAnswer = function (nickname, answer, userData, prevRank) {
-        var message = "<b>" + nickname + "</b>, raspuns <b>corect</b>: " + answer + ". ";
-        if (userData) {
-            message += "<b>" + nickname + "</b> este acum pe <b>locul " + userData.rank + '</b>';
-            if (prevRank == 0) {
-                prevRank = userData.rank + 1;
-            }
-            if (prevRank > userData.rank) {
-                if (prevRank) {
-                    var ranksAdvanced = prevRank - userData.rank;
-                    message += ", avansand " + ranksAdvanced + ' ' + (ranksAdvanced == 1 ? 'loc' : 'locuri');
-                }
-            }
-            message += '. ';
-        } else {
+        var congrats_1 = ['Congratulations!', 'Congrats!', 'Felicitations!', 'Hip, hip, hurrah!', 'Three cheers!', 'Kudos!', 'Hats off!', 'Mazel tov!', 'Awesome!', 'Fantastic!'];
+        var congrats_2 = ['High five!', 'Well done!', 'Good job.', 'Pretty good!', 'That\'s great!', 'Nice one.', 'Good.']
+        var ready = ['Next!', 'Next question.', 'Get ready for the next question..'];
+        ready.shuffle();
+        congrats_2.shuffle();
+        var message = ''
+        message += '' + congrats_2.pop();
+        message += " <b>" + nickname + "</b> answers <b>correctly</b>: <em>" + answer + "</em> and wins 1 point.";
 
+        var newRank = userData.rank;
+        if (userData) {
+            if (prevRank == 0) {
+                prevRank = newRank + 1;
+            }
+            if (prevRank > newRank) {
+                var ranksAdvanced = prevRank - newRank;
+                message += " <b>" + nickname + "</b> is now <b>place #" + newRank + '</b>';
+                message += ", advancing " + ranksAdvanced + ' ' + (ranksAdvanced == 1 ? 'place' : 'places') + '.';
+                if (newRank == 1) {
+                    congrats_1.shuffle();
+                    message += ' <b>' + congrats_1.pop() + '</b>';
+                }
+            } else {
+                message += " <b>" + nickname + "</b> is on <b>place #" + newRank + '</b>.';
+            }
+        } else {
+            message += ' Your score will NOT be saved - please login or register first.';
         }
 
-        message += 'Urmatoarea intrebare..';
+        message += ' ' + ready.pop();
         self.msg(message);
     }
     this.checkAnswer = function (nickname, msg) {
