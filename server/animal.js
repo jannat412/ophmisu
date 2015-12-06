@@ -3,15 +3,18 @@ var method = Animal.prototype;
 function Animal(config, nickname) {
     var nicknames = ['Darkstar', 'Stormborn', 'Kingslayer', 'Bloodraven', 'Mountain', 'LeechLord', 'Corpsekiller', 'Reek', 'Ned', 'Jon', 'Arya', 'Snow', 'Bran', 'Robb', 'Shae', 'Jeor', 'Khal', 'Stark', 'Sansa', 'Jorah', 'Jaime', 'Theon', 'Tywin', 'Tarly', 'Petyr', 'Varys', 'Tarth', 'Bronn', 'Davos', 'Gilly', 'Drogo', 'Tyrion', 'Cersei', 'Sandor', 'Gendry', 'Tyrell', 'Talisa', 'Eddard', 'Ramsay', 'Bolton', 'Daario', 'Robert', 'Mormont', 'Clegane', 'Greyjoy', 'Samwell', 'Joffrey', 'Catelyn', 'Baelish', 'Brienne', 'Ygritte', 'Stannis', 'Tormund', 'Naharis', 'Viserys', 'Daenerys', 'Margaery', 'Seaworth', 'Lannister', 'Targaryen', 'Baratheon', 'Missandei', 'Melisandre', 'Giantsbane'];
     var self = this;
-    this.nickname = nickname || nicknames[Math.floor(Math.random()*nicknames.length)];
+    this.nickname = nickname || nicknames[this.rand(0, nicknames.length-1)] + '-' + this.rand(1, 9999);
     this.config = config;
-    this.userData = {};
+    this.userData = {
+        socketId: ''
+    };
     this.socket = require('socket.io-client')('http://' + config.app.hostname + ':' + config.app.httpPort, {
         forceNew: true
     });
 
     this.socket.on('connect', function(){
-        self.log('Connected');
+        self.log('Connected ' + self.socket.id);
+        self.userData.socketId = self.socket.id;
         if (self.config.chatter) {
             self.chatter();
         }
@@ -22,12 +25,11 @@ function Animal(config, nickname) {
 
     this.socket.on('ping', function(code) {
         code = self.userData.socketId;
-        self.log('Ping? Pong ' + code + '!');
-        self.socket.emit("pong", code);
+        //self.log('Ping? Pong ' + code + '!');
+        self.socket.emit("pong", {socketId: self.userData.socketId, code: code});
     });
     this.socket.on('user_data', function(data) {
         self.userData = data;
-        self.log('Got userData' + data);
     });
     this.socket.on('user message', function(who, text) {
         //console.log('user message', who, text);

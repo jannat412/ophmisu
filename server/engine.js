@@ -276,6 +276,7 @@ var Ophmisu = function Ophmisu() {
                         username_canonical: nickname,
                         email: nickname + '@ophmisu.com',
                         email_canonical: nickname + '@ophmisu.com',
+                        roles: 'a:0:{}',
                         score: 1
                     }, function (err, result) {
                         if (err) throw err;
