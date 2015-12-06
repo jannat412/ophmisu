@@ -79,6 +79,7 @@ ophmisu.init();
 initApp(sio, 'http');
 initApp(sios, 'https');
 initPing(sio);
+initPing(sios);
 
 
 var flogData = [],
