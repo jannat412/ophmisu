@@ -264,15 +264,38 @@ var Ophmisu = function Ophmisu() {
     this.toggleCheat = function () {
         self.cheat = !self.cheat;
     };
+    this.correctAnswer = function (nickname, answer, userData, prevRank) {
+        var message = "<b>" + nickname + "</b>, raspuns <b>corect</b>: " + answer + ". ";
+        if (userData) {
+            message += "<b>" + nickname + "</b> este acum pe <b>locul " + userData.rank + '</b>';
+            if (prevRank == 0) {
+                prevRank = userData.rank + 1;
+            }
+            if (prevRank > userData.rank) {
+                if (prevRank) {
+                    var ranksAdvanced = prevRank - userData.rank;
+                    message += ", avansand " + ranksAdvanced + ' ' + (ranksAdvanced == 1 ? 'loc' : 'locuri');
+                }
+            }
+            message += '. ';
+        } else {
+
+        }
+
+        message += 'Urmatoarea intrebare..';
+        self.msg(message);
+    }
     this.checkAnswer = function (nickname, msg) {
         if (self.q == undefined) return;
         if (msg.toLowerCase() == self.q.answer.toLowerCase()) {
+            var answer = self.q.answer;
             self.q = undefined;
-            self.msg("<b>" + nickname + "</b>, raspuns <b>corect</b>: " + msg + ". Urmatoarea intrebare..");
-
             self.db.query("SELECT * FROM users WHERE username = ?", nickname, function (err, results) {
                 if (results.length == 0) {
-                    console.log('Creating user ' + nickname);
+                    self.updateRanks(function() {
+                        self.correctAnswer(nickname, answer, false);
+                    });
+                    /*console.log('Creating user ' + nickname);
                     self.db.query('INSERT INTO users SET ?',
                         {
                             username: nickname,
@@ -286,11 +309,23 @@ var Ophmisu = function Ophmisu() {
                             if (err) throw err;
                             var user_id = result.insertId;
                             self.updateRanks();
-                    });
+                    });*/
                 } else {
                     console.log('Updating user ' + nickname);
+                    var prevRank = results[0].rank;
                     self.db.query("UPDATE users SET score = score+1 WHERE username = '" + nickname + "'", function(err, results) {
-                        self.updateRanks();
+                        if (err) {
+                            throw err;
+                        }
+                        self.updateRanks(function() {
+                            self.db.query("SELECT * FROM users WHERE username = ?", nickname, function (err, results) {
+                                if (err) {
+                                    throw err;
+                                }
+                                self.correctAnswer(nickname, answer, results[0], prevRank);
+
+                            });
+                        });
                     });
                 }
             });
@@ -298,12 +333,15 @@ var Ophmisu = function Ophmisu() {
         }
     };
 
-    this.updateRanks = function () {
+    this.updateRanks = function (callback) {
         console.log('Updating ranks...');
         self.db.query("SET @rank=0; SET @score=-1; UPDATE users SET rank=IF(@score=(@score:=score), @rank, @rank:=@rank+1) WHERE score > 0 ORDER BY score DESC",
             function (err, results) {
                 if (err) {
                     throw err;
+                }
+                if (callback) {
+                    callback();
                 }
                 self._emit("top_changed");
             }
