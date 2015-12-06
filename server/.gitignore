@@ -7,3 +7,4 @@ nbproject
 node_modules
 local.config.js
 cert
+run.pid
