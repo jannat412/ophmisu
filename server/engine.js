@@ -40,6 +40,7 @@ var Ophmisu = function Ophmisu() {
     var socketList = {};
 
     this.dbConfig = {
+        multipleStatements: true,
         database: config.database.name,
         host: config.database.hostname,
         user: config.database.username,
@@ -97,6 +98,7 @@ var Ophmisu = function Ophmisu() {
             }
             else {
                 console.log("Connected to database.");
+                self.updateRanks();
                 self.users = new Users(self.db);
                 if (self.config.auto_start == true) {
                     console.log("Autostarting game.. " + self.config.auto_start);
@@ -271,37 +273,54 @@ var Ophmisu = function Ophmisu() {
             self.db.query("SELECT * FROM users WHERE username = ?", nickname, function (err, results) {
                 if (results.length == 0) {
                     console.log('Creating user ' + nickname);
-                    self.db.query('INSERT INTO users SET ?', {
-                        username: nickname,
-                        username_canonical: nickname,
-                        email: nickname + '@ophmisu.com',
-                        email_canonical: nickname + '@ophmisu.com',
-                        roles: 'a:0:{}',
-                        score: 1
-                    }, function (err, result) {
-                        if (err) throw err;
-                        var user_id = result.insertId;
-                        self._emit("top_changed");
+                    self.db.query('INSERT INTO users SET ?',
+                        {
+                            username: nickname,
+                            username_canonical: nickname,
+                            email: nickname + '@ophmisu.com',
+                            email_canonical: nickname + '@ophmisu.com',
+                            roles: 'a:0:{}',
+                            score: 1
+                        }, function (err, result) {
+                            if (err) throw err;
+                            var user_id = result.insertId;
+                            self.updateRanks();
                     });
-                }
-                else {
+                } else {
                     console.log('Updating user ' + nickname);
-                    self.db.query("UPDATE users SET score = score+1 WHERE username = '" + nickname + "'");
-                    self._emit("top_changed");
+                    self.db.query("UPDATE users SET score = score+1 WHERE username = '" + nickname + "'", function(err, results) {
+                        self.updateRanks();
+                    });
                 }
             });
 
         }
     };
 
+    this.updateRanks = function () {
+        console.log('Updating ranks...');
+        self.db.query("SET @rank=0; SET @score=-1; UPDATE users SET rank=IF(@score=(@score:=score), @rank, @rank:=@rank+1) WHERE score > 0 ORDER BY score DESC",
+            function (err, results) {
+                if (err) {
+                    throw err;
+                }
+                self._emit("top_changed");
+            }
+        );
+    }
     // Ranking related stuff
     this.getTop = function (announce) {
 
         var top = self.top;
-        self.db.query("SELECT * FROM users ORDER BY score DESC LIMIT 0, 10", function (err, results) {
+        self.db.query("SELECT username,score,rank FROM users WHERE score > 0 ORDER BY rank ASC LIMIT 0, 10", function (err, results) {
+            if (err) {
+                throw err;
+            }
             self.top = results;
             self._emit("local_top_updated");
-            if (announce) self.showTop();
+            if (announce === true) {
+                self.showTop();
+            }
         });
         return top;
     };
@@ -327,19 +346,17 @@ var Ophmisu = function Ophmisu() {
         app.ios.sockets.emit('top', self.top);
     };
     this.showTop = function () {
-        var top = self.getTop();
+        var top = self.getTop(false);
 
         if (typeof(top) == 'undefined') {
             return self.getTop(true);
         }
         var lines = [];
-        var rank = 1;
         for (var i in top) {
             var user = top[i];
             if (!user || !user.username) continue;
-            var line = rank + ") " + user.username + "  " + user.score;
+            var line = user.rank + ") " + user.username + "  " + user.score;
             lines.push(line);
-            rank++;
         }
         self.msg("Top: " + lines.join("&nbsp;&nbsp;&nbsp;"));
     };
