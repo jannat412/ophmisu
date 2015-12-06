@@ -4,6 +4,7 @@ function htmlEscape(text) {
 var fs = require('fs');
 var utils = require('./utils');
 var config = require('./config');
+require('console-stamp')(console, '[HH:MM:ss.l]');
 
 try {
     if (fs.openSync('./local.config.js', 'r')) {
@@ -78,8 +79,8 @@ var ophmisu = require("./engine.js");
 ophmisu.init();
 initApp(sio, 'http');
 initApp(sios, 'https');
-initPing(sio);
-initPing(sios);
+initPing(sio, 'http');
+initPing(sios, 'https');
 
 
 var flogData = [],
@@ -117,21 +118,25 @@ function isForbiddenNickname(nickname) {
     return false;
 }
 
-function initPing(io) {
+function initPing(io, protocol) {
     setInterval(function () {
         var code = utils.rand(1000, 9999);
         for (var i in sids) {
             var sid = sids[i];
-            if (sid.alive == 0) {
-                //console.log('' + sid.nickname + ' is not alive, kill it!');
+			if (!sid.alive[protocol]) {
+				continue;
+			}
+				
+            if (sid.alive[protocol] == 0) {
+                // console.log('' + sid.nickname + ' is not alive, kill it!');
                 closeSocket(sid.socketId)
             } else {
-                //console.log('' + sid.nickname + ' is alive with code ' + sid.alive);
-                sid.alive = 0;
+                // console.log('' + sid.nickname + ' is alive with code ' + sid.alive[protocol]);
+                sid.alive[protocol] = 0;
             }
         }
         io.sockets.emit('ping', code);
-    }, 3000);
+    }, 10000);
 }
 function initPong(socket) {
     socket.on('pong', function (data) {
@@ -142,8 +147,12 @@ function initPong(socket) {
         if (!sid) {
             return;
         }
-        sid.alive = data.code;
-        //console.log('[PONG] got ' + data.code + ' from ' + sid.nickname);
+		var protocol = 'http';
+		if (socket && socket.handshake && socket.handshake.secure) {
+			protocol = 'https';
+		}
+        sid.alive[protocol] = data.code;
+        // console.log('[PONG] got ' + data.code + ' from ' + sid.nickname + '@' + protocol);
     });
 }
 
@@ -184,8 +193,9 @@ function initApp(ioi, iname) {
                 sids[socket.id] = {
                     socketId: socket.id,
                     nickname: nick,
-                    lastPingTime: new Date(),
-                    alive: 1
+                    alive: {
+						iname: 1
+					}
                 };
 
                 var room = defaultRoom;
