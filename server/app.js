@@ -76,12 +76,7 @@ var ophmisu = require("./engine.js");
 ophmisu.init();
 initApp(sio, 'http');
 initApp(sios, 'https');
-
-setInterval(function() {
-    //sio.sockets.emit('user message', "PING");
-    //sio.sockets.emit('announcement', 1001, 'Journey', "trivia");
-
-}, 3000);
+initPing(sio);
 
 
 
@@ -126,6 +121,26 @@ function isForbiddenNickname(nickname)
 	return false;
 }
 
+function initPing(io) {
+    setInterval(function() {
+        for (var i in sids) {
+            //var sid = sids[i];
+            //console.log('[PING] emitting ' + sid.socketId + ' to ' + sid.nicknmame);
+            //io.sockets.socket(sid.socketId).emit("ping", sid);
+        }
+        var code = utils.rand(1000, 9999);
+        io.sockets.emit('ping', code);
+    }, 3000);
+}
+function initPong(socket) {
+    socket.on('pong', function(a, b, c, d, e) {
+        var sid = sids[socket.id];
+        console.log('[PONG] got ' + '' + ' from ' + sid.nickname);
+        console.log(this.socket);
+        console.log(a, b, c, d, e);
+    });
+}
+
 function initApp(ioi, iname)
 {
     console.log('Initializing routes for '+iname);
@@ -133,7 +148,9 @@ function initApp(ioi, iname)
 	ioi.sockets.on('connection', function (socket) {
         console.log('Got socket connection');
 
-        // if socket hasn't present a nickname after a while, just kill it
+        initPong(socket);
+
+        // if socket hasn't presented a nickname after a while, just kill it
         console.log('started killer');
         socket.killId = setTimeout(function() {
             //if (!)
@@ -158,7 +175,11 @@ function initApp(ioi, iname)
 			} else {
 				fn(false);
 				nicknames[nick] = socket.nickname = nick;
-				sids[nick] = socket.id;
+				sids[socket.id] = {
+                    socketId: socket.id,
+                    nickname: nick,
+                    lastPingTime: new Date()
+                };
 				
 				var room = defaultRoom;
 				if (typeof(prefered_room) != 'undefined' && rooms.indexOf(prefered_room) > -1)
@@ -170,7 +191,9 @@ function initApp(ioi, iname)
 				socket.join(room);
 				socket.broadcast.to(room).emit('announcement', 1001, nick, room);
 				socket.emit('update_rooms', rooms, room);
-				console.log("Connected `"+nick+"`");
+                socket.emit("user_data", {socketId: socket.id});
+				console.log("Connected `"+nick+"` " + socket.id);
+				console.log(args);
 				//socket.broadcast.emit('announcement', nick + ' connected');
 				
 				
@@ -194,7 +217,7 @@ function initApp(ioi, iname)
 			// update socket session room title
 			socket.room = newroom;
 			socket.broadcast.to(newroom).emit('announcement', socket.nickname + ' has joined room "'+socket.room+'"');
-			ioi.sockets.socket(sids[socket.nickname]).emit("announcement", 'You have joined room "'+socket.room+'"');
+			ioi.sockets.socket(sids[socket.id].socketId).emit("announcement", 'You have joined room "'+socket.room+'"');
 			socket.emit('update_rooms', rooms, newroom);
 		});
 

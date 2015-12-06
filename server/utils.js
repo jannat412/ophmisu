@@ -11,4 +11,8 @@ utils.prototype.extend = function(target)
     return target;
 }
 
+utils.prototype.rand = function(low, high) {
+    return Math.floor(Math.random() * (high - low + 1) + low);
+};
+
 module.exports = new utils();

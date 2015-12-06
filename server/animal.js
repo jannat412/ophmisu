@@ -5,15 +5,34 @@ function Animal(config, nickname) {
     var self = this;
     this.nickname = nickname || nicknames[Math.floor(Math.random()*nicknames.length)];
     this.config = config;
-    this.socket = require('socket.io-client')('http://' + config.app.hostname + ':' + config.app.httpPort);
+    this.userData = {};
+    this.socket = require('socket.io-client')('http://' + config.app.hostname + ':' + config.app.httpPort, {
+        forceNew: true
+    });
 
     this.socket.on('connect', function(){
-        console.log('Connected');
-        //self.chatter();
+        self.log('Connected');
+        if (self.config.chatter) {
+            self.chatter();
+        }
     });
     this.socket.on('event', function(data){
         self.log('Event', data);
     });
+
+    this.socket.on('ping', function(code) {
+        code = self.userData.socketId;
+        self.log('Ping? Pong ' + code + '!');
+        self.socket.emit("pong", code);
+    });
+    this.socket.on('user_data', function(data) {
+        self.userData = data;
+        self.log('Got userData' + data);
+    });
+    this.socket.on('user message', function(who, text) {
+        //console.log('user message', who, text);
+    });
+
     this.socket.on('disconnect', function(){
         self.log('Disconnected');
     });
