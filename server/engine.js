@@ -280,7 +280,8 @@ var Ophmisu = function Ophmisu() {
                             email: nickname + '@ophmisu.com',
                             email_canonical: nickname + '@ophmisu.com',
                             roles: 'a:0:{}',
-                            score: 1
+                            score: 1,
+                            rank: 0
                         }, function (err, result) {
                             if (err) throw err;
                             var user_id = result.insertId;
