@@ -129,7 +129,7 @@ var Ophmisu = function Ophmisu() {
 
     this.start = function () {
         //self.bind('db_change_event');
-        self.msg("Jocul a inceput! (" + self.config.speed + ")");
+        self.msg("The game was started! (speed: " + self.config.speed + ")");
         self.status = 1;
         self.currentHint = 0;
         self.ID = setInterval(function () {
@@ -138,7 +138,7 @@ var Ophmisu = function Ophmisu() {
     };
 
     this.stop = function () {
-        self.msg("Jocul a fost oprit!");
+        self.msg("The game was stopped!");
         self.status = 0;
         self.currentHint = 0;
         self.q = null;
@@ -146,12 +146,12 @@ var Ophmisu = function Ophmisu() {
     };
     this.getGameStatus = function () {
         if (self.status == 0)
-            return "Jocul este momentan oprit";
+            return "The game is currently stopped.";
         if (self.q && self.q.question) {
-            return "Intrebarea curenta: " + self.q.question;
+            return "Current question is: " + self.q.question;
         }
         else {
-            return "Jocul este pornit.";
+            return "The game is running.";
 
         }
     };
@@ -169,10 +169,17 @@ var Ophmisu = function Ophmisu() {
                 tags: self.q.tags,
                 author: self.q.author
             });
-            self.msg("Sugestia " + self.currentHint + "/" + self.totalHints + ": " + self.getHint() + "");
+            //self.msg("Hint " + self.currentHint + "/" + self.totalHints + ": " + self.getHint() + "");
+            self.msg({
+                //currentHintIndex: self.currentHint,
+                //totalHints: self.totalHints,
+                //hint: self.getHint()
+                hintCount: "Hint " + self.currentHint + "/" + self.totalHints,
+                hint: self.getHint()
+            });
         }
         else {
-            self.msg("Timeout: raspunsul corect era: <b>" + self.q.answer + "</b>");
+            self.msg("Timeout! The correct answer was: <b>" + self.q.answer.escapeHtml() + "</b>");
             self.q = undefined;
         }
     }
@@ -200,7 +207,7 @@ var Ophmisu = function Ophmisu() {
 
             self.hint = self.hint.replaceAt(pos, answer[pos]);
         }
-        var newHint = '<span>' + self.hint + '</span>';
+        var newHint = self.hint;
 
         if (self.currentHint == 1) newHint += " (din " + self.q.answer.length + " caractere)";
         //if (self.cheat) newHint += " ("+self.q.answer+")";
@@ -227,6 +234,14 @@ var Ophmisu = function Ophmisu() {
         self.db.query(query, function (err, results) {
             self.q = results[0];
             self.totalHints = Math.floor(self.q.answer.length * (self.config.level / 10));
+            if (self.q && self.q.id) {
+                console.log('Next question #' + self.q.id + ' - ' + self.q.question + ' - ' + self.q.answer);
+            } else {
+                console.error('Next question UNKNOWN', query);
+            }
+            if (err) {
+                console.error(err);
+            }
         });
     };
 
@@ -251,10 +266,10 @@ var Ophmisu = function Ophmisu() {
     };
     this.setLevel = function (nickname, level) {
         if (level < 1) {
-            self.msg("Nivelul curent: <b>" + self.config.level + "</b>");
+            self.msg("Current level: <b>" + self.config.level + "</b>");
             return;
         }
-        self.msg("<b>" + nickname + "</b> schimba nivelul la <b>" + level + "</b>");
+        self.msg("<b>" + nickname + "</b> changes level to <b>" + level + "</b>");
         self.config.level = level;
     };
     this.setSpeed = function (nickname, value) {
