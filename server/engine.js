@@ -297,19 +297,20 @@ var Ophmisu = function Ophmisu() {
 
         var newRank = userData.rank;
         if (userData) {
+            var scoreText = ' with a total of <b>' + userData.score + ' point' + (userData.score == 1 ? '' : 's') + '</b>';
             if (prevRank == 0) {
                 prevRank = newRank + 1;
             }
             if (prevRank > newRank) {
                 var ranksAdvanced = prevRank - newRank;
-                message += " <b>" + nickname + "</b> is now <b>place #" + newRank + '</b>';
+                message += " <b>" + nickname + "</b> is now <b>place #" + newRank + '</b>' + scoreText;
                 message += ", advancing " + ranksAdvanced + ' ' + (ranksAdvanced == 1 ? 'place' : 'places') + '.';
                 if (newRank == 1) {
                     congrats_1.shuffle();
                     message += ' <b>' + congrats_1.pop() + '</b>';
                 }
             } else {
-                message += " <b>" + nickname + "</b> is on <b>place #" + newRank + '</b>.';
+                message += " <b>" + nickname + "</b> is on <b>place #" + newRank + '</b>' + scoreText + '.';
             }
         } else {
             message += ' Your score will NOT be saved - please login or register first.';
