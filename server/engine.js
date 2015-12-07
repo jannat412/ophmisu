@@ -164,7 +164,11 @@ var Ophmisu = function Ophmisu() {
         }
         self.currentHint++;
         if (self.currentHint <= self.totalHints) {
-            self.msg({text: self.q.question.escapeHtml(), tags: self.q.tags});
+            self.msg({
+                text: self.q.question.escapeHtml(),
+                tags: self.q.tags,
+                author: self.q.author
+            });
             self.msg("Sugestia " + self.currentHint + "/" + self.totalHints + ": " + self.getHint() + "");
         }
         else {
@@ -208,12 +212,14 @@ var Ophmisu = function Ophmisu() {
 
         var query = '' +
                 'SELECT ' +
-                'q.*, ' +
-                'GROUP_CONCAT(t.name SEPARATOR \', \') AS tags, ' +
-                'COUNT(t.name) AS tags_count ' +
+                    'q.*, ' +
+                    'u.username AS author, ' +
+                    'GROUP_CONCAT(t.name SEPARATOR \', \') AS tags, ' +
+                    'COUNT(t.name) AS tags_count ' +
                 'FROM questions AS q ' +
-                'JOIN question_tags AS qt ON qt.question_id = q.id ' +
-                'JOIN tags AS t ON t.id = qt.tag_id ' +
+                    'JOIN question_tags AS qt ON qt.question_id = q.id ' +
+                    'JOIN tags AS t ON t.id = qt.tag_id ' +
+                    'LEFT JOIN users AS u ON u.id = q.author_id ' +
                 'WHERE t.name IN ( \'HTML\', \'CSS\', \'Frontend\' ) ' +
                 'GROUP BY q.id ' +
                 'ORDER BY RAND() LIMIT 0,1'
