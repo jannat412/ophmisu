@@ -3,8 +3,11 @@ var method = Animal.prototype;
 function Animal(config, nickname) {
     var nicknames = ['Darkstar', 'Stormborn', 'Kingslayer', 'Bloodraven', 'Mountain', 'LeechLord', 'Corpsekiller', 'Reek', 'Ned', 'Jon', 'Arya', 'Snow', 'Bran', 'Robb', 'Shae', 'Jeor', 'Khal', 'Stark', 'Sansa', 'Jorah', 'Jaime', 'Theon', 'Tywin', 'Tarly', 'Petyr', 'Varys', 'Tarth', 'Bronn', 'Davos', 'Gilly', 'Drogo', 'Tyrion', 'Cersei', 'Sandor', 'Gendry', 'Tyrell', 'Talisa', 'Eddard', 'Ramsay', 'Bolton', 'Daario', 'Robert', 'Mormont', 'Clegane', 'Greyjoy', 'Samwell', 'Joffrey', 'Catelyn', 'Baelish', 'Brienne', 'Ygritte', 'Stannis', 'Tormund', 'Naharis', 'Viserys', 'Daenerys', 'Margaery', 'Seaworth', 'Lannister', 'Targaryen', 'Baratheon', 'Missandei', 'Melisandre', 'Giantsbane'];
     var self = this;
-    this.nickname = nickname || nicknames[this.rand(0, nicknames.length-1)] + '-' + this.rand(1, 9999);
+    this.nickname = nickname || nicknames[this.rand(0, nicknames.length-1)];
     this.config = config;
+	if (this.config.useRandomSuffix) {
+		this.nickname += '-' + this.rand(1, 9999);
+	}
     this.userData = {
         socketId: ''
     };

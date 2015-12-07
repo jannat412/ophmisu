@@ -4,7 +4,7 @@ function htmlEscape(text) {
 var fs = require('fs');
 var utils = require('./utils');
 var config = require('./config');
-require('console-stamp')(console, '[HH:MM:ss.l]');
+require('console-stamp')(console, '[yyyy-mm-dd HH:MM:ss.l]');
 
 try {
     if (fs.openSync('./local.config.js', 'r')) {
@@ -166,13 +166,13 @@ function initApp(ioi, iname) {
         initPong(socket);
 
         // if socket hasn't presented a nickname after a while, just kill it
-        console.log('started killer');
+        //console.log('started killer');
         socket.killId = setTimeout(function () {
             //if (!)
-            console.log('killer socket.nickname', socket.nickname);
+            //console.log('killer socket.nickname', socket.nickname);
             if (!socket.nickname) {
                 socket.disconnect();
-                console.log('Killing socket..');
+                //console.log('Killing socket..');
                 return;
             }
             //console.log(this == socket);
@@ -186,6 +186,7 @@ function initApp(ioi, iname) {
                 fn = socket.ack;
             }
             if (nicknames[nick] || isForbiddenNickname(nick)) {
+				console.error('Username in use or username is forbidden.');
                 fn(true);
             } else {
                 fn(false);
