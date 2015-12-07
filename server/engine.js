@@ -293,7 +293,7 @@ var Ophmisu = function Ophmisu() {
         congrats_2.shuffle();
         var message = ''
         message += '' + congrats_2.pop();
-        message += " <b>" + nickname + "</b> answers <b>correctly</b>: <em>" + answer + "</em> and wins 1 point.";
+        message += " <b>" + nickname + "</b> answers <b>correctly</b>: <em>" + answer.escapeHtml() + "</em> and wins 1 point.";
 
         var newRank = userData.rank;
         if (userData) {
