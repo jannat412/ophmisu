@@ -103,6 +103,7 @@ setInterval(function () {
 }, 1000 * 10);
 
 
+
 var forbiddenNicknames = [];
 forbiddenNicknames.push(ophmisu.nickname);
 forbiddenNicknames.push("pula", "cacat", "muie", "rahat", "pizda");
@@ -317,3 +318,39 @@ function closeSocket(socketId, socket) {
     }
 
 }
+
+
+
+process.on('SIGINT', function() {
+    console.log("Caught interrupt signal");
+
+    var channels = [sio, sios];
+    for (var i in channels) {
+        var io = channels[i];
+        if (!io || !io.sockets) {
+            continue;
+        }
+        io.sockets.emit('flashMessages', {
+            info: [
+                '<h1>Maintenance in progress...</h1>' +
+                '<h4>You will be briefly disconnected. The app should automatically connect back once our services are up & running again.<br>' +
+                'If that doesn\'t happen within 30 minutes from this announcement, please try refresh the page and try to login manually or contact us at sergiu@ophmisu.com.</h4>' +
+                '<p>Thank you for your patience!<br>The Ophmisu Team</p>'
+            ]
+        });
+
+        if (io.sockets.connected) {
+            var count = 0;
+            for (var socketId in io.sockets.connected) {
+                var socket = io.sockets.connected[socketId];
+                socket.disconnect();
+                count++;
+            }
+            console.log('Closing ' + count + ' connections..')
+        }
+    }
+    setTimeout(function() {
+        process.exit();
+    }, 1500);
+
+});
