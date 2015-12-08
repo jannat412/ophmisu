@@ -349,6 +349,8 @@ process.on('SIGINT', function() {
             console.log('Closing ' + count + ' connections..')
         }
     }
+    // @TODO set a bigger timeout and add a while() what quickly verifies for all proper disconnects;
+    // @TODO if some clients fail to gracefully disconnect, exit anyway by timeout
     setTimeout(function() {
         process.exit();
     }, 1500);
