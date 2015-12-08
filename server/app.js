@@ -334,7 +334,7 @@ process.on('SIGINT', function() {
             info: [
                 '<h1>Maintenance in progress...</h1>' +
                 '<h4>You will be briefly disconnected. The app should automatically connect back once our services are up & running again.<br>' +
-                'If that doesn\'t happen within 30 minutes from this announcement, please try refresh the page and try to login manually or contact us at sergiu@ophmisu.com.</h4>' +
+                'If that doesn\'t happen within 30 minutes from this announcement, please refresh the page and try to login manually or contact us at sergiu@ophmisu.com.</h4>' +
                 '<p>Thank you for your patience!<br>The Ophmisu Team</p>'
             ]
         });
